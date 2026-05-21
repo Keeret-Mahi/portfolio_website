@@ -2,7 +2,7 @@
 document.querySelectorAll(".download-resume").forEach(btn => {
   btn.addEventListener("click", () => {
     const a = document.createElement("a");
-    a.href = "/assets/Keeret Mahi.pdf";    
+    a.href = "/assets/Keeret_Mahi__May_7th__2026_Version_.pdf";
     a.download = "Keeret_Mahi_Resume.pdf";        
     document.body.appendChild(a);
     a.click();
