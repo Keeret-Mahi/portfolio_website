@@ -1,9 +1,9 @@
 const projects = [
   {
-    title: "Outline → Calendar",
+    title: "gooseCalendar",
     cardHref: "https://github.com/Keeret-Mahi/outline-to-calendar.git",
-    image: "images/project-images/outline-calendar.png",
-    alt: "Screenshot of a minimalist portfolio website",
+    image: "images/project-images/goose-calendar.png",
+    alt: "Screenshot of the gooseCalendar project",
     tech: ["Python", "Flask", "HTML/CSS/JS", "BeautifulSoup4", "ics"],
     desc: "A parsing tool that turns a university outline into a downloadable ics calendar.",
     links: {
@@ -72,4 +72,3 @@ function renderProjects() {
 }
 
 document.addEventListener("DOMContentLoaded", renderProjects);
-
