@@ -1,43 +1,36 @@
-# Keeret Mahi — Portfolio Website  
+# Keeret Mahi — Portfolio Website
 
-A minimalist, interactive portfolio showcasing my projects, skills, and experiences.  
-Live at 👉 [keeretmahi.com](https://keeretmahi.com)  
+Keeret Mahi's personal portfolio, built as a static HTML, CSS, and JavaScript site.
 
----
+Live at [keeretmahi.com](https://keeretmahi.com).
 
-## ✨ Features  
-- 📂 **Projects Showcase** – Dynamic cards highlighting software, design, and case study projects  
-- 📸 **Gallery Section** – Curated photo gallery of highlights from my life
-- 📱 **Responsive Design** – Works across all screen sizes including desktops, tablets, and phones
-- 🌐 **Custom Domain** – Hosted with GitHub Pages at *keeretmahi.com*  
+## Run locally
 
----
+From the project directory, start a local web server:
 
-## 📸 Demo / Screenshots  
-<img width="1512" height="856" alt="Screenshot 2025-09-06 at 9 38 30 PM" src="https://github.com/user-attachments/assets/123806c0-aa36-497f-bfc4-b803b1a10174" />
+```sh
+python3 -m http.server 5173
+```
 
----
+Then open [http://localhost:5173](http://localhost:5173).
 
-## 🛠 Tech Stack  
-- **Frontend:** HTML, CSS, JavaScript  
-- **UI/UX:** Created Figma wireframs, and then used FlexBox, CSS Grid, etc.
-- **Hosting:** GitHub Pages
-- **Version Control:** Git & GitHub  
+A local server is required because the project write-ups are loaded from Markdown files with `fetch()`.
 
----
-
-## 📂 Project Structure  
+## Project structure
 
 ```text
-portfolio-website/
-│
-├── index.html              # Homepage  
-├── projects.html           # Projects section  
-├── gallery.html            # Gallery page  
-├── static/                 # Static assets (CSS, JS, images)  
-│   ├── styles/             # Custom stylesheets  
-│   ├── scripts/            # JavaScript for interactivity  
-│   └── images/             # Site images & icons  
-├── README.md               # This file  
-└── .gitignore
+.
+├── index.html                  # Redirects visitors to the current portfolio document
+├── Portfolio.dc.html           # Current portfolio UI and application logic
+├── support.js                  # Browser runtime used by Portfolio.dc.html
+├── content/projects/           # Project write-ups in Markdown
+├── assets/images/              # Site and project imagery
+├── assets/videos/              # Compressed videos used by project write-ups
+├── assets/*.pdf                # Resume PDF
+├── CNAME                       # GitHub Pages custom domain
+└── .nojekyll                   # Serve the repository as a static site
 ```
+
+## Hosting
+
+The site is deployed through GitHub Pages from the repository's `main` branch. It has no server-side runtime or build step.

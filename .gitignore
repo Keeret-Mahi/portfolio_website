@@ -1,0 +1,9 @@
+.DS_Store
+**/.DS_Store
+
+# Local previews and temporary files
+screenshots/
+tmp/
+
+# Keep the compressed web videos, not the large raw source footage
+assets/videos/**/*.mov
