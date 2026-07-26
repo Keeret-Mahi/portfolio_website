@@ -130,7 +130,7 @@
   }
   .page-transition.is-active {
     visibility: visible;
-    animation: transitionVeil 2.15s cubic-bezier(0.16,1,0.3,1) both;
+    animation: transitionVeil 2.45s cubic-bezier(0.16,1,0.3,1) both;
   }
   .page-transition[data-kind="resume"].is-active { animation: signatureVeil 2.45s cubic-bezier(0.16,1,0.3,1) both; }
   .transition-icon {
@@ -2139,11 +2139,11 @@ class Component extends DCLogic {
         this._transitionSwapT = setTimeout(() => {
           try { if (location.hash !== '#' + p) location.hash = p; } catch (e) {}
           this.setState({ page: p, projectSlug: null });
-        }, 1760);
+        }, 2080);
         this._transitionEndT = setTimeout(() => {
           overlay.classList.remove('is-active');
           this._transitioning = false;
-        }, 2190);
+        }, 2490);
         return;
       }
     }
