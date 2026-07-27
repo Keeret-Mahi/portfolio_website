@@ -403,8 +403,8 @@
   .case-hero-video-frame--crop video { object-fit: cover; object-position: center 58%; }
   .case-video-poster { position: absolute; z-index: 2; inset: 0; display: block; width: 100%; height: 100%; object-fit: cover; object-position: center; opacity: 1; pointer-events: none; transition: opacity .16s ease; }
   .case-hero-video-frame.is-video-playing .case-video-poster { opacity: 0; }
-  .case-video-controls { position: absolute; z-index: 3; left: 12px; right: 12px; bottom: 12px; display: grid; grid-template-columns: 34px minmax(0,1fr) auto; align-items: center; gap: 11px; padding: 9px 11px; border: 1px solid oklch(0.45 0.03 70 / .7); border-radius: 10px; background: oklch(0.16 0.010 70 / .88); box-shadow: 0 8px 25px oklch(0.05 0.005 70 / .34); backdrop-filter: blur(12px); opacity: 1; transform: translateY(0); transition: opacity .2s ease, transform .2s ease; }
-  .case-video-controls--with-youtube { grid-template-columns: 34px minmax(0,1fr) auto auto; }
+  .case-video-controls { position: absolute; z-index: 3; left: 12px; right: 12px; bottom: 12px; display: grid; grid-template-columns: 34px minmax(0,1fr) auto 34px; align-items: center; gap: 11px; padding: 9px 11px; border: 1px solid oklch(0.45 0.03 70 / .7); border-radius: 10px; background: oklch(0.16 0.010 70 / .88); box-shadow: 0 8px 25px oklch(0.05 0.005 70 / .34); backdrop-filter: blur(12px); opacity: 1; transform: translateY(0); transition: opacity .2s ease, transform .2s ease; }
+  .case-video-controls--with-youtube { grid-template-columns: 34px minmax(0,1fr) auto 34px 34px; }
   .case-hero-video-frame.is-controls-hidden .case-video-controls { opacity: 0; transform: translateY(7px); pointer-events: none; }
   .case-hero-video-frame:not(.has-video-started) .case-video-controls { opacity: 1; transform: translateY(0); pointer-events: auto; }
   .case-hero-video-frame--controls-below .case-video-controls { position: relative; left: auto; right: auto; bottom: auto; box-sizing: border-box; width: 100%; border: 0; border-top: 1px solid oklch(0.38 0.025 70); border-radius: 0; background: oklch(0.16 0.010 70); box-shadow: none; backdrop-filter: none; opacity: 1; transform: none; pointer-events: auto; }
@@ -412,9 +412,18 @@
   .case-video-button { height: 28px; border: 1px solid oklch(0.46 0.035 70); border-radius: 7px; background: oklch(0.24 0.016 70); color: oklch(0.84 0.10 70); font: 10px 'JetBrains Mono', monospace; cursor: pointer; transition: border-color .2s ease, background .2s ease, color .2s ease; }
   .case-video-button:hover, .case-video-button:focus-visible { border-color: oklch(0.68 0.09 70); background: oklch(0.29 0.025 70); color: oklch(0.93 0.11 75); outline: none; }
   .case-video-toggle { width: 34px; padding: 0; font-size: 12px; }
-  .case-video-youtube { display: inline-flex; width: 34px; height: 28px; align-items: center; justify-content: center; border: 1px solid oklch(0.46 0.035 70); border-radius: 7px; background: oklch(0.24 0.016 70); color: #ff4e45; transition: border-color .2s ease, background .2s ease, transform .2s ease; }
-  .case-video-youtube:hover, .case-video-youtube:focus-visible { border-color: oklch(0.68 0.09 70); background: oklch(0.29 0.025 70); transform: translateY(-1px); outline: none; }
+  .case-video-youtube { display: inline-flex; width: 34px; height: 28px; align-items: center; justify-content: center; border: 1px solid oklch(0.46 0.035 70); border-radius: 7px; background: oklch(0.24 0.016 70); color: oklch(0.82 0.10 70); transition: border-color .2s ease, background .2s ease, color .2s ease, transform .2s ease; }
+  .case-video-youtube:hover, .case-video-youtube:focus-visible { border-color: oklch(0.68 0.09 70); background: oklch(0.29 0.025 70); color: oklch(0.93 0.11 75); transform: translateY(-1px); outline: none; }
   .case-video-youtube svg { display: block; width: 18px; height: 18px; }
+  .case-video-youtube-play { fill: oklch(0.19 0.010 70); }
+  .case-video-fullscreen { display: grid; place-items: center; width: 34px; padding: 0; }
+  .case-video-fullscreen svg { display: block; width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+  .case-video-fullscreen .case-video-fullscreen-exit { display: none; }
+  .case-hero-video-frame.is-fullscreen .case-video-fullscreen-enter { display: none; }
+  .case-hero-video-frame.is-fullscreen .case-video-fullscreen-exit { display: inline; }
+  .case-hero-video-frame:fullscreen, .case-hero-video-frame:-webkit-full-screen { display: flex; flex-direction: column; justify-content: center; width: 100vw; height: 100vh; border: 0; border-radius: 0; background: #090907; }
+  .case-hero-video-frame:fullscreen .case-video-stage, .case-hero-video-frame:-webkit-full-screen .case-video-stage { width: 100%; max-height: calc(100vh - 58px); flex: 1; aspect-ratio: auto; }
+  .case-hero-video-frame:fullscreen .case-video-controls, .case-hero-video-frame:-webkit-full-screen .case-video-controls { left: 18px; right: 18px; bottom: 18px; }
   .case-video-time { color: oklch(0.66 0.008 80); font: 9.5px 'JetBrains Mono', monospace; font-variant-numeric: tabular-nums; white-space: nowrap; }
   .case-video-progress { --video-progress: 0%; width: 100%; height: 18px; margin: 0; appearance: none; -webkit-appearance: none; background: transparent; cursor: pointer; }
   .case-video-progress::-webkit-slider-runnable-track { height: 4px; border-radius: 999px; background: linear-gradient(to right, oklch(0.75 0.10 70) 0 var(--video-progress), oklch(0.43 0.018 70 / .75) var(--video-progress) 100%); }
@@ -723,9 +732,10 @@
     .project-showcase { width: 100%; }
     .project-copy h3 { font-size: 23px; }
     .case-section { grid-template-columns: 1fr; gap: 12px; }
-    .case-video-controls { left: 8px; right: 8px; bottom: 8px; grid-template-columns: 32px minmax(0,1fr); gap: 8px; padding: 7px 8px; }
-    .case-video-controls--with-youtube { grid-template-columns: 32px minmax(0,1fr) auto; }
+    .case-video-controls { left: 8px; right: 8px; bottom: 8px; grid-template-columns: 32px minmax(0,1fr) 32px; gap: 8px; padding: 7px 8px; }
+    .case-video-controls--with-youtube { grid-template-columns: 32px minmax(0,1fr) 32px 32px; }
     .case-video-toggle { width: 32px; }
+    .case-video-fullscreen { width: 32px; }
     .case-video-time { display: none; }
     .case-tech-list { padding: 13px; }
     .case-tech-head { margin: 4px 3px 14px; font-size: 16px; }
@@ -918,7 +928,7 @@
             <p class="case-lead">{{ projectDetail.lead }}</p>
             <sc-if value="{{ projectDetail.hasLinks }}" hint-placeholder-val="{{ false }}"><div class="case-links"><sc-for list="{{ projectDetail.links }}" as="link" hint-placeholder-count="3"><a href="{{ link.href }}" target="_blank" rel="noreferrer">{{ link.label }} ↗</a></sc-for></div></sc-if>
             <div class="case-hero">
-              <sc-if value="{{ projectDetail.hasHeroVideo }}" hint-placeholder-val="{{ false }}"><div class="case-hero-video-frame {{ projectDetail.heroVideoClass }}"><div class="case-video-stage"><img class="case-video-backdrop" src="{{ projectDetail.heroPoster }}" alt="" aria-hidden="true"><video data-lazy-hero-video data-src="{{ projectDetail.heroVideo }}" data-src-mobile="{{ projectDetail.heroVideoMobile }}" data-autoplay="{{ projectDetail.heroAutoPlay }}" data-loop="{{ projectDetail.heroLoop }}" poster="{{ projectDetail.heroPoster }}" title="{{ projectDetail.name }} demo video" preload="metadata" muted playsinline></video><img class="case-video-poster" src="{{ projectDetail.heroPoster }}" alt="" aria-hidden="true"></div><div class="case-video-controls {{ projectDetail.youtubeControlsClass }}" data-hero-video-controls><button class="case-video-button case-video-toggle" data-hero-video-toggle type="button" aria-label="Play video">▶</button><input class="case-video-progress" data-hero-video-progress type="range" min="0" max="100" step="0.1" value="0" aria-label="Video progress"><span class="case-video-time" data-hero-video-time>0:00 / 0:00</span><sc-if value="{{ projectDetail.hasYoutube }}" hint-placeholder-val="{{ false }}"><a class="case-video-youtube" href="{{ projectDetail.youtubeUrl }}" target="_blank" rel="noreferrer" aria-label="Watch this demo on YouTube" title="Watch on YouTube"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8Z"/><path fill="#fff" d="m9.6 15.6 6.3-3.6-6.3-3.6v7.2Z"/></svg></a></sc-if></div></div></sc-if>
+              <sc-if value="{{ projectDetail.hasHeroVideo }}" hint-placeholder-val="{{ false }}"><div class="case-hero-video-frame {{ projectDetail.heroVideoClass }}"><div class="case-video-stage"><img class="case-video-backdrop" src="{{ projectDetail.heroPoster }}" alt="" aria-hidden="true"><video data-lazy-hero-video data-src="{{ projectDetail.heroVideo }}" data-src-mobile="{{ projectDetail.heroVideoMobile }}" data-autoplay="{{ projectDetail.heroAutoPlay }}" data-loop="{{ projectDetail.heroLoop }}" poster="{{ projectDetail.heroPoster }}" title="{{ projectDetail.name }} demo video" preload="metadata" muted playsinline></video><img class="case-video-poster" src="{{ projectDetail.heroPoster }}" alt="" aria-hidden="true"></div><div class="case-video-controls {{ projectDetail.youtubeControlsClass }}" data-hero-video-controls><button class="case-video-button case-video-toggle" data-hero-video-toggle type="button" aria-label="Play video">▶</button><input class="case-video-progress" data-hero-video-progress type="range" min="0" max="100" step="0.1" value="0" aria-label="Video progress"><span class="case-video-time" data-hero-video-time>0:00 / 0:00</span><sc-if value="{{ projectDetail.hasYoutube }}" hint-placeholder-val="{{ false }}"><a class="case-video-youtube" href="{{ projectDetail.youtubeUrl }}" target="_blank" rel="noreferrer" aria-label="Watch this demo on YouTube" title="Watch on YouTube"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8Z"/><path class="case-video-youtube-play" d="m9.6 15.6 6.3-3.6-6.3-3.6v7.2Z"/></svg></a></sc-if><button class="case-video-button case-video-fullscreen" data-hero-video-fullscreen type="button" aria-label="Enter fullscreen" title="Fullscreen"><svg viewBox="0 0 16 16" aria-hidden="true"><path class="case-video-fullscreen-enter" d="M6 2H2v4M10 2h4v4M6 14H2v-4M10 14h4v-4"/><path class="case-video-fullscreen-exit" d="M6 2v4H2M10 2v4h4M6 14v-4H2M10 14v-4h4"/></svg></button></div></div></sc-if>
               <sc-if value="{{ projectDetail.hasDetailHeroImage }}" hint-placeholder-val="{{ false }}"><div class="case-hero-image-frame"><img src="{{ projectDetail.heroImage }}" alt="{{ projectDetail.heroAlt }}"></div></sc-if>
               <sc-if value="{{ projectDetail.showGeneratedHero }}" hint-placeholder-val="{{ true }}"><div class="project-cover project-cover--{{ projectDetail.visual }}"><div class="project-cover-index">{{ projectDetail.num }}</div><sc-if value="{{ projectDetail.isCalendar }}" hint-placeholder-val="{{ true }}"><div class="calendar-mock"><div class="calendar-bar"></div><div class="calendar-grid"></div><i class="calendar-event calendar-event--one"></i><i class="calendar-event calendar-event--two"></i><i class="calendar-event calendar-event--three"></i></div></sc-if><sc-if value="{{ projectDetail.isPlotter }}" hint-placeholder-val="{{ false }}"><svg class="plotter-art" viewBox="0 0 520 260" aria-hidden="true"><path class="plotter-grid-line" d="M20 30H500M20 80H500M20 180H500M20 230H500M70 10V250M150 10V250M230 10V250M310 10V250M390 10V250M470 10V250"/><path class="plotter-grid-line" d="M20 130H500"/><path class="plotter-drawing" d="M95 194 C120 82 171 62 207 137 C232 190 261 194 286 117 C309 49 354 61 372 132 C385 184 412 195 446 89"/><rect class="plotter-head" x="272" y="91" width="29" height="31" rx="5"/><path class="plotter-drawing" d="M286 122V142"/></svg></sc-if><sc-if value="{{ projectDetail.isWip }}" hint-placeholder-val="{{ false }}"><div class="wip-orbit"></div><div class="wip-label">currently taking shape</div></sc-if></div></sc-if>
             </div>
@@ -1473,11 +1483,26 @@ class Component extends DCLogic {
     return minutes + ':' + String(remainder).padStart(2, '0');
   }
 
+  _applyHeroVideoPendingSeek(video) {
+    if (!video || this._heroVideoPendingSeekPercent === null || this._heroVideoPendingSeekPercent === undefined) return false;
+    const duration = Number.isFinite(video.duration) ? video.duration : 0;
+    if (duration <= 0) return false;
+    const percent = Math.min(100, Math.max(0, Number(this._heroVideoPendingSeekPercent) || 0));
+    try {
+      video.currentTime = (percent / 100) * duration;
+      this._heroVideoPendingSeekPercent = null;
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
   _updateHeroVideoControls(video) {
     if (!video) return;
     const progress = this._heroVideoProgress;
     const duration = Number.isFinite(video.duration) ? video.duration : 0;
-    const percent = duration > 0 ? Math.min(100, Math.max(0, (video.currentTime / duration) * 100)) : 0;
+    const pendingPercent = this._heroVideoPendingSeekPercent === null || this._heroVideoPendingSeekPercent === undefined ? null : Math.min(100, Math.max(0, Number(this._heroVideoPendingSeekPercent) || 0));
+    const percent = duration > 0 ? Math.min(100, Math.max(0, (video.currentTime / duration) * 100)) : (pendingPercent === null ? 0 : pendingPercent);
     if (progress && !this._heroVideoSeeking) {
       progress.value = String(percent);
       progress.style.setProperty('--video-progress', percent + '%');
@@ -1527,13 +1552,19 @@ class Component extends DCLogic {
       this._heroVideo.removeEventListener('pause', this._onHeroVideoPause);
       this._heroVideo.removeEventListener('timeupdate', this._onHeroVideoTimeUpdate);
       this._heroVideo.removeEventListener('durationchange', this._onHeroVideoTimeUpdate);
+      this._heroVideo.removeEventListener('loadedmetadata', this._onHeroVideoTimeUpdate);
       this._heroVideo.removeEventListener('volumechange', this._onHeroVideoVolumeChange);
       this._heroVideo.removeEventListener('ended', this._onHeroVideoEnded);
       this._heroVideo.removeEventListener('click', this._onHeroVideoToggle);
+      this._heroVideo.removeEventListener('webkitbeginfullscreen', this._onHeroVideoFullscreenChange);
+      this._heroVideo.removeEventListener('webkitendfullscreen', this._onHeroVideoFullscreenChange);
       if (this._onHeroVideoCanPlay) this._heroVideo.removeEventListener('canplay', this._onHeroVideoCanPlay);
       this._pauseHeroVideo(this._heroVideo);
     }
     if (this._heroVideoToggle) this._heroVideoToggle.removeEventListener('click', this._onHeroVideoToggle);
+    if (this._heroVideoFullscreenButton) this._heroVideoFullscreenButton.removeEventListener('click', this._onHeroVideoFullscreenToggle);
+    document.removeEventListener('fullscreenchange', this._onHeroVideoFullscreenChange);
+    document.removeEventListener('webkitfullscreenchange', this._onHeroVideoFullscreenChange);
     if (this._heroVideoFrame) {
       this._heroVideoFrame.removeEventListener('pointerenter', this._onHeroVideoPointerMove);
       this._heroVideoFrame.removeEventListener('pointermove', this._onHeroVideoPointerMove);
@@ -1548,6 +1579,7 @@ class Component extends DCLogic {
       this._heroVideoProgress.removeEventListener('input', this._onHeroVideoSeek);
       this._heroVideoProgress.removeEventListener('pointerdown', this._onHeroVideoSeekStart);
       this._heroVideoProgress.removeEventListener('pointerup', this._onHeroVideoSeekEnd);
+      this._heroVideoProgress.removeEventListener('pointercancel', this._onHeroVideoSeekEnd);
       this._heroVideoProgress.removeEventListener('change', this._onHeroVideoSeekEnd);
     }
     this._heroVideoObserver = null;
@@ -1558,12 +1590,16 @@ class Component extends DCLogic {
     this._heroVideoControls = null;
     this._heroVideoProgress = null;
     this._heroVideoTime = null;
+    this._heroVideoFullscreenButton = null;
     this._heroVideoSeeking = false;
+    this._heroVideoPendingSeekPercent = null;
     this._heroVideoHasStarted = false;
     this._heroVideoStartsAutomatically = false;
     this._onHeroVideoCanPlay = null;
     this._onHeroVideoVolumeChange = null;
     this._onHeroVideoEnded = null;
+    this._onHeroVideoFullscreenChange = null;
+    this._onHeroVideoFullscreenToggle = null;
     this._heroVideoControlsTimer = null;
     this._heroVideoReturnTimer = null;
   }
@@ -1581,7 +1617,9 @@ class Component extends DCLogic {
       this._heroVideoToggle = document.querySelector('[data-hero-video-toggle]');
       this._heroVideoProgress = document.querySelector('[data-hero-video-progress]');
       this._heroVideoTime = document.querySelector('[data-hero-video-time]');
+      this._heroVideoFullscreenButton = document.querySelector('[data-hero-video-fullscreen]');
       this._heroVideoHasStarted = false;
+      this._heroVideoPendingSeekPercent = null;
       this._heroVideoStartsAutomatically = video.dataset.autoplay === 'true';
       this._heroVideoAllowAutoPlay = this._heroVideoStartsAutomatically;
       video.autoplay = this._heroVideoStartsAutomatically;
@@ -1611,7 +1649,10 @@ class Component extends DCLogic {
         if (this._heroVideoInView) this._showHeroVideoControls(false);
         else this._hideHeroVideoControls(true);
       };
-      this._onHeroVideoTimeUpdate = () => this._updateHeroVideoControls(video);
+      this._onHeroVideoTimeUpdate = () => {
+        this._applyHeroVideoPendingSeek(video);
+        this._updateHeroVideoControls(video);
+      };
       this._onHeroVideoVolumeChange = () => {
         if (!video.muted) video.muted = true;
         if (video.volume !== 0) video.volume = 0;
@@ -1660,21 +1701,69 @@ class Component extends DCLogic {
       this._onHeroVideoSeekStart = () => { this._heroVideoSeeking = true; this._showHeroVideoControls(false); };
       this._onHeroVideoSeek = () => {
         this._prepareHeroVideo(video);
-        if (!this._heroVideoProgress || !Number.isFinite(video.duration)) return;
-        video.currentTime = (Number(this._heroVideoProgress.value) / 100) * video.duration;
-        this._heroVideoProgress.style.setProperty('--video-progress', this._heroVideoProgress.value + '%');
-        if (this._heroVideoTime) this._heroVideoTime.textContent = this._formatHeroVideoTime(video.currentTime) + ' / ' + this._formatHeroVideoTime(video.duration);
+        if (!this._heroVideoProgress) return;
+        const percent = Math.min(100, Math.max(0, Number(this._heroVideoProgress.value) || 0));
+        this._heroVideoPendingSeekPercent = percent;
+        this._heroVideoProgress.style.setProperty('--video-progress', percent + '%');
+        this._applyHeroVideoPendingSeek(video);
+        const duration = Number.isFinite(video.duration) ? video.duration : 0;
+        const previewTime = duration > 0 ? (percent / 100) * duration : 0;
+        if (this._heroVideoTime) this._heroVideoTime.textContent = this._formatHeroVideoTime(previewTime) + ' / ' + this._formatHeroVideoTime(duration);
       };
       this._onHeroVideoSeekEnd = () => { this._heroVideoSeeking = false; this._updateHeroVideoControls(video); this._showHeroVideoControls(true); };
+      this._onHeroVideoFullscreenChange = () => {
+        const activeElement = document.fullscreenElement || document.webkitFullscreenElement;
+        const isNativeVideoFullscreen = !!video.webkitDisplayingFullscreen;
+        const isFullscreen = activeElement === this._heroVideoFrame || isNativeVideoFullscreen;
+        if (this._heroVideoFrame) this._heroVideoFrame.classList.toggle('is-fullscreen', isFullscreen);
+        if (this._heroVideoFullscreenButton) {
+          this._heroVideoFullscreenButton.setAttribute('aria-label', isFullscreen ? 'Exit fullscreen' : 'Enter fullscreen');
+          this._heroVideoFullscreenButton.setAttribute('title', isFullscreen ? 'Exit fullscreen' : 'Fullscreen');
+        }
+        this._showHeroVideoControls(false);
+      };
+      this._onHeroVideoFullscreenToggle = (event) => {
+        if (event && event.stopPropagation) event.stopPropagation();
+        if (event && event.currentTarget && event.currentTarget.blur) event.currentTarget.blur();
+        const activeElement = document.fullscreenElement || document.webkitFullscreenElement;
+        if (activeElement) {
+          const exitFullscreen = document.exitFullscreen || document.webkitExitFullscreen;
+          if (exitFullscreen) {
+            const result = exitFullscreen.call(document);
+            if (result && result.catch) result.catch(() => {});
+          }
+          return;
+        }
+        if (video.webkitDisplayingFullscreen && video.webkitExitFullscreen) {
+          video.webkitExitFullscreen();
+          return;
+        }
+        const frame = this._heroVideoFrame;
+        const requestFullscreen = frame && (frame.requestFullscreen || frame.webkitRequestFullscreen);
+        if (requestFullscreen) {
+          const result = requestFullscreen.call(frame);
+          if (result && result.catch) result.catch(() => {});
+          return;
+        }
+        if (video.webkitEnterFullscreen) {
+          try { video.webkitEnterFullscreen(); } catch (e) {}
+        }
+      };
       video.addEventListener('play', this._onHeroVideoPlay);
       video.addEventListener('playing', this._onHeroVideoPlaying);
       video.addEventListener('pause', this._onHeroVideoPause);
       video.addEventListener('timeupdate', this._onHeroVideoTimeUpdate);
       video.addEventListener('durationchange', this._onHeroVideoTimeUpdate);
+      video.addEventListener('loadedmetadata', this._onHeroVideoTimeUpdate);
       video.addEventListener('volumechange', this._onHeroVideoVolumeChange);
       video.addEventListener('ended', this._onHeroVideoEnded);
       video.addEventListener('click', this._onHeroVideoToggle);
+      video.addEventListener('webkitbeginfullscreen', this._onHeroVideoFullscreenChange);
+      video.addEventListener('webkitendfullscreen', this._onHeroVideoFullscreenChange);
       if (this._heroVideoToggle) this._heroVideoToggle.addEventListener('click', this._onHeroVideoToggle);
+      if (this._heroVideoFullscreenButton) this._heroVideoFullscreenButton.addEventListener('click', this._onHeroVideoFullscreenToggle);
+      document.addEventListener('fullscreenchange', this._onHeroVideoFullscreenChange);
+      document.addEventListener('webkitfullscreenchange', this._onHeroVideoFullscreenChange);
       if (this._heroVideoFrame) {
         this._heroVideoFrame.addEventListener('pointerenter', this._onHeroVideoPointerMove);
         this._heroVideoFrame.addEventListener('pointermove', this._onHeroVideoPointerMove);
@@ -1689,6 +1778,7 @@ class Component extends DCLogic {
         this._heroVideoProgress.addEventListener('input', this._onHeroVideoSeek);
         this._heroVideoProgress.addEventListener('pointerdown', this._onHeroVideoSeekStart);
         this._heroVideoProgress.addEventListener('pointerup', this._onHeroVideoSeekEnd);
+        this._heroVideoProgress.addEventListener('pointercancel', this._onHeroVideoSeekEnd);
         this._heroVideoProgress.addEventListener('change', this._onHeroVideoSeekEnd);
       }
       this._prepareHeroVideo(video);
@@ -2568,12 +2658,12 @@ class Component extends DCLogic {
         websiteUrl: 'https://goosecalendar.com',
         visual: 'calendar',
         heroImage: './assets/images/goose-calendar/hero-image.png',
-        heroVideo: './assets/videos/gooseCalendar/gooseCalendar-demo.m4v',
-        heroVideoMobile: './assets/videos/gooseCalendar/gooseCalendar-demo-480p.m4v',
+        heroVideo: './assets/videos/gooseCalendar/gooseCalendar.mp4',
+        heroVideoMobile: './assets/videos/gooseCalendar/gooseCalendar.mp4',
         heroVideoClass: '',
         heroAutoPlay: false,
         heroLoop: false,
-        youtubeUrl: '',
+        youtubeUrl: 'https://youtu.be/5gw9psZufOg',
         heroPoster: './assets/images/goose-calendar/hero-image.png',
         heroAlt: 'GooseCalendar product interface hero screenshot',
         isCalendar: true,
@@ -2584,7 +2674,8 @@ class Component extends DCLogic {
         links: [
           { label: 'Website', href: 'https://goosecalendar.com' },
           { label: 'GitHub', href: 'https://github.com/Keeret-Mahi/gooseCalendar' },
-          { label: 'Demo', href: './assets/videos/gooseCalendar/gooseCalendar-demo.m4v' },
+          { label: 'Demo', href: './assets/videos/gooseCalendar/gooseCalendar.mp4' },
+          { label: 'Watch on YouTube', href: 'https://youtu.be/5gw9psZufOg' },
         ],
         overview: 'GooseCalendar turns course outlines into exportable calendar events. Students upload the file their instructor gives them, choose the sections they are actually enrolled in, review the extracted events, and export everything to Google Calendar or an .ics file.',
         challenge: 'Students receive course outlines filled with lectures, tutorials, labs, assignments, quizzes, midterms, office hours, and project deadlines. Some dates are easy to find. Others are hidden inside tables, paragraphs, PDFs, or inconsistent formatting.',
