@@ -6,6 +6,7 @@
 <meta name="description" content="CS + Business student exploring the intersection of software, design, and business.">
 <meta name="theme-color" content="#181915">
 <title>Keeret Mahi</title>
+<base href="/">
 <link rel="canonical" href="https://keeretmahi.com/">
 <link rel="icon" type="image/svg+xml" href="./favicon.svg">
 <link rel="icon" type="image/png" sizes="180x180" href="https://keeretmahi.com/apple-touch-icon.png">
@@ -189,6 +190,66 @@
   .page-transition[data-kind="resume"].is-active .transition-signature .signature-text { animation: revealSignature 1.34s cubic-bezier(0.45,0,0.15,1) 0.25s forwards; }
   .page-transition[data-kind="resume"].is-active .transition-signature .signature-flourish { animation: drawStroke 0.48s ease-out 1.46s forwards; }
   @keyframes revealSignature { to { clip-path: inset(0 0 0 0); } }
+  @keyframes htnVeil {
+    0% { opacity: 0; }
+    8%, 86% { opacity: 1; }
+    100% { opacity: 0; }
+  }
+  @keyframes htnTrace { to { stroke-dashoffset: 0; } }
+  @keyframes htnLabelIn {
+    from { opacity: 0; transform: translateY(9px); letter-spacing: .24em; }
+    to { opacity: 1; transform: none; letter-spacing: .12em; }
+  }
+  @keyframes htnFill { to { fill-opacity: 1; stroke-opacity: .28; } }
+  @keyframes htnCueBreathe { 0%, 100% { opacity: .52; transform: translateX(0); } 50% { opacity: .88; transform: translateX(3px); } }
+  .htn-dock { position: fixed; z-index: 88; right: clamp(14px, 2.8vw, 28px); bottom: clamp(14px, 2.8vw, 26px); width: 88px; height: 88px; }
+  .htn-cue { position: absolute; right: 72px; bottom: 46px; display: flex; align-items: center; gap: 8px; width: max-content; color: oklch(0.68 0.045 72); pointer-events: none; animation: htnCueBreathe 2.8s ease-in-out infinite; }
+  .htn-cue span { font: 12px 'JetBrains Mono', monospace; letter-spacing: .08em; text-transform: uppercase; white-space: nowrap; }
+  .htn-cue svg { width: 54px; height: 24px; overflow: visible; }
+  .htn-cue path { fill: none; stroke: currentColor; stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; }
+  .htn-trigger { position: relative; display: grid; place-items: center; width: 88px; height: 88px; padding: 7px; border: 0; border-radius: 50%; background: transparent; color: oklch(0.76 0.105 72); cursor: pointer; filter: drop-shadow(0 10px 20px oklch(0.08 0.008 70 / .46)); transition: transform .42s cubic-bezier(.16,1,.3,1), color .28s ease, filter .28s ease; }
+  .htn-trigger::before { content: ''; position: absolute; inset: 4px; border-radius: 50%; background: radial-gradient(circle, oklch(0.68 0.08 72 / .13), transparent 68%); opacity: .7; transform: scale(.88); transition: opacity .3s ease, transform .4s cubic-bezier(.16,1,.3,1); }
+  .htn-trigger:hover, .htn-trigger:focus-visible { transform: translateY(-5px) scale(1.055); color: oklch(0.91 0.13 78); filter: drop-shadow(0 15px 28px oklch(0.08 0.008 70 / .55)) drop-shadow(0 0 17px oklch(0.72 0.10 72 / .2)); outline: none; }
+  .htn-trigger:hover::before, .htn-trigger:focus-visible::before { opacity: 1; transform: scale(1.08); }
+  .htn-trigger svg { position: relative; display: block; width: 64px; height: 61px; overflow: visible; }
+  .htn-trigger path { fill: currentColor; transform-box: fill-box; transform-origin: center; transition: transform .7s cubic-bezier(.16,1,.3,1); }
+  .htn-trigger:hover path, .htn-trigger:focus-visible path { transform: rotate(8deg) scale(1.045); }
+  .htn-transition { position: fixed; inset: 0; z-index: 130; display: grid; place-items: center; visibility: hidden; opacity: 0; pointer-events: none; background: radial-gradient(circle at 50% 48%, oklch(0.27 0.035 70), oklch(0.155 0.01 70) 48%, oklch(0.12 0.008 70)); color: oklch(0.82 0.11 72); }
+  .htn-transition.is-preparing { visibility: visible; opacity: 0; }
+  .htn-transition.is-active { visibility: visible; animation: htnVeil 3.25s cubic-bezier(.4,0,.2,1) both; }
+  .htn-trace-lockup { display: grid; justify-items: center; gap: 22px; }
+  .htn-trace-logo { width: clamp(175px, 27vw, 235px); height: auto; overflow: visible; filter: drop-shadow(0 0 34px oklch(0.75 0.11 72 / .18)); }
+  .htn-trace-logo path { fill: currentColor; fill-opacity: 0; stroke: currentColor; stroke-width: .58; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1; stroke-dashoffset: 1; }
+  .htn-transition.is-active .htn-trace-mark { animation: htnTrace 2.04s cubic-bezier(.45,0,.22,1) .32s forwards, htnFill .58s cubic-bezier(.16,1,.3,1) 2.14s forwards; }
+  .htn-trace-label { opacity: 0; color: oklch(0.80 0.07 75); font: 10px 'JetBrains Mono', monospace; text-transform: uppercase; }
+  .htn-transition.is-active .htn-trace-label { animation: htnLabelIn .62s cubic-bezier(.16,1,.3,1) 2.22s forwards; }
+  .htn-backdrop { position: fixed; inset: 0; z-index: 125; display: grid; place-items: center; padding: 22px; background: oklch(0.105 0.008 70 / .9); backdrop-filter: blur(11px); animation: pageFadeIn .28s ease-out both; }
+  .htn-panel { position: relative; isolation: isolate; width: min(742px, 100%); max-height: calc(100vh - 44px); overflow: auto; border: 1px solid oklch(0.43 0.044 70); border-radius: 24px; padding: 30px; background: radial-gradient(circle at 94% 0%, oklch(0.39 0.055 72 / .42), transparent 33%), radial-gradient(circle at 4% 96%, oklch(0.29 0.025 66 / .34), transparent 32%), oklch(0.197 0.012 70); box-shadow: 0 36px 120px oklch(0.055 0.006 70 / .72), inset 0 1px 0 oklch(0.72 0.06 75 / .09); animation: popIn .48s cubic-bezier(.16,1,.3,1) both; }
+  .htn-panel::before { content: ''; position: absolute; z-index: -1; left: 28px; right: 28px; top: 0; height: 1px; background: linear-gradient(90deg, transparent, oklch(0.79 0.11 72 / .75), transparent); }
+  .htn-panel-head, .htn-panel-copy, .htn-tour-label, .htn-choice-grid { position: relative; z-index: 1; }
+  .htn-panel-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; }
+  .htn-panel-brand { display: inline-flex; align-items: center; gap: 8px; color: oklch(0.72 0.095 72); }
+  .htn-panel-brand svg { width: 21px; height: 20px; }
+  .htn-panel-brand path, .htn-panel-brand use { fill: currentColor; }
+  .htn-panel-kicker { font: 9.5px 'JetBrains Mono', monospace; letter-spacing: .13em; text-transform: uppercase; }
+  .htn-panel-title { max-width: 590px; margin: 12px 0 0; color: oklch(0.975 0.008 80); font: 530 clamp(34px, 5.6vw, 49px)/1.02 'Fraunces', Georgia, serif; letter-spacing: -.04em; }
+  .htn-panel-close { flex: none; width: 34px; height: 34px; border: 1px solid oklch(0.34 0.02 70); border-radius: 50%; padding: 0; background: oklch(0.23 0.012 70 / .72); color: oklch(0.59 0.006 80); font: 22px/1 'Hanken Grotesk', system-ui, sans-serif; cursor: pointer; transition: color .2s ease, border-color .2s ease, transform .25s ease; }
+  .htn-panel-close:hover, .htn-panel-close:focus-visible { color: oklch(0.86 0.08 75); outline: none; }
+  .htn-panel-close:hover, .htn-panel-close:focus-visible { border-color: oklch(0.58 0.075 72); transform: rotate(5deg); }
+  .htn-panel-copy { max-width: 61ch; margin: 16px 0 22px; color: oklch(0.66 0.007 80); font-size: 14px; line-height: 1.65; }
+  .htn-tour-label { display: flex; align-items: center; gap: 11px; margin-bottom: 12px; color: oklch(0.56 0.035 72); font: 9px 'JetBrains Mono', monospace; letter-spacing: .12em; text-transform: uppercase; }
+  .htn-tour-label::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, oklch(0.36 0.025 70), transparent); }
+  .htn-choice-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; }
+  .htn-choice { position: relative; display: grid; grid-template-columns: auto minmax(0,1fr) auto; align-items: center; gap: 13px; min-height: 84px; padding: 15px 16px; overflow: hidden; border: 1px solid oklch(0.325 0.021 70); border-radius: 15px; background: linear-gradient(145deg, oklch(0.242 0.015 70), oklch(0.218 0.011 70)); color: inherit; text-align: left; cursor: pointer; box-shadow: inset 0 1px 0 oklch(0.67 0.045 72 / .045); transition: transform .34s cubic-bezier(.16,1,.3,1), border-color .25s ease, background .25s ease, box-shadow .25s ease; }
+  .htn-choice:first-child { grid-column: 1 / -1; min-height: 92px; background: radial-gradient(circle at 86% 0%, oklch(0.48 0.07 72 / .24), transparent 38%), linear-gradient(145deg, oklch(0.265 0.022 70), oklch(0.225 0.013 70)); }
+  .htn-choice::before { content: ''; position: absolute; left: 0; top: 18px; bottom: 18px; width: 2px; border-radius: 0 2px 2px 0; background: oklch(0.67 0.09 72 / .72); transform: scaleY(.38); transition: transform .32s cubic-bezier(.16,1,.3,1); }
+  .htn-choice:hover, .htn-choice:focus-visible { transform: translateY(-3px); border-color: oklch(0.56 0.073 72); background: linear-gradient(145deg, oklch(0.275 0.023 70), oklch(0.235 0.014 70)); box-shadow: 0 13px 28px oklch(0.10 0.008 70 / .24), inset 0 1px 0 oklch(0.72 0.06 72 / .08); outline: none; }
+  .htn-choice:hover::before, .htn-choice:focus-visible::before { transform: scaleY(1); }
+  .htn-choice-num { display: grid; place-items: center; width: 29px; height: 29px; border-radius: 50%; background: oklch(0.30 0.025 70); color: oklch(0.71 0.085 72); font: 9px 'JetBrains Mono', monospace; }
+  .htn-choice-name { color: oklch(0.92 0.012 80); font-size: 14.5px; font-weight: 600; }
+  .htn-choice-note { display: block; margin-top: 4px; color: oklch(0.58 0.006 80); font-size: 11.75px; font-weight: 400; line-height: 1.35; }
+  .htn-choice-arrow { color: oklch(0.70 0.09 72); font: 14px 'JetBrains Mono', monospace; transition: transform .22s ease, color .22s ease; }
+  .htn-choice:hover .htn-choice-arrow { transform: translateX(3px); }
   .brand-tile--company {
     width: 38px;
     height: 38px;
@@ -597,8 +658,21 @@
   }
   @media (pointer: coarse), (prefers-reduced-motion: reduce) {
     .cursor-halo { display: none; }
+    .htn-cue { animation: none; opacity: .68; }
   }
   @media (max-width: 620px) {
+    .htn-dock { right: 8px; bottom: 10px; width: 78px; height: 78px; }
+    .htn-trigger { width: 78px; height: 78px; }
+    .htn-trigger svg { width: 56px; height: 53px; }
+    .htn-cue { right: 63px; bottom: 42px; gap: 6px; }
+    .htn-cue span { font-size: 10.5px; }
+    .htn-cue svg { width: 45px; }
+    .htn-backdrop { padding: 12px; }
+    .htn-panel { padding: 24px 18px 19px; border-radius: 19px; max-height: calc(100vh - 24px); }
+    .htn-panel-title { margin-top: 10px; }
+    .htn-panel-copy { margin: 13px 0 18px; font-size: 13px; }
+    .htn-choice-grid { grid-template-columns: 1fr; }
+    .htn-choice, .htn-choice:first-child { grid-column: auto; min-height: 84px; padding: 13px 14px; }
     .hero-blurb { white-space: normal; }
     .stat-line { display: grid; grid-template-columns: 34px minmax(0, 1fr); gap: 10px; }
     .stat-value { grid-column: 2; text-align: left; }
@@ -696,6 +770,28 @@
       <path class="draw signature-flourish" pathLength="1" d="M48 91 C112 100 213 99 286 88 C302 86 314 88 307 93 C301 98 282 98 268 96"/>
     </svg>
   </div>
+
+  <sc-if value="{{ showHackTheNorth }}" hint-placeholder-val="{{ false }}">
+    <div class="htn-dock">
+      <div class="htn-cue" aria-hidden="true">
+        <span>click here</span>
+        <svg viewBox="0 0 43 19"><path d="M1 3 C13 3 20 7 31 14 M27 8 L32 14 L24 16"/></svg>
+      </div>
+      <button class="htn-trigger" type="button" onClick="{{ openHackTheNorth }}" aria-label="Open Hack the North highlights" title="Hack the North highlights">
+        <svg viewBox="0 0 55 52" aria-hidden="true">
+          <path id="htn-trigger-mark" fill-rule="evenodd" clip-rule="evenodd" d="M28.9355 25.472L34.5407 28.0941C35.1127 28.3221 35.7987 28.2081 36.1422 27.8661C36.2528 27.7558 36.375 27.6457 36.5018 27.5317C36.7742 27.2863 37.056 27.0317 37.286 26.726C37.7437 26.27 37.858 25.586 37.5147 25.1298L34.8837 19.5436C35.7987 18.0617 36.4852 16.3516 36.943 14.6415L42.8915 12.5894C43.4632 12.3614 43.8065 11.9054 43.9208 11.2214V10.4234V9.62533C43.9208 9.05529 43.4632 8.48524 42.8915 8.25725L37.0573 6.09117C36.5995 4.38112 35.9135 2.67105 34.9983 1.189L35.5583 0C46.8397 3.40908 55 13.8037 55 26.1708C55 30.9329 53.7788 35.4025 51.6345 39.2934C51.4973 38.9726 51.0612 38.7615 50.7308 38.7615L46.0168 38.9915C45.212 37.9569 44.2923 37.0372 43.2577 36.2327L43.4875 31.5197C43.4875 31.1747 43.2577 30.715 42.9127 30.6C42.4528 30.3701 42.1077 30.2551 41.648 30.1403C41.3028 30.0253 40.8432 30.1403 40.6132 30.3702L37.5085 33.8187C36.2438 33.5887 34.8642 33.5887 33.5995 33.8187L30.4952 30.3702C30.2653 30.0253 29.8055 29.9103 29.4605 30.1403C29.3595 30.1907 29.2587 30.2189 29.1675 30.2445C29.0512 30.2774 28.9502 30.3057 28.8855 30.3702C28.6557 30.485 28.4257 30.6 28.3105 30.6C27.9658 30.715 27.7357 31.1747 27.7357 31.5197L27.9658 36.2327C26.9307 37.0372 25.896 37.9569 25.2063 38.9915L20.4923 38.7615C20.1473 38.7615 19.6875 38.9915 19.5723 39.3362C19.3425 39.796 19.2277 40.1409 19.1125 40.6007C18.9973 40.9456 19.1125 41.4053 19.3425 41.6351L22.7917 44.7388C22.5618 46.0034 22.5618 47.3828 22.7917 48.6472L19.3425 51.7509C19.1777 51.8605 19.0653 52.0227 19.0182 52.1995C7.95695 48.6356 0 38.2908 0 26.1708C0 21.9995 0.937093 18.0526 2.61068 14.5224C3.08268 16.2376 3.76912 17.9477 4.68425 19.4296L1.93888 25.1298C1.7102 25.7 1.82455 26.384 2.16757 26.726C2.27823 26.8362 2.38892 26.9583 2.50325 27.0846C2.74413 27.3502 3.00172 27.6342 3.31177 27.8661C3.76912 28.3221 4.45557 28.4361 4.91292 28.0941L10.5184 25.472C12.0056 26.384 13.7211 27.0679 15.437 27.5241L17.4963 33.4523C17.725 34.0223 18.1828 34.3643 18.8688 34.4782H19.6697H20.4703C21.0425 34.4782 21.6142 34.0223 21.8433 33.4523L23.9022 27.5241C25.8468 27.0679 27.4483 26.384 28.9355 25.472ZM35.4157 51.9044C38.3657 51.9044 40.7575 49.5457 40.7575 46.6362C40.7575 43.7266 38.3657 41.3681 35.4157 41.3681C32.4657 41.3681 30.0739 43.7266 30.0739 46.6362C30.0739 49.5457 32.4657 51.9044 35.4157 51.9044ZM27.302 10.3664C27.302 14.5069 23.9362 17.8634 19.7842 17.8634C15.6321 17.8634 12.2662 14.5069 12.2662 10.3664C12.2662 6.22594 15.6321 2.86943 19.7842 2.86943C23.9362 2.86943 27.302 6.22594 27.302 10.3664Z"/>
+        </svg>
+      </button>
+    </div>
+    <div data-htn-transition class="htn-transition" aria-hidden="true">
+      <div class="htn-trace-lockup">
+        <svg class="htn-trace-logo" viewBox="0 0 55 52" aria-hidden="true">
+          <path class="htn-trace-mark" pathLength="1" fill-rule="evenodd" clip-rule="evenodd" d="M28.9355 25.472L34.5407 28.0941C35.1127 28.3221 35.7987 28.2081 36.1422 27.8661C36.2528 27.7558 36.375 27.6457 36.5018 27.5317C36.7742 27.2863 37.056 27.0317 37.286 26.726C37.7437 26.27 37.858 25.586 37.5147 25.1298L34.8837 19.5436C35.7987 18.0617 36.4852 16.3516 36.943 14.6415L42.8915 12.5894C43.4632 12.3614 43.8065 11.9054 43.9208 11.2214V10.4234V9.62533C43.9208 9.05529 43.4632 8.48524 42.8915 8.25725L37.0573 6.09117C36.5995 4.38112 35.9135 2.67105 34.9983 1.189L35.5583 0C46.8397 3.40908 55 13.8037 55 26.1708C55 30.9329 53.7788 35.4025 51.6345 39.2934C51.4973 38.9726 51.0612 38.7615 50.7308 38.7615L46.0168 38.9915C45.212 37.9569 44.2923 37.0372 43.2577 36.2327L43.4875 31.5197C43.4875 31.1747 43.2577 30.715 42.9127 30.6C42.4528 30.3701 42.1077 30.2551 41.648 30.1403C41.3028 30.0253 40.8432 30.1403 40.6132 30.3702L37.5085 33.8187C36.2438 33.5887 34.8642 33.5887 33.5995 33.8187L30.4952 30.3702C30.2653 30.0253 29.8055 29.9103 29.4605 30.1403C29.3595 30.1907 29.2587 30.2189 29.1675 30.2445C29.0512 30.2774 28.9502 30.3057 28.8855 30.3702C28.6557 30.485 28.4257 30.6 28.3105 30.6C27.9658 30.715 27.7357 31.1747 27.7357 31.5197L27.9658 36.2327C26.9307 37.0372 25.896 37.9569 25.2063 38.9915L20.4923 38.7615C20.1473 38.7615 19.6875 38.9915 19.5723 39.3362C19.3425 39.796 19.2277 40.1409 19.1125 40.6007C18.9973 40.9456 19.1125 41.4053 19.3425 41.6351L22.7917 44.7388C22.5618 46.0034 22.5618 47.3828 22.7917 48.6472L19.3425 51.7509C19.1777 51.8605 19.0653 52.0227 19.0182 52.1995C7.95695 48.6356 0 38.2908 0 26.1708C0 21.9995 0.937093 18.0526 2.61068 14.5224C3.08268 16.2376 3.76912 17.9477 4.68425 19.4296L1.93888 25.1298C1.7102 25.7 1.82455 26.384 2.16757 26.726C2.27823 26.8362 2.38892 26.9583 2.50325 27.0846C2.74413 27.3502 3.00172 27.6342 3.31177 27.8661C3.76912 28.3221 4.45557 28.4361 4.91292 28.0941L10.5184 25.472C12.0056 26.384 13.7211 27.0679 15.437 27.5241L17.4963 33.4523C17.725 34.0223 18.1828 34.3643 18.8688 34.4782H19.6697H20.4703C21.0425 34.4782 21.6142 34.0223 21.8433 33.4523L23.9022 27.5241C25.8468 27.0679 27.4483 26.384 28.9355 25.472ZM35.4157 51.9044C38.3657 51.9044 40.7575 49.5457 40.7575 46.6362C40.7575 43.7266 38.3657 41.3681 35.4157 41.3681C32.4657 41.3681 30.0739 43.7266 30.0739 46.6362C30.0739 49.5457 32.4657 51.9044 35.4157 51.9044ZM27.302 10.3664C27.302 14.5069 23.9362 17.8634 19.7842 17.8634C15.6321 17.8634 12.2662 14.5069 12.2662 10.3664C12.2662 6.22594 15.6321 2.86943 19.7842 2.86943C23.9362 2.86943 27.302 6.22594 27.302 10.3664Z"/>
+        </svg>
+        <div class="htn-trace-label">hack the north</div>
+      </div>
+    </div>
+  </sc-if>
 
   <!-- NAV -->
   <nav style="position: relative; z-index: 20; display: flex; align-items: center; justify-content: space-between; max-width: 700px; width: 100%; margin: 0 auto; padding: 34px clamp(22px, 6vw, 36px) 12px;">
@@ -1040,15 +1136,47 @@
       </div>
     </div>
   </sc-if>
+
+  <sc-if value="{{ hackTheNorthMenuOpen }}" hint-placeholder-val="{{ false }}">
+    <div class="htn-backdrop" onClick="{{ closeHackTheNorthMenu }}">
+      <div class="htn-panel" onClick="{{ stopClick }}" role="dialog" aria-modal="true" aria-labelledby="htn-title">
+        <div class="htn-panel-head">
+          <div>
+            <div class="htn-panel-brand" aria-hidden="true"><svg viewBox="0 0 55 52"><use href="#htn-trigger-mark"></use></svg></div>
+            <h2 class="htn-panel-title" id="htn-title">Welcome, Hack the North team!</h2>
+          </div>
+          <button class="htn-panel-close" type="button" onClick="{{ closeHackTheNorthMenu }}" aria-label="Close Hack the North highlights">×</button>
+        </div>
+        <p class="htn-panel-copy">Thanks for stopping by! I put together some of the highlights from my portfolio, feel free to start anywhere!</p>
+        <div class="htn-tour-label">A five-stop tour</div>
+        <div class="htn-choice-grid">
+          <button class="htn-choice" type="button" onClick="{{ openHackGoose }}"><span class="htn-choice-num">01</span><span><span class="htn-choice-name">gooseCalendar</span><span class="htn-choice-note">Course outlines into reviewable calendar events</span></span><span class="htn-choice-arrow">→</span></button>
+          <button class="htn-choice" type="button" onClick="{{ openHackPlotter }}"><span class="htn-choice-num">02</span><span><span class="htn-choice-name">GCode Plotter</span><span class="htn-choice-note">The time I built a robot that could draw!</span></span><span class="htn-choice-arrow">→</span></button>
+          <button class="htn-choice" type="button" onClick="{{ openHackValedictorian }}"><span class="htn-choice-num">03</span><span><span class="htn-choice-name">Valedictorian Speech</span><span class="htn-choice-note">A milestone I am very proud of</span></span><span class="htn-choice-arrow">→</span></button>
+          <button class="htn-choice" type="button" onClick="{{ openHackTyping }}"><span class="htn-choice-num">04</span><span><span class="htn-choice-name">Typing Competition</span><span class="htn-choice-note">Race my 158 WPM typing speed!</span></span><span class="htn-choice-arrow">→</span></button>
+          <button class="htn-choice" type="button" onClick="{{ openHackBu111 }}"><span class="htn-choice-num">05</span><span><span class="htn-choice-name">BU111 Case Competition Semi-Finals</span><span class="htn-choice-note">The time we made semi-finals of a major case competition!</span></span><span class="htn-choice-arrow">→</span></button>
+        </div>
+      </div>
+    </div>
+  </sc-if>
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;: {&quot;width&quot;: 1080, &quot;height&quot;: 1000}}">
 class Component extends DCLogic {
-  state = { page: 'about', projectSlug: null, lightbox: null, showPeople: false, statIndex: 0, menuOpen: false, factCard: null, raceSeed: 0, skySelection: null, skyWindow: 'evening', projectWriteups: {} };
+  state = { page: 'about', projectSlug: null, lightbox: null, showPeople: false, statIndex: 0, menuOpen: false, factCard: null, raceSeed: 0, skySelection: null, skyWindow: 'evening', projectWriteups: {}, hackTheNorthAccess: false, hackTheNorthMenuOpen: false };
 
   componentDidMount() {
     const valid = ['about', 'projects', 'experience', 'resume', 'gallery'];
+    let hackTheNorthEntry = false;
     try {
+      const normalizedPath = (location.pathname || '').replace(/\/+$/, '') || '/';
+      const entryQuery = new URLSearchParams(location.search || '').get('hackthenorth') === '1';
+      hackTheNorthEntry = normalizedPath === '/hackthenorth' || entryQuery;
+      if (hackTheNorthEntry) {
+        this.state.hackTheNorthAccess = true;
+        const entryHash = location.hash || '#project/goose-calendar';
+        if (history && history.replaceState) history.replaceState(null, '', '/hackthenorth/' + entryHash);
+      }
       const fromHash = (location.hash || '').replace('#', '');
       const routeHash = fromHash === 'writing' ? 'resume' : fromHash;
       if (routeHash.indexOf('project/') === 0) {
@@ -1096,6 +1224,7 @@ class Component extends DCLogic {
       this._resumeResizeTimer = setTimeout(() => this._queueResumeRender(), 120);
     };
     window.addEventListener('resize', this._onResumeResize);
+    if (hackTheNorthEntry) this.setState({ hackTheNorthAccess: true });
 
     this._tick();
     this._clockTimer = setInterval(() => this._tick(), 1000);
@@ -1127,7 +1256,9 @@ class Component extends DCLogic {
     clearTimeout(this._transitionSwapT);
     clearTimeout(this._transitionEndT);
     clearTimeout(this._introEndT);
+    clearTimeout(this._htnTransitionEndT);
     cancelAnimationFrame(this._transitionStartRaf);
+    cancelAnimationFrame(this._htnTransitionStartRaf);
     clearTimeout(this._resumeResizeTimer);
     cancelAnimationFrame(this._resumeRenderRaf);
     if (this._resumeRenderTask && this._resumeRenderTask.cancel) this._resumeRenderTask.cancel();
@@ -2130,6 +2261,57 @@ class Component extends DCLogic {
     }, 2490);
   }
 
+  _openHackTheNorth(event) {
+    if (event && event.stopPropagation) event.stopPropagation();
+    if (this._transitioning) return;
+    const overlay = document.querySelector('[data-htn-transition]');
+    if (!overlay) {
+      this.setState({ hackTheNorthMenuOpen: true });
+      return;
+    }
+    this._transitioning = true;
+    overlay.classList.remove('is-active');
+    overlay.classList.add('is-preparing');
+    void overlay.offsetWidth;
+    clearTimeout(this._htnTransitionEndT);
+    cancelAnimationFrame(this._htnTransitionStartRaf);
+    this._htnTransitionStartRaf = requestAnimationFrame(() => {
+      this._htnTransitionStartRaf = requestAnimationFrame(() => {
+        overlay.classList.remove('is-preparing');
+        overlay.classList.add('is-active');
+        this._htnTransitionEndT = setTimeout(() => {
+          overlay.classList.remove('is-active');
+          this._transitioning = false;
+          this.setState({ hackTheNorthMenuOpen: true });
+        }, 3250);
+      });
+    });
+  }
+
+  _closeHackTheNorthMenu() {
+    this.setState({ hackTheNorthMenuOpen: false });
+  }
+
+  _openHackProject(slug, event) {
+    if (event && event.stopPropagation) event.stopPropagation();
+    this.setState({ hackTheNorthMenuOpen: false });
+    this._openProject(slug);
+  }
+
+  _openHackGallery(index, event) {
+    if (event && event.stopPropagation) event.stopPropagation();
+    try { if (location.hash !== '#gallery') location.hash = 'gallery'; } catch (e) {}
+    this.setState({ page: 'gallery', projectSlug: null, lightbox: index, showPeople: false, factCard: null, hackTheNorthMenuOpen: false, menuOpen: false });
+  }
+
+  _openHackTyping(event) {
+    if (event && event.stopPropagation) event.stopPropagation();
+    this._prepareRace();
+    try { if (location.hash !== '#about') location.hash = 'about'; } catch (e) {}
+    this.setState({ page: 'about', projectSlug: null, lightbox: null, factCard: 'typing', hackTheNorthMenuOpen: false, raceSeed: this.state.raceSeed + 1, menuOpen: false });
+    setTimeout(() => { this._resetRaceUi(); this._paintRace(''); this._focusRace(); }, 80);
+  }
+
   _set(p) {
     if ((p === this.state.page && !this.state.projectSlug) || this._transitioning) {
       if (this.state.menuOpen) this.setState({ menuOpen: false });
@@ -2766,6 +2948,15 @@ class Component extends DCLogic {
     const li = this.state.lightbox;
     return {
       nav,
+      showHackTheNorth: !!this.state.hackTheNorthAccess,
+      hackTheNorthMenuOpen: !!this.state.hackTheNorthMenuOpen,
+      openHackTheNorth: (event) => this._openHackTheNorth(event),
+      closeHackTheNorthMenu: () => this._closeHackTheNorthMenu(),
+      openHackGoose: (event) => this._openHackProject('goose-calendar', event),
+      openHackPlotter: (event) => this._openHackProject('cnc-plotter', event),
+      openHackValedictorian: (event) => this._openHackGallery(0, event),
+      openHackTyping: (event) => this._openHackTyping(event),
+      openHackBu111: (event) => this._openHackGallery(4, event),
       menuClass: this.state.menuOpen ? 'is-open' : '',
       menuExpanded: this.state.menuOpen ? 'true' : 'false',
       toggleMenu: () => this._toggleMenu(),

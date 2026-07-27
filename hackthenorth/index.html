@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#181915">
+  <title>Keeret Mahi · Hack the North</title>
+  <style>
+    html, body { min-height: 100%; margin: 0; background: #181915; color: #cda56d; }
+    body { display: grid; place-items: center; font: 11px ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .12em; text-transform: uppercase; }
+  </style>
+  <script>
+    (function () {
+      var target = new URL('/', location.href);
+      target.searchParams.set('hackthenorth', '1');
+      target.hash = location.hash ? location.hash.slice(1) : 'project/goose-calendar';
+      location.replace(target.href);
+    })();
+  </script>
+</head>
+<body>
+  <div>Opening portfolio…</div>
+  <noscript><a href="/#project/goose-calendar" style="color: inherit;">Open portfolio</a></noscript>
+</body>
+</html>
