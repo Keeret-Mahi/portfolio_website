@@ -139,6 +139,10 @@
     background: oklch(0.175 0.010 70 / 0.96);
     backdrop-filter: blur(4px);
   }
+  .page-transition.is-preparing {
+    visibility: visible;
+    opacity: 0;
+  }
   .page-transition.is-active {
     visibility: visible;
     animation: transitionVeil 2.45s cubic-bezier(0.16,1,0.3,1) both;
@@ -162,9 +166,9 @@
     stroke-dasharray: 1;
     stroke-dashoffset: 1;
   }
-  .page-transition.is-active .draw-main { animation: drawStroke 1.12s cubic-bezier(0.65,0,0.35,1) 0.22s forwards; }
-  .page-transition.is-active .draw-detail { animation: drawStroke 0.54s ease-out 1.12s forwards; }
-  .page-transition.is-active .shutter-button { animation: drawStroke 0.54s ease-out 1.12s forwards, shutterPress 0.28s ease-in-out 1.51s both; transform-origin: center; }
+  .page-transition[data-kind="gallery"].is-active .transition-camera .draw-main { animation: drawStroke 1.12s cubic-bezier(0.65,0,0.35,1) 0.22s forwards; }
+  .page-transition[data-kind="gallery"].is-active .transition-camera .draw-detail { animation: drawStroke 0.54s ease-out 1.12s forwards; }
+  .page-transition[data-kind="gallery"].is-active .transition-camera .shutter-button { animation: drawStroke 0.54s ease-out 1.12s forwards, shutterPress 0.28s ease-in-out 1.51s both; transform-origin: center; }
   .camera-flare {
     opacity: 0;
     transform-origin: center;
@@ -173,7 +177,7 @@
   .camera-flare-core { fill: oklch(0.84 0.13 78 / 0.24); }
   .camera-flare-ring { fill: none; stroke: oklch(0.88 0.12 82 / 0.62); stroke-width: 1.5; }
   .camera-flare-rays { fill: none; stroke: oklch(0.86 0.13 76 / 0.58); stroke-width: 1.8; stroke-linecap: round; }
-  .page-transition.is-active .camera-flare { animation: lensBurst 0.48s ease-out 1.57s both; }
+  .page-transition[data-kind="gallery"].is-active .transition-camera .camera-flare { animation: lensBurst 0.48s ease-out 1.57s both; }
   .transition-signature { width: clamp(250px, 38vw, 360px); filter: drop-shadow(0 0 22px oklch(0.72 0.12 70 / 0.14)); }
   .signature-text {
     fill: currentColor;
@@ -182,8 +186,8 @@
     clip-path: inset(0 100% 0 0);
   }
   .signature-flourish { stroke-width: 2.2 !important; }
-  .page-transition.is-active .signature-text { animation: revealSignature 1.34s cubic-bezier(0.45,0,0.15,1) 0.25s forwards; }
-  .page-transition.is-active .signature-flourish { animation: drawStroke 0.48s ease-out 1.46s forwards; }
+  .page-transition[data-kind="resume"].is-active .transition-signature .signature-text { animation: revealSignature 1.34s cubic-bezier(0.45,0,0.15,1) 0.25s forwards; }
+  .page-transition[data-kind="resume"].is-active .transition-signature .signature-flourish { animation: drawStroke 0.48s ease-out 1.46s forwards; }
   @keyframes revealSignature { to { clip-path: inset(0 0 0 0); } }
   .brand-tile--company {
     width: 38px;
@@ -1129,6 +1133,7 @@ class Component extends DCLogic {
     clearTimeout(this._transitionSwapT);
     clearTimeout(this._transitionEndT);
     clearTimeout(this._introEndT);
+    cancelAnimationFrame(this._transitionStartRaf);
     clearTimeout(this._resumeResizeTimer);
     cancelAnimationFrame(this._resumeRenderRaf);
     if (this._resumeRenderTask && this._resumeRenderTask.cancel) this._resumeRenderTask.cancel();
@@ -2143,18 +2148,25 @@ class Component extends DCLogic {
         this._transitioning = true;
         overlay.setAttribute('data-kind', p);
         overlay.classList.remove('is-active');
+        overlay.classList.add('is-preparing');
         void overlay.offsetWidth;
-        overlay.classList.add('is-active');
         clearTimeout(this._transitionSwapT);
         clearTimeout(this._transitionEndT);
-        this._transitionSwapT = setTimeout(() => {
-          try { if (location.hash !== '#' + p) location.hash = p; } catch (e) {}
-          this.setState({ page: p, projectSlug: null });
-        }, 2080);
-        this._transitionEndT = setTimeout(() => {
-          overlay.classList.remove('is-active');
-          this._transitioning = false;
-        }, 2490);
+        cancelAnimationFrame(this._transitionStartRaf);
+        this._transitionStartRaf = requestAnimationFrame(() => {
+          this._transitionStartRaf = requestAnimationFrame(() => {
+            overlay.classList.remove('is-preparing');
+            overlay.classList.add('is-active');
+            this._transitionSwapT = setTimeout(() => {
+              try { if (location.hash !== '#' + p) location.hash = p; } catch (e) {}
+              this.setState({ page: p, projectSlug: null });
+            }, 2080);
+            this._transitionEndT = setTimeout(() => {
+              overlay.classList.remove('is-active');
+              this._transitioning = false;
+            }, 2490);
+          });
+        });
         return;
       }
     }
