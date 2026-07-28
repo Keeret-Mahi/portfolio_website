@@ -1559,6 +1559,15 @@ class Component extends DCLogic {
     this._heroVideoFrame.classList.add('is-controls-hidden');
   }
 
+  _dismissHeroVideoControlsFromOutside(event) {
+    if (!this._heroVideoTouchControls || !this._heroVideoHasStarted || !this._heroVideoFrame) return;
+    const target = event && event.target;
+    if (target && this._heroVideoFrame.contains(target)) return;
+    const activeElement = document.activeElement;
+    if (this._heroVideoControls && activeElement && this._heroVideoControls.contains(activeElement) && activeElement.blur) activeElement.blur();
+    this._hideHeroVideoControls(true);
+  }
+
   _pauseHeroVideo(video) {
     if (!video || video.paused) return;
     this._heroVideoProgrammaticPause = true;
@@ -1589,6 +1598,7 @@ class Component extends DCLogic {
     if (this._heroVideoFullscreenButton) this._heroVideoFullscreenButton.removeEventListener('click', this._onHeroVideoFullscreenToggle);
     document.removeEventListener('fullscreenchange', this._onHeroVideoFullscreenChange);
     document.removeEventListener('webkitfullscreenchange', this._onHeroVideoFullscreenChange);
+    document.removeEventListener('pointerdown', this._onHeroVideoOutsidePointerDown, true);
     if (this._heroVideoFrame) {
       this._heroVideoFrame.removeEventListener('pointerenter', this._onHeroVideoPointerMove);
       this._heroVideoFrame.removeEventListener('pointermove', this._onHeroVideoPointerMove);
@@ -1630,6 +1640,7 @@ class Component extends DCLogic {
     this._onHeroVideoFullscreenToggle = null;
     this._onHeroVideoControlsPointerDown = null;
     this._onHeroVideoControlsPointerEnd = null;
+    this._onHeroVideoOutsidePointerDown = null;
     this._heroVideoControlsTimer = null;
     this._heroVideoReturnTimer = null;
   }
@@ -1742,6 +1753,7 @@ class Component extends DCLogic {
         if (this._heroVideoTouchControls && this._heroVideoInView) return;
         this._hideHeroVideoControls(true);
       };
+      this._onHeroVideoOutsidePointerDown = (event) => this._dismissHeroVideoControlsFromOutside(event);
       this._onHeroVideoControlsPointerDown = (event) => {
         if (event && event.pointerType === 'touch') this._heroVideoTouchControls = true;
         this._showHeroVideoControls(false);
@@ -1816,6 +1828,7 @@ class Component extends DCLogic {
       if (this._heroVideoFullscreenButton) this._heroVideoFullscreenButton.addEventListener('click', this._onHeroVideoFullscreenToggle);
       document.addEventListener('fullscreenchange', this._onHeroVideoFullscreenChange);
       document.addEventListener('webkitfullscreenchange', this._onHeroVideoFullscreenChange);
+      document.addEventListener('pointerdown', this._onHeroVideoOutsidePointerDown, { passive: true, capture: true });
       if (this._heroVideoFrame) {
         this._heroVideoFrame.addEventListener('pointerenter', this._onHeroVideoPointerMove);
         this._heroVideoFrame.addEventListener('pointermove', this._onHeroVideoPointerMove);
