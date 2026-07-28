@@ -65,6 +65,18 @@
     from { opacity: 0; transform: translateY(5px); }
     to { opacity: 1; transform: none; }
   }
+  @keyframes raceConfettiFall {
+    0% { opacity: 0; transform: translate3d(0, -28px, 0) rotate(0deg); }
+    7%, 30% { opacity: 1; }
+    34% { opacity: 1; transform: translate3d(var(--confetti-sway), var(--confetti-mid-y), 0) rotate(var(--confetti-mid-turn)); }
+    70% { opacity: 1; transform: translate3d(var(--confetti-late-x), var(--confetti-late-y), 0) rotate(var(--confetti-late-turn)); }
+    100% { opacity: 0; transform: translate3d(var(--confetti-drift), var(--confetti-fall), 0) rotate(var(--confetti-turn)); }
+  }
+  @keyframes raceWinnerGlow {
+    0% { opacity: .35; text-shadow: 0 0 0 transparent; }
+    48% { opacity: 1; text-shadow: 0 0 18px oklch(0.77 0.11 72 / .46); }
+    100% { opacity: 1; text-shadow: 0 0 0 transparent; }
+  }
   @keyframes statProgress { from { transform: scaleX(0); } to { transform: scaleX(1); } }
   @keyframes photoIn {
     from { opacity: 0; transform: translateY(28px) rotate(var(--entry-rotate, 0deg)) scale(0.96); }
@@ -535,7 +547,7 @@
   .nav-toggle.is-open span:nth-child(2) { opacity: 0; }
   .nav-toggle.is-open span:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
   .fact-backdrop { position: fixed; inset: 0; z-index: 110; display: flex; align-items: center; justify-content: center; padding: 22px; background: oklch(0.13 0.008 70 / .86); backdrop-filter: blur(7px); }
-  .fact-card { width: min(860px, 100%); max-height: min(820px, calc(100vh - 44px)); overflow: auto; border: 1px solid oklch(0.36 0.018 70); border-radius: 18px; background: oklch(0.225 0.011 70); box-shadow: 0 28px 90px oklch(0.08 0.008 70 / .55); animation: popIn .35s cubic-bezier(.16,1,.3,1); }
+  .fact-card { position: relative; z-index: 1; width: min(860px, 100%); max-height: min(820px, calc(100vh - 44px)); overflow: auto; border: 1px solid oklch(0.36 0.018 70); border-radius: 18px; background: oklch(0.225 0.011 70); box-shadow: 0 28px 90px oklch(0.08 0.008 70 / .55); animation: popIn .35s cubic-bezier(.16,1,.3,1); }
   .fact-card-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; padding: 22px 24px 18px; border-bottom: 1px solid oklch(0.31 0.01 70); }
   .fact-card-head--race { align-items: center; padding: 16px 22px 17px; }
   .fact-kicker { font-family: 'JetBrains Mono', monospace; font-size: 10.5px; letter-spacing: .1em; color: oklch(0.68 0.08 70); }
@@ -577,6 +589,11 @@
   .race-result-label { margin-top: 5px; color: oklch(0.48 0.005 80); font: 8.5px 'JetBrains Mono', monospace; text-transform: uppercase; letter-spacing: .07em; }
   .race-result-message { margin-top: 14px; color: oklch(0.66 0.005 80); font-size: 12.5px; line-height: 1.5; }
   .race-result-message:empty { display: none; }
+  .race-results.is-winner .race-result-message { color: oklch(0.84 0.11 75); font-weight: 600; animation: raceWinnerGlow .9s ease-out both; }
+  .race-confetti { position: absolute; z-index: 2; inset: 0; overflow: hidden; pointer-events: none; }
+  .race-confetti-piece { position: absolute; top: 0; left: var(--confetti-x); width: var(--confetti-width); height: var(--confetti-height); border-radius: 1.5px; background: var(--confetti-color); box-shadow: 0 0 8px oklch(0.78 0.10 72 / .18); opacity: 0; animation: raceConfettiFall var(--confetti-duration) cubic-bezier(.16,.64,.31,1) var(--confetti-delay) forwards; transform-origin: center; will-change: transform, opacity; }
+  .race-confetti-piece.is-dot { width: 7px; height: 7px; border-radius: 50%; }
+  .race-confetti-piece.is-ribbon { width: 3px; height: 16px; border-radius: 999px; }
   .resume-heading-row { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; margin-bottom: 24px; }
   .resume-actions { display: flex; align-items: center; gap: 9px; flex-shrink: 0; }
   .resume-action { display: inline-flex; align-items: center; justify-content: center; min-height: 46px; padding: 0 19px; border: 1px solid oklch(0.35 0.015 70); border-radius: 10px; color: oklch(0.75 0.025 78); font: 11.5px 'JetBrains Mono', monospace; text-decoration: none; transition: color .2s ease, border-color .2s ease, background .2s ease, transform .2s ease; }
@@ -668,6 +685,10 @@
   @media (pointer: coarse), (prefers-reduced-motion: reduce) {
     .cursor-halo { display: none; }
     .htn-cue { animation: none; opacity: .68; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .race-confetti { display: none; }
+    .race-results.is-winner .race-result-message { animation: none; }
   }
   @media (max-width: 620px) {
     .htn-dock { right: 8px; bottom: 10px; width: 78px; height: 78px; }
@@ -1144,6 +1165,7 @@
           <div class="sky-why">I decided to include this here since astronomy is something I have always been interested in as a child. I love space and often spend nights stargazing looking for planets or satellites. Use the tool above to see what is visible in the sky today! (based in Toronto)</div>
         </sc-if>
       </div>
+      <div class="race-confetti" data-race-confetti aria-hidden="true"></div>
     </div>
   </sc-if>
 
@@ -1274,6 +1296,7 @@ class Component extends DCLogic {
     if (this._resumeRenderTask && this._resumeRenderTask.cancel) this._resumeRenderTask.cancel();
     if (this._resumeLoadingTask && this._resumeLoadingTask.destroy) this._resumeLoadingTask.destroy();
     cancelAnimationFrame(this._raceRaf);
+    this._clearRaceConfetti();
   }
 
   componentDidUpdate() {
@@ -1902,6 +1925,7 @@ class Component extends DCLogic {
 
   _closeFact() {
     cancelAnimationFrame(this._raceRaf);
+    this._clearRaceConfetti();
     this._raceStart = null;
     this._raceFinished = false;
     this.setState({ factCard: null });
@@ -1935,6 +1959,7 @@ class Component extends DCLogic {
 
   _prepareRace() {
     cancelAnimationFrame(this._raceRaf);
+    this._clearRaceConfetti();
     this._raceRunId = (this._raceRunId || 0) + 1;
     this._raceStart = null;
     this._raceFinished = false;
@@ -1983,6 +2008,7 @@ class Component extends DCLogic {
   }
 
   _resetRaceUi() {
+    this._clearRaceConfetti();
     const input = document.querySelector('[data-race-input]');
     if (input) { input.disabled = false; input.value = ''; }
     const timer = document.querySelector('[data-race-time]');
@@ -1991,7 +2017,7 @@ class Component extends DCLogic {
     const status = document.querySelector('[data-race-status]');
     if (status) status.textContent = 'click the words, then start typing.';
     const results = document.querySelector('[data-race-results]');
-    if (results) results.classList.remove('is-visible');
+    if (results) results.classList.remove('is-visible', 'is-winner');
     const wpmEl = document.querySelector('[data-result-wpm]');
     const accuracyEl = document.querySelector('[data-result-accuracy]');
     const rawEl = document.querySelector('[data-result-raw]');
@@ -2156,12 +2182,65 @@ class Component extends DCLogic {
     const accuracyEl = document.querySelector('[data-result-accuracy]');
     const rawEl = document.querySelector('[data-result-raw]');
     const message = document.querySelector('[data-result-message]');
+    const won = stats.wpm > 158;
     if (wpmEl) wpmEl.textContent = String(stats.wpm);
     if (accuracyEl) accuracyEl.textContent = stats.accuracy + '%';
     if (rawEl) rawEl.textContent = String(stats.raw);
-    if (message) message.textContent = stats.wpm > 158 ? 'Congratulations, you beat my typing speed!' : '';
+    if (message) message.textContent = won ? 'Congratulations, you beat my typing speed!' : '';
     const results = document.querySelector('[data-race-results]');
-    if (results) results.classList.add('is-visible');
+    if (results) {
+      results.classList.toggle('is-winner', won);
+      results.classList.add('is-visible');
+    }
+    if (won) this._launchRaceConfetti();
+    else this._clearRaceConfetti();
+  }
+
+  _clearRaceConfetti() {
+    clearTimeout(this._raceConfettiTimer);
+    this._raceConfettiTimer = null;
+    const layer = document.querySelector('[data-race-confetti]');
+    if (layer) layer.textContent = '';
+  }
+
+  _launchRaceConfetti() {
+    this._clearRaceConfetti();
+    const layer = document.querySelector('[data-race-confetti]');
+    if (!layer) return;
+    try {
+      if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    } catch (e) {}
+
+    const palette = ['#f1b86b', '#f7dfae', '#f4eee4', '#bf8c50', '#d8c6a8', '#9f8b72'];
+    const layerHeight = Math.max(layer.clientHeight || window.innerHeight || 0, 520);
+    const pieceCount = window.innerWidth < 640 ? 58 : 84;
+    const fragment = document.createDocumentFragment();
+    for (let index = 0; index < pieceCount; index += 1) {
+      const piece = document.createElement('span');
+      const direction = Math.random() > .5 ? 1 : -1;
+      const drift = direction * (24 + Math.random() * 116);
+      const sway = -drift * .32 + (Math.random() * 34 - 17);
+      const turn = direction * (420 + Math.random() * 720);
+      piece.className = 'race-confetti-piece' + (index % 7 === 0 ? ' is-dot' : (index % 5 === 0 ? ' is-ribbon' : ''));
+      piece.style.setProperty('--confetti-x', (3 + Math.random() * 94).toFixed(2) + '%');
+      piece.style.setProperty('--confetti-width', (4 + Math.random() * 7).toFixed(1) + 'px');
+      piece.style.setProperty('--confetti-height', (5 + Math.random() * 8).toFixed(1) + 'px');
+      piece.style.setProperty('--confetti-color', palette[index % palette.length]);
+      piece.style.setProperty('--confetti-delay', (Math.random() * .62).toFixed(2) + 's');
+      piece.style.setProperty('--confetti-duration', (2.35 + Math.random() * 1.1).toFixed(2) + 's');
+      piece.style.setProperty('--confetti-sway', sway.toFixed(1) + 'px');
+      piece.style.setProperty('--confetti-mid-y', Math.round(layerHeight * .34) + 'px');
+      piece.style.setProperty('--confetti-mid-turn', (turn * .34).toFixed(1) + 'deg');
+      piece.style.setProperty('--confetti-late-x', (drift * .65 - sway * .25).toFixed(1) + 'px');
+      piece.style.setProperty('--confetti-late-y', Math.round(layerHeight * .70) + 'px');
+      piece.style.setProperty('--confetti-late-turn', (turn * .72).toFixed(1) + 'deg');
+      piece.style.setProperty('--confetti-drift', drift.toFixed(1) + 'px');
+      piece.style.setProperty('--confetti-fall', (layerHeight + 54) + 'px');
+      piece.style.setProperty('--confetti-turn', turn.toFixed(1) + 'deg');
+      fragment.appendChild(piece);
+    }
+    layer.appendChild(fragment);
+    this._raceConfettiTimer = setTimeout(() => this._clearRaceConfetti(), 4300);
   }
 
   _resetRace(event) {
