@@ -1152,7 +1152,7 @@
               <div class="sky-selection"><div><div class="sky-selection-name">{{ selectedPlanet.name }}</div><div class="sky-selection-copy">{{ selectedPlanet.description }}</div></div><div class="sky-selection-direction">look {{ selectedPlanet.longDirection }}</div></div>
             </sc-if>
           </div>
-          <div class="sky-why">I decided to include this here since astronomy is something I have always been interested in as a child. I love space and often spend nights stargazing looking for planets or satellites. Use the tool above to see what is visible in the sky today! (based in Toronto)</div>
+          <div class="sky-why">I decided to include this here since I have always been interested in astronomy since a child. I love space and spend nights stargazing, looking for planets or satellites. Use the tool above to see what is visible in the sky today! (Based in Toronto)</div>
         </sc-if>
       </div>
       <canvas class="race-confetti" data-race-confetti aria-hidden="true"></canvas>
@@ -2410,11 +2410,11 @@ class Component extends DCLogic {
       const sunriseEvent = Astronomy.SearchRiseSet(Astronomy.Body.Sun, observer, +1, new Date(sunsetEvent.date.getTime() + 3600000), 1);
       const viewTime = windowName === 'dawn' && sunriseEvent ? new Date(sunriseEvent.date.getTime() - 60 * 60000) : new Date(sunsetEvent.date.getTime() + 30 * 60000);
       const descriptions = {
-        Mercury: 'A small rocky planet close to the horizon—best viewed with an unobstructed sightline.',
-        Venus: 'The brightest planet in our sky, wrapped in reflective clouds that make it easy to spot.',
-        Mars: 'Look for a steady warm-red point of light rather than the twinkle of a star.',
-        Jupiter: 'The solar system’s largest planet; binoculars may reveal its four brightest moons.',
-        Saturn: 'A pale golden planet whose rings become visible through a modest telescope.',
+        Mercury: 'Mercury sits low on the horizon, so a clear, unobstructed view will give you the best chance of spotting it.',
+        Venus: 'Venus is usually the brightest planet in the sky, making it fairly easy to spot.',
+        Mars: 'Mars appears as a steady reddish point of light, which helps distinguish it from nearby stars.',
+        Jupiter: 'Jupiter is one of the brightest objects in the night sky, and binoculars may reveal its four largest moons.',
+        Saturn: 'Saturn has a soft golden colour, and a small telescope may be enough to reveal its rings.',
       };
       const directionNames = ['north', 'northeast', 'east', 'southeast', 'south', 'southwest', 'west', 'northwest'];
       const directionShort = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'];
