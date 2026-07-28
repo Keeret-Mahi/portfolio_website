@@ -414,10 +414,10 @@
   .case-hero-video-frame:not(.has-video-started) .case-video-controls { opacity: 1; transform: translateY(0); pointer-events: auto; }
   .case-hero-video-frame--controls-below .case-video-controls { position: relative; left: auto; right: auto; bottom: auto; box-sizing: border-box; width: 100%; border: 0; border-top: 1px solid oklch(0.38 0.025 70); border-radius: 0; background: oklch(0.16 0.010 70); box-shadow: none; backdrop-filter: none; opacity: 1; transform: none; pointer-events: auto; }
   .case-hero-video-frame--controls-below.is-controls-hidden .case-video-controls { opacity: 1; transform: none; pointer-events: auto; }
-  .case-video-button { height: 28px; border: 1px solid oklch(0.46 0.035 70); border-radius: 7px; background: oklch(0.24 0.016 70); color: oklch(0.84 0.10 70); font: 10px 'JetBrains Mono', monospace; cursor: pointer; transition: border-color .2s ease, background .2s ease, color .2s ease; }
+  .case-video-button { height: 28px; border: 1px solid oklch(0.46 0.035 70); border-radius: 7px; background: oklch(0.24 0.016 70); color: oklch(0.84 0.10 70); font: 10px 'JetBrains Mono', monospace; cursor: pointer; touch-action: manipulation; transition: border-color .2s ease, background .2s ease, color .2s ease; }
   .case-video-button:hover, .case-video-button:focus-visible { border-color: oklch(0.68 0.09 70); background: oklch(0.29 0.025 70); color: oklch(0.93 0.11 75); outline: none; }
   .case-video-toggle { width: 34px; padding: 0; font-size: 12px; }
-  .case-video-youtube { display: inline-flex; width: 34px; height: 28px; align-items: center; justify-content: center; border: 1px solid oklch(0.46 0.035 70); border-radius: 7px; background: oklch(0.24 0.016 70); color: oklch(0.82 0.10 70); transition: border-color .2s ease, background .2s ease, color .2s ease, transform .2s ease; }
+  .case-video-youtube { display: inline-flex; width: 34px; height: 28px; align-items: center; justify-content: center; border: 1px solid oklch(0.46 0.035 70); border-radius: 7px; background: oklch(0.24 0.016 70); color: oklch(0.82 0.10 70); touch-action: manipulation; transition: border-color .2s ease, background .2s ease, color .2s ease, transform .2s ease; }
   .case-video-youtube:hover, .case-video-youtube:focus-visible { border-color: oklch(0.68 0.09 70); background: oklch(0.29 0.025 70); color: oklch(0.93 0.11 75); transform: translateY(-1px); outline: none; }
   .case-video-youtube svg { display: block; width: 18px; height: 18px; }
   .case-video-youtube-play { fill: oklch(0.19 0.010 70); }
@@ -430,7 +430,7 @@
   .case-hero-video-frame:fullscreen .case-video-stage, .case-hero-video-frame:-webkit-full-screen .case-video-stage { width: 100%; max-height: calc(100vh - 58px); flex: 1; aspect-ratio: auto; }
   .case-hero-video-frame:fullscreen .case-video-controls, .case-hero-video-frame:-webkit-full-screen .case-video-controls { left: 18px; right: 18px; bottom: 18px; }
   .case-video-time { color: oklch(0.66 0.008 80); font: 9.5px 'JetBrains Mono', monospace; font-variant-numeric: tabular-nums; white-space: nowrap; }
-  .case-video-progress { --video-progress: 0%; width: 100%; height: 18px; margin: 0; appearance: none; -webkit-appearance: none; background: transparent; cursor: pointer; }
+  .case-video-progress { --video-progress: 0%; width: 100%; height: 18px; margin: 0; appearance: none; -webkit-appearance: none; background: transparent; cursor: pointer; touch-action: pan-y; }
   .case-video-progress::-webkit-slider-runnable-track { height: 4px; border-radius: 999px; background: linear-gradient(to right, oklch(0.75 0.10 70) 0 var(--video-progress), oklch(0.43 0.018 70 / .75) var(--video-progress) 100%); }
   .case-video-progress::-moz-range-track { height: 4px; border-radius: 999px; background: oklch(0.43 0.018 70 / .75); }
   .case-video-progress::-moz-range-progress { height: 4px; border-radius: 999px; background: oklch(0.75 0.10 70); }
@@ -675,6 +675,12 @@
   @media (pointer: coarse), (prefers-reduced-motion: reduce) {
     .cursor-halo { display: none; }
     .htn-cue { animation: none; opacity: .68; }
+  }
+  @media (pointer: coarse) {
+    .case-video-button, .case-video-youtube { height: 32px; }
+    .case-video-progress { height: 28px; }
+    .case-video-progress::-webkit-slider-thumb { width: 17px; height: 17px; margin-top: -6.5px; }
+    .case-video-progress::-moz-range-thumb { width: 15px; height: 15px; }
   }
   @media (prefers-reduced-motion: reduce) {
     .race-confetti { display: none; }
@@ -1527,13 +1533,18 @@ class Component extends DCLogic {
     }
   }
 
+  _scheduleHeroVideoControlsHide(desktopDelay = 1400) {
+    clearTimeout(this._heroVideoControlsTimer);
+    if (!this._heroVideoFrame || !this._heroVideo) return;
+    const delay = this._heroVideoTouchControls ? 4500 : desktopDelay;
+    this._heroVideoControlsTimer = setTimeout(() => this._hideHeroVideoControls(), delay);
+  }
+
   _showHeroVideoControls(autoHide = true) {
     clearTimeout(this._heroVideoControlsTimer);
     if (!this._heroVideoFrame) return;
     this._heroVideoFrame.classList.remove('is-controls-hidden');
-    if (autoHide && this._heroVideo && !this._heroVideo.paused) {
-      this._heroVideoControlsTimer = setTimeout(() => this._hideHeroVideoControls(), 1400);
-    }
+    if (autoHide) this._scheduleHeroVideoControlsHide();
   }
 
   _hideHeroVideoControls(force = false) {
@@ -1586,6 +1597,9 @@ class Component extends DCLogic {
     if (this._heroVideoControls) {
       this._heroVideoControls.removeEventListener('focusin', this._onHeroVideoFocusIn);
       this._heroVideoControls.removeEventListener('focusout', this._onHeroVideoFocusOut);
+      this._heroVideoControls.removeEventListener('pointerdown', this._onHeroVideoControlsPointerDown);
+      this._heroVideoControls.removeEventListener('pointerup', this._onHeroVideoControlsPointerEnd);
+      this._heroVideoControls.removeEventListener('pointercancel', this._onHeroVideoControlsPointerEnd);
     }
     window.removeEventListener('scroll', this._onHeroVideoScroll);
     if (this._heroVideoProgress) {
@@ -1608,11 +1622,14 @@ class Component extends DCLogic {
     this._heroVideoPendingSeekPercent = null;
     this._heroVideoHasStarted = false;
     this._heroVideoStartsAutomatically = false;
+    this._heroVideoTouchControls = false;
     this._onHeroVideoCanPlay = null;
     this._onHeroVideoVolumeChange = null;
     this._onHeroVideoEnded = null;
     this._onHeroVideoFullscreenChange = null;
     this._onHeroVideoFullscreenToggle = null;
+    this._onHeroVideoControlsPointerDown = null;
+    this._onHeroVideoControlsPointerEnd = null;
     this._heroVideoControlsTimer = null;
     this._heroVideoReturnTimer = null;
   }
@@ -1634,6 +1651,7 @@ class Component extends DCLogic {
       this._heroVideoHasStarted = false;
       this._heroVideoPendingSeekPercent = null;
       this._heroVideoStartsAutomatically = video.dataset.autoplay === 'true';
+      this._heroVideoTouchControls = !!((window.matchMedia && window.matchMedia('(pointer: coarse)').matches) || (typeof navigator !== 'undefined' && navigator.maxTouchPoints > 0));
       this._heroVideoAllowAutoPlay = this._heroVideoStartsAutomatically;
       video.autoplay = this._heroVideoStartsAutomatically;
       video.loop = video.dataset.loop === 'true';
@@ -1648,8 +1666,7 @@ class Component extends DCLogic {
         this._updateHeroVideoControls(video);
         if (this._heroVideoStartsAutomatically) {
           this._showHeroVideoControls(false);
-          clearTimeout(this._heroVideoControlsTimer);
-          this._heroVideoControlsTimer = setTimeout(() => this._hideHeroVideoControls(true), 2500);
+          this._scheduleHeroVideoControlsHide(2500);
         }
       };
       this._onHeroVideoPlaying = () => {
@@ -1697,8 +1714,7 @@ class Component extends DCLogic {
           this._heroVideoHasStarted = true;
           if (this._heroVideoFrame) this._heroVideoFrame.classList.add('has-video-started');
           this._showHeroVideoControls(false);
-          clearTimeout(this._heroVideoControlsTimer);
-          this._heroVideoControlsTimer = setTimeout(() => this._hideHeroVideoControls(true), 2500);
+          this._scheduleHeroVideoControlsHide(2500);
           this._heroVideoAllowAutoPlay = true;
           this._playHeroVideo(video);
         } else {
@@ -1706,11 +1722,34 @@ class Component extends DCLogic {
           video.pause();
         }
       };
-      this._onHeroVideoPointerMove = () => this._showHeroVideoControls(true);
-      this._onHeroVideoPointerLeave = () => this._hideHeroVideoControls(this._heroVideoHasStarted);
+      this._onHeroVideoPointerMove = (event) => {
+        const isTouch = !!event && event.pointerType === 'touch';
+        if (isTouch) this._heroVideoTouchControls = true;
+        if (isTouch && this._heroVideoFrame && this._heroVideoFrame.classList.contains('is-controls-hidden')) return;
+        this._showHeroVideoControls(true);
+      };
+      this._onHeroVideoPointerLeave = (event) => {
+        const isTouch = (!!event && event.pointerType === 'touch') || this._heroVideoTouchControls;
+        if (isTouch) {
+          if (this._heroVideoFrame && !this._heroVideoFrame.classList.contains('is-controls-hidden')) this._showHeroVideoControls(true);
+          return;
+        }
+        this._hideHeroVideoControls(this._heroVideoHasStarted);
+      };
       this._onHeroVideoFocusIn = () => this._showHeroVideoControls(false);
       this._onHeroVideoFocusOut = () => this._showHeroVideoControls(true);
-      this._onHeroVideoScroll = () => this._hideHeroVideoControls(true);
+      this._onHeroVideoScroll = () => {
+        if (this._heroVideoTouchControls && this._heroVideoInView) return;
+        this._hideHeroVideoControls(true);
+      };
+      this._onHeroVideoControlsPointerDown = (event) => {
+        if (event && event.pointerType === 'touch') this._heroVideoTouchControls = true;
+        this._showHeroVideoControls(false);
+      };
+      this._onHeroVideoControlsPointerEnd = (event) => {
+        if (event && event.pointerType === 'touch') this._heroVideoTouchControls = true;
+        this._showHeroVideoControls(true);
+      };
       this._onHeroVideoSeekStart = () => { this._heroVideoSeeking = true; this._showHeroVideoControls(false); };
       this._onHeroVideoSeek = () => {
         this._prepareHeroVideo(video);
@@ -1785,6 +1824,9 @@ class Component extends DCLogic {
       if (this._heroVideoControls) {
         this._heroVideoControls.addEventListener('focusin', this._onHeroVideoFocusIn);
         this._heroVideoControls.addEventListener('focusout', this._onHeroVideoFocusOut);
+        this._heroVideoControls.addEventListener('pointerdown', this._onHeroVideoControlsPointerDown);
+        this._heroVideoControls.addEventListener('pointerup', this._onHeroVideoControlsPointerEnd);
+        this._heroVideoControls.addEventListener('pointercancel', this._onHeroVideoControlsPointerEnd);
       }
       window.addEventListener('scroll', this._onHeroVideoScroll, { passive: true });
       if (this._heroVideoProgress) {
