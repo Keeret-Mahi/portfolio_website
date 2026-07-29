@@ -207,11 +207,38 @@
   }
   @keyframes htnFill { to { fill-opacity: 1; stroke-opacity: .28; } }
   @keyframes htnCueBreathe { 0%, 100% { opacity: .52; transform: translateX(0); } 50% { opacity: .88; transform: translateX(3px); } }
+  @keyframes htnHomeCueFloat { 0%, 100% { opacity: .9; transform: translate3d(0,0,0); } 50% { opacity: 1; transform: translate3d(0,-3px,0); } }
+  @keyframes htnHomeTextCall {
+    0%, 100% { transform: translateY(0) scale(1); letter-spacing: .13em; }
+    12% { transform: translateY(-6px) scale(1.06); letter-spacing: .16em; }
+    22% { transform: translateY(1px) scale(.99); letter-spacing: .13em; }
+    31%, 82% { transform: translateY(0) scale(1); letter-spacing: .13em; }
+  }
+  @keyframes htnHomeArrowDraw {
+    0%, 18% { opacity: 0; stroke-dashoffset: 1; }
+    25% { opacity: 1; }
+    55%, 82% { opacity: 1; stroke-dashoffset: 0; }
+    100% { opacity: 0; stroke-dashoffset: 0; }
+  }
+  @keyframes htnHomeUnderline { 0%, 7%, 100% { opacity: .2; transform: scaleX(.18); } 20%, 82% { opacity: 1; transform: scaleX(1); } }
+  @keyframes htnHomeTargetPulse {
+    0%, 53% { opacity: 0; transform: scale(.72); }
+    64% { opacity: .82; transform: scale(1); }
+    86%, 100% { opacity: 0; transform: scale(1.48); }
+  }
   .htn-dock { position: fixed; z-index: 88; right: clamp(14px, 2.8vw, 28px); bottom: clamp(14px, 2.8vw, 26px); width: 88px; height: 88px; }
   .htn-cue { position: absolute; right: 72px; bottom: 46px; display: flex; align-items: center; gap: 8px; width: max-content; color: oklch(0.68 0.045 72); pointer-events: none; animation: htnCueBreathe 2.8s ease-in-out infinite; }
   .htn-cue span { font: 12px 'JetBrains Mono', monospace; letter-spacing: .08em; text-transform: uppercase; white-space: nowrap; }
   .htn-cue svg { width: 54px; height: 24px; overflow: visible; }
   .htn-cue path { fill: none; stroke: currentColor; stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; }
+  .htn-cue-arrow-home { display: none; }
+  .htn-cue--home { right: -2px; bottom: 45px; display: block; width: 240px; height: 124px; color: oklch(0.82 0.12 75); filter: drop-shadow(0 0 13px oklch(0.72 0.11 72 / .24)); animation: htnHomeCueFloat 2.9s cubic-bezier(.45,0,.2,1) infinite; }
+  .htn-cue--home::before { content: ''; position: absolute; left: -17px; top: -9px; width: 135px; height: 57px; border-radius: 50%; background: radial-gradient(ellipse, oklch(0.69 0.10 72 / .2), transparent 70%); }
+  .htn-cue--home span { position: absolute; z-index: 1; left: 0; top: 4px; color: oklch(0.93 0.13 78); font-size: 15px; font-weight: 500; letter-spacing: .13em; text-shadow: 0 0 17px oklch(0.76 0.12 75 / .42); transform-origin: center; animation: htnHomeTextCall 2.9s cubic-bezier(.45,0,.2,1) infinite; }
+  .htn-cue--home span::after { content: ''; position: absolute; left: 1px; right: 1px; bottom: -7px; height: 2px; border-radius: 99px; background: linear-gradient(90deg, transparent, currentColor 12% 88%, transparent); transform-origin: center; animation: htnHomeUnderline 2.9s ease-in-out infinite; }
+  .htn-cue--home .htn-cue-arrow-default { display: none; }
+  .htn-cue--home .htn-cue-arrow-home { position: absolute; right: 0; top: 2px; display: block; width: 118px; height: 108px; overflow: visible; }
+  .htn-cue--home .htn-cue-arrow-home path { stroke-width: 2.2; stroke-dasharray: 1; stroke-dashoffset: 1; filter: drop-shadow(0 0 5px oklch(0.8 0.12 75 / .4)); animation: htnHomeArrowDraw 2.9s cubic-bezier(.45,0,.2,1) infinite; }
   .htn-trigger { position: relative; display: grid; place-items: center; width: 88px; height: 88px; padding: 7px; border: 0; border-radius: 50%; background: transparent; color: oklch(0.76 0.105 72); cursor: pointer; filter: drop-shadow(0 10px 20px oklch(0.08 0.008 70 / .46)); transition: transform .42s cubic-bezier(.16,1,.3,1), color .28s ease, filter .28s ease; }
   .htn-trigger::before { content: ''; position: absolute; inset: 4px; border-radius: 50%; background: radial-gradient(circle, oklch(0.68 0.08 72 / .13), transparent 68%); opacity: .7; transform: scale(.88); transition: opacity .3s ease, transform .4s cubic-bezier(.16,1,.3,1); }
   .htn-trigger:hover, .htn-trigger:focus-visible { transform: translateY(-5px) scale(1.055); color: oklch(0.91 0.13 78); filter: drop-shadow(0 15px 28px oklch(0.08 0.008 70 / .55)) drop-shadow(0 0 17px oklch(0.72 0.10 72 / .2)); outline: none; }
@@ -219,6 +246,7 @@
   .htn-trigger svg { position: relative; display: block; width: 64px; height: 61px; overflow: visible; }
   .htn-trigger path { fill: currentColor; transform-box: fill-box; transform-origin: center; transition: transform .7s cubic-bezier(.16,1,.3,1); }
   .htn-trigger:hover path, .htn-trigger:focus-visible path { transform: rotate(8deg) scale(1.045); }
+  .htn-dock--home .htn-trigger::after { content: ''; position: absolute; inset: 5px; border: 1.5px solid oklch(0.82 0.12 75 / .66); border-radius: 50%; pointer-events: none; opacity: 0; transform: scale(.72); animation: htnHomeTargetPulse 2.9s cubic-bezier(.16,1,.3,1) infinite; }
   .htn-transition { position: fixed; inset: 0; z-index: 130; display: grid; place-items: center; visibility: hidden; opacity: 0; pointer-events: none; background: radial-gradient(circle at 50% 48%, oklch(0.27 0.035 70), oklch(0.155 0.01 70) 48%, oklch(0.12 0.008 70)); color: oklch(0.82 0.11 72); }
   .htn-transition.is-preparing { visibility: visible; opacity: 0; }
   .htn-transition.is-active { visibility: visible; animation: htnVeil 3.25s cubic-bezier(.4,0,.2,1) both; }
@@ -684,7 +712,10 @@
   }
   @media (pointer: coarse), (prefers-reduced-motion: reduce) {
     .cursor-halo { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
     .htn-cue { animation: none; opacity: .68; }
+    .htn-cue--home span, .htn-cue--home span::after, .htn-cue--home .htn-cue-arrow-home path, .htn-dock--home .htn-trigger::after { animation: none; }
   }
   @media (pointer: coarse) {
     .case-video-button, .case-video-youtube { height: 32px; }
@@ -703,6 +734,9 @@
     .htn-cue { right: 63px; bottom: 42px; gap: 6px; }
     .htn-cue span { font-size: 10.5px; }
     .htn-cue svg { width: 45px; }
+    .htn-cue--home { right: -2px; bottom: 38px; width: 210px; height: 116px; }
+    .htn-cue--home span { top: 5px; font-size: 13px; }
+    .htn-cue--home .htn-cue-arrow-home { right: 0; top: 3px; width: 104px; height: 102px; }
     .htn-backdrop { padding: 12px; }
     .htn-panel { padding: 24px 18px 19px; border-radius: 19px; max-height: calc(100vh - 24px); }
     .htn-panel-title { margin-top: 10px; }
@@ -809,10 +843,11 @@
   </div>
 
   <sc-if value="{{ showHackTheNorth }}" hint-placeholder-val="{{ false }}">
-    <div class="htn-dock">
-      <div class="htn-cue" aria-hidden="true">
+    <div class="htn-dock {{ htnDockClass }}">
+      <div class="htn-cue {{ htnCueClass }}" aria-hidden="true">
         <span>click here</span>
-        <svg viewBox="0 0 43 19"><path d="M1 3 C13 3 20 7 31 14 M27 8 L32 14 L24 16"/></svg>
+        <svg class="htn-cue-arrow-default" viewBox="0 0 43 19"><path d="M1 3 C13 3 20 7 31 14 M27 8 L32 14 L24 16"/></svg>
+        <svg class="htn-cue-arrow-home" viewBox="0 0 118 108"><path pathLength="1" d="M4 10 C43 7 77 23 88 47 C94 59 92 68 82 74 M73 64 L82 75 L97 68"/></svg>
       </div>
       <button class="htn-trigger" type="button" onClick="{{ openHackTheNorth }}" aria-label="Open Hack the North highlights" title="Hack the North highlights">
         <svg viewBox="0 0 55 52" aria-hidden="true">
@@ -1294,6 +1329,7 @@ class Component extends DCLogic {
     clearTimeout(this._transitionSwapT);
     clearTimeout(this._transitionEndT);
     clearTimeout(this._introEndT);
+    clearTimeout(this._htnTransitionSwapT);
     clearTimeout(this._htnTransitionEndT);
     cancelAnimationFrame(this._transitionStartRaf);
     cancelAnimationFrame(this._htnTransitionStartRaf);
@@ -2588,16 +2624,19 @@ class Component extends DCLogic {
     overlay.classList.remove('is-active');
     overlay.classList.add('is-preparing');
     void overlay.offsetWidth;
+    clearTimeout(this._htnTransitionSwapT);
     clearTimeout(this._htnTransitionEndT);
     cancelAnimationFrame(this._htnTransitionStartRaf);
     this._htnTransitionStartRaf = requestAnimationFrame(() => {
       this._htnTransitionStartRaf = requestAnimationFrame(() => {
         overlay.classList.remove('is-preparing');
         overlay.classList.add('is-active');
+        this._htnTransitionSwapT = setTimeout(() => {
+          this.setState({ hackTheNorthMenuOpen: true });
+        }, 2780);
         this._htnTransitionEndT = setTimeout(() => {
           overlay.classList.remove('is-active');
           this._transitioning = false;
-          this.setState({ hackTheNorthMenuOpen: true });
         }, 3250);
       });
     });
@@ -3265,6 +3304,8 @@ class Component extends DCLogic {
     return {
       nav,
       showHackTheNorth: true,
+      htnCueClass: page === 'about' ? 'htn-cue--home' : '',
+      htnDockClass: page === 'about' ? 'htn-dock--home' : '',
       hackTheNorthMenuOpen: !!this.state.hackTheNorthMenuOpen,
       openHackTheNorth: (event) => this._openHackTheNorth(event),
       closeHackTheNorthMenu: () => this._closeHackTheNorthMenu(),
