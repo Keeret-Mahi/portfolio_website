@@ -16,6 +16,13 @@ const pages = [
 const fail = (message) => { throw new Error(message); };
 const rootHtml = await readFile(join(root, 'index.html'), 'utf8');
 const resumePdfUrl = '/assets/Keeret%20Mahi%20Resume%20%28Portfolio%29.pdf';
+const faviconLinks = [
+  '<link rel="icon" type="image/svg+xml" sizes="any" href="/favicon.svg">',
+  '<link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">',
+  '<link rel="icon" type="image/png" sizes="32x32" href="/images/title-images/title-image-32.png">',
+  '<link rel="shortcut icon" href="/favicon.ico">',
+  '<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">',
+];
 const rootAppTemplate = rootHtml.match(/<x-dc hidden aria-hidden="true" data-nosnippet>[\s\S]*?<\/x-dc>/)?.[0];
 if (!rootAppTemplate) fail('index.html: missing interactive application template');
 
@@ -25,6 +32,10 @@ for (const [file, title, canonical] of pages) {
   if (!html.includes(`<title>${title}</title>`)) fail(`${file}: incorrect title`);
   if (!html.includes(`<link rel="canonical" href="${canonical}">`)) fail(`${file}: incorrect canonical URL`);
   if (!html.includes('<meta name="robots" content="index, follow, max-image-preview:large">')) fail(`${file}: missing indexing directive`);
+  for (const faviconLink of faviconLinks) {
+    if (!html.includes(faviconLink)) fail(`${file}: missing current favicon reference ${faviconLink}`);
+  }
+  if (html.includes('href="./favicon.svg"')) fail(`${file}: favicon URL is route-relative`);
   if (!html.includes('<template id="portfolio-app-template">')) fail(`${file}: interactive template is not isolated from static readers`);
   if (!html.includes('<x-dc hidden aria-hidden="true" data-nosnippet>')) fail(`${file}: raw client template is not hidden from static readers`);
   if (!html.includes(`pdfjs.getDocument('${resumePdfUrl}')`)) fail(`${file}: resume viewer does not use the root-relative PDF URL`);
@@ -50,6 +61,18 @@ for (const [file, title, canonical] of pages) {
 
 const resumePdf = await readFile(join(root, 'assets/Keeret Mahi Resume (Portfolio).pdf'));
 if (resumePdf.subarray(0, 5).toString() !== '%PDF-') fail('resume PDF asset is missing or invalid');
+
+const pngIcons = [
+  'favicon-48x48.png',
+  'apple-touch-icon.png',
+  'images/title-images/title-image-32.png',
+];
+for (const icon of pngIcons) {
+  const contents = await readFile(join(root, icon));
+  if (contents.subarray(1, 4).toString() !== 'PNG') fail(`${icon}: favicon asset is missing or invalid`);
+}
+const ico = await readFile(join(root, 'favicon.ico'));
+if (!ico.subarray(0, 4).equals(Buffer.from([0, 0, 1, 0]))) fail('favicon.ico: favicon asset is missing or invalid');
 
 const componentSource = rootHtml.match(/<script type="text\/x-dc"[^>]*>([\s\S]*?)<\/script>/)?.[1];
 class TestLogic {
