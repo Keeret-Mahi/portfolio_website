@@ -4,7 +4,7 @@ Computer Science and Business student exploring the intersection of software, de
 
 ## Resume document
 
-- [Open Keeret Mahi's resume as a PDF](../assets/Keeret%20Mahi%20Resume%20%28Portfolio%29.pdf)
+- [Open Keeret Mahi's resume as a PDF](/assets/Keeret%20Mahi%20Resume%20%28Portfolio%29.pdf)
 - [View experience and education as text](/experience/)
 
 ## Education

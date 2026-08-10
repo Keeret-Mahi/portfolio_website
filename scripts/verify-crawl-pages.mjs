@@ -15,6 +15,7 @@ const pages = [
 
 const fail = (message) => { throw new Error(message); };
 const rootHtml = await readFile(join(root, 'index.html'), 'utf8');
+const resumePdfUrl = '/assets/Keeret%20Mahi%20Resume%20%28Portfolio%29.pdf';
 const rootAppTemplate = rootHtml.match(/<x-dc hidden aria-hidden="true" data-nosnippet>[\s\S]*?<\/x-dc>/)?.[0];
 if (!rootAppTemplate) fail('index.html: missing interactive application template');
 
@@ -26,6 +27,8 @@ for (const [file, title, canonical] of pages) {
   if (!html.includes('<meta name="robots" content="index, follow, max-image-preview:large">')) fail(`${file}: missing indexing directive`);
   if (!html.includes('<template id="portfolio-app-template">')) fail(`${file}: interactive template is not isolated from static readers`);
   if (!html.includes('<x-dc hidden aria-hidden="true" data-nosnippet>')) fail(`${file}: raw client template is not hidden from static readers`);
+  if (!html.includes(`pdfjs.getDocument('${resumePdfUrl}')`)) fail(`${file}: resume viewer does not use the root-relative PDF URL`);
+  if (html.includes("pdfjs.getDocument('./assets/")) fail(`${file}: resume viewer can resolve the PDF beneath a clean route and return 404`);
   const appTemplate = html.match(/<x-dc hidden aria-hidden="true" data-nosnippet>[\s\S]*?<\/x-dc>/)?.[0];
   if (appTemplate !== rootAppTemplate) fail(`${file}: interactive application differs from the homepage`);
 
@@ -44,6 +47,9 @@ for (const [file, title, canonical] of pages) {
   jsonLd.forEach((match) => JSON.parse(match[1]));
   if (file !== 'index.html' && !html.includes('<script id="route-structured-data" type="application/ld+json">')) fail(`${file}: missing route-specific structured data`);
 }
+
+const resumePdf = await readFile(join(root, 'assets/Keeret Mahi Resume (Portfolio).pdf'));
+if (resumePdf.subarray(0, 5).toString() !== '%PDF-') fail('resume PDF asset is missing or invalid');
 
 const componentSource = rootHtml.match(/<script type="text\/x-dc"[^>]*>([\s\S]*?)<\/script>/)?.[1];
 class TestLogic {
