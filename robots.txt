@@ -1,13 +1,21 @@
 User-agent: OAI-SearchBot
 Allow: /
+Disallow: /hackthenorth
+Disallow: /?hackthenorth=1
 
 User-agent: ChatGPT-User
 Allow: /
+Disallow: /hackthenorth
+Disallow: /?hackthenorth=1
 
 User-agent: GPTBot
-Disallow: /
+Allow: /
+Disallow: /hackthenorth
+Disallow: /?hackthenorth=1
 
 User-agent: *
 Allow: /
+Disallow: /hackthenorth
+Disallow: /?hackthenorth=1
 
 Sitemap: https://keeretmahi.com/sitemap.xml
