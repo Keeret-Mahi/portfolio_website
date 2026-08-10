@@ -1,13 +1,19 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="CS + Business student exploring the intersection of software, design, and business.">
+<meta name="robots" content="index, follow, max-image-preview:large">
 <meta name="theme-color" content="#181915">
 <title>Keeret Mahi</title>
 <base href="/">
 <link rel="canonical" href="https://keeretmahi.com/">
+<link rel="sitemap" type="application/xml" href="https://keeretmahi.com/sitemap.xml">
+<link rel="alternate" type="text/plain" title="AI-readable portfolio index" href="https://keeretmahi.com/llms.txt">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Allura&family=Fraunces:opsz,wght,SOFT,WONK@9..144,400..650,0..100,0..1&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="icon" type="image/svg+xml" href="./favicon.svg">
 <link rel="icon" type="image/png" sizes="180x180" href="https://keeretmahi.com/apple-touch-icon.png">
 <link rel="apple-touch-icon" sizes="180x180" href="https://keeretmahi.com/apple-touch-icon.png">
@@ -19,16 +25,110 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Keeret Mahi">
 <meta name="twitter:description" content="CS + Business student exploring the intersection of software, design, and business.">
-<style>html,body{min-height:100%;margin:0;background:#181915;color-scheme:dark}</style>
+<script>document.documentElement.classList.add('js');</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://keeretmahi.com/#website",
+      "url": "https://keeretmahi.com/",
+      "name": "Keeret Mahi",
+      "description": "CS + Business student exploring the intersection of software, design, and business.",
+      "author": { "@id": "https://keeretmahi.com/#person" }
+    },
+    {
+      "@type": "Person",
+      "@id": "https://keeretmahi.com/#person",
+      "name": "Keeret Mahi",
+      "url": "https://keeretmahi.com/",
+      "email": "mailto:keeretmahi@gmail.com",
+      "description": "Computer Science and Business student at the University of Waterloo and Wilfrid Laurier University, interested in software, design, AI, hardware, and business.",
+      "sameAs": [
+        "https://github.com/Keeret-Mahi",
+        "https://www.linkedin.com/in/keeret-mahi/"
+      ],
+      "affiliation": [
+        { "@type": "CollegeOrUniversity", "name": "University of Waterloo" },
+        { "@type": "CollegeOrUniversity", "name": "Wilfrid Laurier University" }
+      ],
+      "knowsAbout": ["Software engineering", "Artificial intelligence", "Product design", "Business", "Hardware", "Calendar systems"]
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://keeretmahi.com/projects/goose-calendar/#project",
+      "name": "gooseCalendar",
+      "url": "https://goosecalendar.com/",
+      "applicationCategory": "EducationalApplication",
+      "operatingSystem": "Web",
+      "description": "A web app that turns course outlines into clean, reviewable calendar events for Google Calendar or .ics export.",
+      "image": "https://keeretmahi.com/assets/images/goose-calendar/hero-image.png",
+      "codeRepository": "https://github.com/Keeret-Mahi/gooseCalendar",
+      "author": { "@id": "https://keeretmahi.com/#person" }
+    },
+    {
+      "@type": "CreativeWork",
+      "@id": "https://keeretmahi.com/projects/cnc-plotter/#project",
+      "name": "GCode Plotter",
+      "url": "https://keeretmahi.com/projects/cnc-plotter/",
+      "description": "A pen plotter that reads GCode and turns vector paths into coordinated physical drawings.",
+      "image": "https://keeretmahi.com/assets/images/cnc-plotter/hero2-cncplotter.jpg",
+      "author": { "@id": "https://keeretmahi.com/#person" }
+    }
+  ]
+}
+</script>
+<style>
+html,body{min-height:100%;margin:0;background:#181915;color-scheme:dark}
+.js .crawl-fallback{display:none!important}
+.crawl-fallback{max-width:760px;margin:0 auto;padding:64px 24px 80px;color:#d7d3cc;font:16px/1.65 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+.crawl-fallback h1,.crawl-fallback h2,.crawl-fallback h3{color:#f4f1eb;font-family:Georgia,serif;line-height:1.15}
+.crawl-fallback h1{font-size:44px;margin:0 0 12px}.crawl-fallback h2{margin-top:42px}.crawl-fallback a{color:#e5b96f}.crawl-fallback nav{display:flex;flex-wrap:wrap;gap:10px 18px;margin:28px 0}.crawl-fallback code,.crawl-fallback pre{white-space:pre-wrap;color:#d9b277}.crawl-fallback img{max-width:100%;height:auto}
+</style>
 <script src="./support.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/astronomy-engine@2.1.19/astronomy.browser.min.js"></script>
 </head>
 <body>
-<x-dc>
+<!-- CRAWL_FALLBACK_START -->
+<main class="crawl-fallback">
+  <nav aria-label="Portfolio pages">
+    <a href="/">About</a>
+    <a href="/projects/">Projects</a>
+    <a href="/experience/">Experience</a>
+    <a href="/resume/">Resume</a>
+    <a href="/gallery/">Gallery</a>
+  </nav>
+  <h1>Keeret Mahi</h1>
+  <p>CS + Business student exploring the intersection of software, design, and business.</p>
+  <p>Keeret Mahi is studying Computer Science at the University of Waterloo and Business Administration at Wilfrid Laurier University. He is interested in software engineering, artificial intelligence, product design, hardware, and the business decisions behind useful products.</p>
+  <h2>Currently</h2>
+  <p>AI Enablement at Constellation Software, Jonas Division.</p>
+  <h2>Education</h2>
+  <ul>
+  <li>B.CS, Computer Science - University of Waterloo, 2024-2029</li>
+  <li>BBA, Business Administration - Wilfrid Laurier University, 2024-2029</li>
+  </ul>
+  <h2>Selected projects</h2>
+  <ul>
+  <li><a href="/projects/goose-calendar/">gooseCalendar</a> - A web app that turns course outlines into clean, reviewable calendar events students can export to Google Calendar or an .ics file.</li>
+  <li><a href="/projects/cnc-plotter/">GCode Plotter</a> - A pen plotter that reads GCode and turns vector paths into coordinated physical drawings.</li>
+  </ul>
+  <h2>Interests</h2>
+  <p>Keeret enjoys astronomy and often spends nights stargazing for planets and satellites. He also types at 158 WPM and includes an interactive typing challenge on the portfolio homepage.</p>
+  <h2>Contact</h2>
+  <ul>
+  <li>Website: https://keeretmahi.com</li>
+  <li>GitHub: https://github.com/Keeret-Mahi</li>
+  <li>LinkedIn: https://www.linkedin.com/in/keeret-mahi/</li>
+  <li>Email: keeretmahi@gmail.com</li>
+  </ul>
+  <p><a href="/llms.txt">Machine-readable portfolio index</a></p>
+</main>
+<!-- CRAWL_FALLBACK_END -->
+<template id="portfolio-app-template">
+<x-dc hidden aria-hidden="true" data-nosnippet>
 <helmet>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Allura&family=Fraunces:opsz,wght,SOFT,WONK@9..144,400..650,0..100,0..1&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   * { box-sizing: border-box; }
   body { margin: 0; }
@@ -1234,47 +1334,181 @@
   </sc-if>
 </div>
 </x-dc>
+</template>
+<script>
+{
+  const appTemplate = document.getElementById('portfolio-app-template');
+  if (appTemplate) {
+    document.body.appendChild(appTemplate.content);
+    appTemplate.remove();
+  }
+}
+</script>
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;: {&quot;width&quot;: 1080, &quot;height&quot;: 1000}}">
 class Component extends DCLogic {
-  state = { page: 'about', projectSlug: null, lightbox: null, showPeople: false, statIndex: 0, menuOpen: false, factCard: null, raceSeed: 0, skySelection: null, skyWindow: 'evening', projectWriteups: {}, hackTheNorthAccess: false, hackTheNorthMenuOpen: false };
-
-  componentDidMount() {
+  _routeFromLocation() {
     const valid = ['about', 'projects', 'experience', 'resume', 'gallery'];
-    let hackTheNorthEntry = false;
+    let page = 'about';
+    let projectSlug = null;
+    let hackTheNorthAccess = false;
     try {
       const normalizedPath = (location.pathname || '').replace(/\/+$/, '') || '/';
       const entryQuery = new URLSearchParams(location.search || '').get('hackthenorth') === '1';
-      hackTheNorthEntry = normalizedPath === '/hackthenorth' || entryQuery;
-      if (hackTheNorthEntry) {
-        this.state.hackTheNorthAccess = true;
-        const entryHash = location.hash || '#project/goose-calendar';
-        if (history && history.replaceState) history.replaceState(null, '', '/hackthenorth/' + entryHash);
+      hackTheNorthAccess = normalizedPath === '/hackthenorth' || entryQuery;
+      const cleanProjectRoutes = {
+        '/projects/goose-calendar': 'goose-calendar',
+        '/projects/cnc-plotter': 'cnc-plotter',
+      };
+      if (cleanProjectRoutes[normalizedPath]) {
+        page = 'projects';
+        projectSlug = cleanProjectRoutes[normalizedPath];
+      } else if (normalizedPath === '/projects') {
+        page = 'projects';
+      } else if (normalizedPath === '/experience') {
+        page = 'experience';
+      } else if (normalizedPath === '/resume') {
+        page = 'resume';
+      } else if (normalizedPath === '/gallery') {
+        page = 'gallery';
       }
       const fromHash = (location.hash || '').replace('#', '');
       const routeHash = fromHash === 'writing' ? 'resume' : fromHash;
       if (routeHash.indexOf('project/') === 0) {
-        this.state.page = 'projects';
-        this.state.projectSlug = routeHash.slice(8);
+        page = 'projects';
+        projectSlug = routeHash.slice(8);
       } else if (valid.includes(routeHash)) {
-        this.state.page = routeHash;
-        this.state.projectSlug = null;
+        page = routeHash;
+        projectSlug = null;
+      } else if (hackTheNorthAccess && !routeHash) {
+        page = 'projects';
+        projectSlug = 'goose-calendar';
+      }
+    } catch (e) {}
+    return { page, projectSlug, hackTheNorthAccess };
+  }
+
+  _cleanRoutePath(page, projectSlug) {
+    if (page === 'projects' && projectSlug === 'goose-calendar') return '/projects/goose-calendar/';
+    if (page === 'projects' && projectSlug === 'cnc-plotter') return '/projects/cnc-plotter/';
+    if (page === 'projects') return '/projects/';
+    if (page === 'experience') return '/experience/';
+    if (page === 'resume') return '/resume/';
+    if (page === 'gallery') return '/gallery/';
+    return '/';
+  }
+
+  _routeHash(page, projectSlug) {
+    if (page === 'projects' && projectSlug) return 'project/' + projectSlug;
+    return page || 'about';
+  }
+
+  _routeMeta(page, projectSlug) {
+    if (page === 'projects' && projectSlug === 'goose-calendar') return {
+      title: 'gooseCalendar | Keeret Mahi',
+      description: 'How Keeret Mahi built gooseCalendar to turn course outlines into clean, reviewable calendar events.',
+      type: 'article',
+      schemaType: 'TechArticle',
+      image: 'https://keeretmahi.com/assets/images/goose-calendar/hero-image.png',
+    };
+    if (page === 'projects' && projectSlug === 'cnc-plotter') return {
+      title: 'GCode Plotter | Keeret Mahi',
+      description: 'How Keeret Mahi built a GCode pen plotter that converts vector paths into coordinated physical drawings.',
+      type: 'article',
+      schemaType: 'TechArticle',
+      image: 'https://keeretmahi.com/assets/images/cnc-plotter/hero2-cncplotter.jpg',
+    };
+    const pages = {
+      about: ['Keeret Mahi', 'CS + Business student exploring the intersection of software, design, and business.', null],
+      projects: ['Projects | Keeret Mahi', 'Software and hardware projects designed and built by Keeret Mahi, including gooseCalendar and the GCode Plotter.', 'CollectionPage'],
+      experience: ['Experience | Keeret Mahi', 'Professional experience, leadership, and education from Keeret Mahi.', 'ProfilePage'],
+      resume: ['Resume | Keeret Mahi', 'Resume, education, selected experience, and projects from Keeret Mahi.', 'ProfilePage'],
+      gallery: ['Gallery | Keeret Mahi', 'Milestones from Keeret Mahi including his valedictorian address, DECA, graduation, and case competitions.', 'CollectionPage'],
+    };
+    const meta = pages[page] || pages.about;
+    return { title: meta[0], description: meta[1], type: 'website', schemaType: meta[2] };
+  }
+
+  _syncRouteHead(page, projectSlug) {
+    if (this.state && this.state.hackTheNorthAccess) return;
+    try {
+      const meta = this._routeMeta(page, projectSlug);
+      const canonicalUrl = 'https://keeretmahi.com' + this._cleanRoutePath(page, projectSlug);
+      document.title = meta.title;
+      const setContent = (selector, value) => {
+        const element = document.querySelector(selector);
+        if (element) element.setAttribute('content', value);
+      };
+      const canonical = document.querySelector('link[rel="canonical"]');
+      if (canonical) canonical.setAttribute('href', canonicalUrl);
+      setContent('meta[name="description"]', meta.description);
+      setContent('meta[property="og:type"]', meta.type);
+      setContent('meta[property="og:title"]', meta.title);
+      setContent('meta[property="og:description"]', meta.description);
+      setContent('meta[property="og:url"]', canonicalUrl);
+      setContent('meta[name="twitter:title"]', meta.title);
+      setContent('meta[name="twitter:description"]', meta.description);
+      let routeData = document.getElementById('route-structured-data');
+      if (!meta.schemaType) {
+        if (routeData) routeData.remove();
+      } else {
+        if (!routeData) {
+          routeData = document.createElement('script');
+          routeData.id = 'route-structured-data';
+          routeData.type = 'application/ld+json';
+          document.head.appendChild(routeData);
+        }
+        const name = meta.title.replace(' | Keeret Mahi', '');
+        routeData.textContent = JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': meta.schemaType,
+          name,
+          ...(meta.schemaType === 'TechArticle' ? { headline: name } : {}),
+          url: canonicalUrl,
+          description: meta.description,
+          ...(meta.image ? { image: meta.image } : {}),
+          author: { '@id': 'https://keeretmahi.com/#person' },
+          isPartOf: { '@id': 'https://keeretmahi.com/#website' },
+        });
+      }
+    } catch (e) {}
+  }
+
+  _writeRoute(page, projectSlug, replace) {
+    try {
+      const nextUrl = this.state.hackTheNorthAccess
+        ? '/hackthenorth/#' + this._routeHash(page, projectSlug)
+        : this._cleanRoutePath(page, projectSlug);
+      const currentUrl = (location.pathname || '/') + (location.search || '') + (location.hash || '');
+      if (currentUrl !== nextUrl && history) {
+        const method = replace ? 'replaceState' : 'pushState';
+        if (typeof history[method] === 'function') history[method](null, '', nextUrl);
+      }
+      this._syncRouteHead(page, projectSlug);
+    } catch (e) {}
+  }
+
+  state = { page: 'about', projectSlug: null, ...this._routeFromLocation(), lightbox: null, showPeople: false, statIndex: 0, menuOpen: false, factCard: null, raceSeed: 0, skySelection: null, skyWindow: 'evening', projectWriteups: {}, hackTheNorthMenuOpen: false };
+
+  componentDidMount() {
+    const initialRoute = this._routeFromLocation();
+    const hackTheNorthEntry = initialRoute.hackTheNorthAccess;
+    try {
+      if (hackTheNorthEntry) {
+        this._writeRoute(initialRoute.page, initialRoute.projectSlug, true);
+      } else {
+        this._writeRoute(initialRoute.page, initialRoute.projectSlug, true);
       }
     } catch (e) {}
     this._lastPage = this.state.page;
     this._lastProjectSlug = this.state.projectSlug;
     this._lastStatIndex = this.state.statIndex;
-    this._onHash = () => {
-      try {
-        const rawHash = (location.hash || '').replace('#', '') || 'about';
-        const h = rawHash === 'writing' ? 'resume' : rawHash;
-        if (h.indexOf('project/') === 0) {
-          this.setState({ page: 'projects', projectSlug: h.slice(8), menuOpen: false });
-        } else if (valid.includes(h)) {
-          this.setState({ page: h, projectSlug: null, menuOpen: false });
-        }
-      } catch (e) {}
+    this._onRouteChange = () => {
+      const route = this._routeFromLocation();
+      this._syncRouteHead(route.page, route.projectSlug);
+      this.setState({ page: route.page, projectSlug: route.projectSlug, hackTheNorthAccess: route.hackTheNorthAccess, menuOpen: false, lightbox: null, showPeople: false, factCard: null, hackTheNorthMenuOpen: false });
     };
-    window.addEventListener('hashchange', this._onHash);
+    window.addEventListener('hashchange', this._onRouteChange);
+    window.addEventListener('popstate', this._onRouteChange);
     this._onHeroVideoVisibility = () => {
       const video = this._heroVideo;
       if (video) {
@@ -1297,8 +1531,6 @@ class Component extends DCLogic {
       this._resumeResizeTimer = setTimeout(() => this._queueResumeRender(), 120);
     };
     window.addEventListener('resize', this._onResumeResize);
-    if (hackTheNorthEntry) this.setState({ hackTheNorthAccess: true });
-
     this._tick();
     this._clockTimer = setInterval(() => this._tick(), 1000);
     this._startStatRotation();
@@ -1316,7 +1548,8 @@ class Component extends DCLogic {
   }
 
   componentWillUnmount() {
-    window.removeEventListener('hashchange', this._onHash);
+    window.removeEventListener('hashchange', this._onRouteChange);
+    window.removeEventListener('popstate', this._onRouteChange);
     document.removeEventListener('visibilitychange', this._onHeroVideoVisibility);
     if (this._onResumeResize) window.removeEventListener('resize', this._onResumeResize);
     this._teardownHeroVideo();
@@ -2654,14 +2887,14 @@ class Component extends DCLogic {
 
   _openHackGallery(index, event) {
     if (event && event.stopPropagation) event.stopPropagation();
-    try { if (location.hash !== '#gallery') location.hash = 'gallery'; } catch (e) {}
+    this._writeRoute('gallery', null, false);
     this.setState({ page: 'gallery', projectSlug: null, lightbox: index, showPeople: false, factCard: null, hackTheNorthMenuOpen: false, menuOpen: false });
   }
 
   _openHackTyping(event) {
     if (event && event.stopPropagation) event.stopPropagation();
     this._prepareRace();
-    try { if (location.hash !== '#about') location.hash = 'about'; } catch (e) {}
+    this._writeRoute('about', null, false);
     this.setState({ page: 'about', projectSlug: null, lightbox: null, factCard: 'typing', hackTheNorthMenuOpen: false, raceSeed: this.state.raceSeed + 1, menuOpen: false });
     setTimeout(() => { this._resetRaceUi(); this._paintRace(''); this._focusRace(); }, 80);
   }
@@ -2688,7 +2921,7 @@ class Component extends DCLogic {
             overlay.classList.remove('is-preparing');
             overlay.classList.add('is-active');
             this._transitionSwapT = setTimeout(() => {
-              try { if (location.hash !== '#' + p) location.hash = p; } catch (e) {}
+              this._writeRoute(p, null, false);
               this.setState({ page: p, projectSlug: null });
             }, 2080);
             this._transitionEndT = setTimeout(() => {
@@ -2700,19 +2933,19 @@ class Component extends DCLogic {
         return;
       }
     }
-    try { if (location.hash !== '#' + p) location.hash = p; } catch (e) {}
+    this._writeRoute(p, null, false);
     this.setState({ page: p, projectSlug: null });
   }
 
   _openProject(slug) {
     if (!slug) return;
     this._loadProjectWriteup(slug);
-    try { if (location.hash !== '#project/' + slug) location.hash = 'project/' + slug; } catch (e) {}
+    this._writeRoute('projects', slug, false);
     this.setState({ page: 'projects', projectSlug: slug, menuOpen: false });
   }
 
   _closeProject() {
-    try { if (location.hash !== '#projects') location.hash = 'projects'; } catch (e) {}
+    this._writeRoute('projects', null, false);
     this.setState({ page: 'projects', projectSlug: null, menuOpen: false });
   }
 

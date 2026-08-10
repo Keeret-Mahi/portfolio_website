@@ -1,0 +1,35 @@
+# Keeret Mahi
+
+> Keeret Mahi is a Computer Science and Business student exploring the intersection of software, design, artificial intelligence, hardware, and business.
+
+This file is the machine-readable index for Keeret Mahi's portfolio. The linked Markdown files contain the same factual content as the interactive website without requiring JavaScript.
+
+## Core pages
+
+- [About Keeret Mahi](https://keeretmahi.com/content/about.md): Background, education, current work, interests, and contact links.
+- [Projects](https://keeretmahi.com/content/projects/index.md): Index of selected software and hardware projects.
+- [Experience and education](https://keeretmahi.com/content/experience.md): Professional experience, leadership, and university education.
+- [Resume](https://keeretmahi.com/content/resume.md): Accessible resume overview and link to the original PDF.
+- [Gallery](https://keeretmahi.com/content/gallery.md): Milestones including valedictorian, DECA, graduation, and case competitions.
+
+## Project case studies
+
+- [gooseCalendar](https://keeretmahi.com/content/projects/goose-calendar.md): A web app that parses course outlines into reviewable calendar events using deterministic parsing, AI-assisted extraction, caching, validation, and calendar export.
+- [GCode Plotter](https://keeretmahi.com/content/projects/cnc-plotter.md): A hardware project that converts SVG artwork into GCode and coordinated pen motion using GRBL, an Arduino Uno, stepper motors, and a micro servo.
+
+## Canonical interactive pages
+
+- [Portfolio home](https://keeretmahi.com/)
+- [Projects](https://keeretmahi.com/projects/)
+- [gooseCalendar case study](https://keeretmahi.com/projects/goose-calendar/)
+- [GCode Plotter case study](https://keeretmahi.com/projects/cnc-plotter/)
+- [Experience](https://keeretmahi.com/experience/)
+- [Resume](https://keeretmahi.com/resume/)
+- [Gallery](https://keeretmahi.com/gallery/)
+
+## Contact
+
+- Website: https://keeretmahi.com
+- GitHub: https://github.com/Keeret-Mahi
+- LinkedIn: https://www.linkedin.com/in/keeret-mahi/
+- Email: keeretmahi@gmail.com
