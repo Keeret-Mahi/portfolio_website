@@ -3303,7 +3303,7 @@ class Component extends DCLogic {
     const li = this.state.lightbox;
     return {
       nav,
-      showHackTheNorth: true,
+      showHackTheNorth: !!this.state.hackTheNorthAccess,
       htnCueClass: page === 'about' ? 'htn-cue--home' : '',
       htnDockClass: page === 'about' ? 'htn-dock--home' : '',
       hackTheNorthMenuOpen: !!this.state.hackTheNorthMenuOpen,
