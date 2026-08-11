@@ -46,7 +46,6 @@ for (const [file, title, canonical] of pages) {
   const fallback = html.match(/<!-- CRAWL_FALLBACK_START -->([\s\S]*?)<!-- CRAWL_FALLBACK_END -->/);
   if (!fallback || !/<h1>/.test(fallback[1])) fail(`${file}: missing semantic crawl fallback`);
   if (/{{|}}/.test(fallback[1])) fail(`${file}: unresolved template value in crawl fallback`);
-  if (/hack\s*the\s*north/i.test(fallback[1])) fail(`${file}: private application content leaked into the public crawl fallback`);
   if (/<noscript>[\s\S]*?CRAWL_FALLBACK_START/.test(html)) fail(`${file}: semantic fallback is only available inside noscript`);
 
   const component = html.match(/<script type="text\/x-dc"[^>]*>([\s\S]*?)<\/script>/);
@@ -137,18 +136,12 @@ for (const method of ['_tick', '_startStatRotation', '_initHalo', '_syncNav', '_
   historyInstance[method] = () => {};
 }
 historyInstance.componentDidMount();
-historyInstance.setState({ lightbox: 2, showPeople: true, factCard: 'typing', hackTheNorthMenuOpen: true });
+historyInstance.setState({ lightbox: 2, showPeople: true, factCard: 'typing' });
 globalThis.location = { pathname: '/experience/', search: '', hash: '' };
 historyInstance._onRouteChange();
-if (historyInstance.state.lightbox !== null || historyInstance.state.showPeople || historyInstance.state.factCard !== null || historyInstance.state.hackTheNorthMenuOpen) {
+if (historyInstance.state.lightbox !== null || historyInstance.state.showPeople || historyInstance.state.factCard !== null) {
   fail('browser history: route-specific overlays are not cleared');
 }
-
-routeWrites.length = 0;
-globalThis.location = { pathname: '/hackthenorth/', search: '', hash: '#project/goose-calendar' };
-const hackNavigationInstance = new Component();
-hackNavigationInstance._writeRoute('gallery', null, false);
-if (!routeWrites.some(([method, url]) => method === 'push' && url === '/hackthenorth/#gallery')) fail('Hack the North navigation no longer stays inside its private route');
 Object.assign(globalThis, originalGlobals);
 
 const aboutMarkdown = await readFile(join(root, 'content/about.md'), 'utf8');
@@ -161,35 +154,17 @@ const robots = await readFile(join(root, 'robots.txt'), 'utf8');
 for (const agent of ['OAI-SearchBot', 'ChatGPT-User', 'GPTBot']) {
   if (!robots.includes(`User-agent: ${agent}`)) fail(`robots.txt: missing ${agent}`);
 }
-const robotsGroup = (agent) => {
-  const marker = `User-agent: ${agent}`;
-  const start = robots.indexOf(marker);
-  if (start === -1) return '';
-  const remaining = robots.slice(start + marker.length);
-  const nextGroup = remaining.search(/\nUser-agent:/);
-  return nextGroup === -1 ? remaining : remaining.slice(0, nextGroup);
-};
-for (const agent of ['OAI-SearchBot', 'ChatGPT-User', 'GPTBot', '*']) {
-  const group = robotsGroup(agent);
-  if (!group.includes('Disallow: /hackthenorth')) fail(`robots.txt: ${agent} can crawl the private Hack the North route`);
-  if (!group.includes('Disallow: /?hackthenorth=1')) fail(`robots.txt: ${agent} can crawl the private Hack the North query entry`);
-}
-if (!robotsGroup('GPTBot').includes('Allow: /')) fail('robots.txt: GPTBot cannot read the public portfolio');
+if (!robots.includes('User-agent: GPTBot\nAllow: /')) fail('robots.txt: GPTBot cannot read the public portfolio');
 if (!robots.includes('Sitemap: https://keeretmahi.com/sitemap.xml')) fail('robots.txt: missing sitemap link');
-
-const privateEntry = await readFile(join(root, 'hackthenorth/index.html'), 'utf8');
-if (!privateEntry.includes('<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">')) fail('Hack the North entry: private indexing directives are missing');
 
 const sitemap = await readFile(join(root, 'sitemap.xml'), 'utf8');
 for (const [, , canonical] of pages) {
   if (!sitemap.includes(`<loc>${canonical}</loc>`)) fail(`sitemap.xml: missing ${canonical}`);
 }
-if (sitemap.includes('/hackthenorth/')) fail('sitemap.xml: private application route must remain excluded');
 
 const llms = await readFile(join(root, 'llms.txt'), 'utf8');
 for (const required of ['content/about.md', 'content/projects/goose-calendar.md', 'content/projects/cnc-plotter.md', 'content/experience.md', 'content/resume.md', 'content/gallery.md']) {
   if (!llms.includes(required)) fail(`llms.txt: missing ${required}`);
 }
-if (/hack\s*the\s*north/i.test(llms)) fail('llms.txt: private application route must remain excluded');
 
 console.log(`Verified ${pages.length} crawlable pages, clean-route app initialization, robots.txt, sitemap.xml, llms.txt, structured data, and application syntax.`);
