@@ -1,10 +1,10 @@
 # Experience and education
 
-## Software Developer Intern
+## Software Developer
 
 **Shopify, Incoming Winter '27**
 
-Joining Shopify as a Software Developer Intern for the Winter 2027 term.
+Joining Shopify as a Software Developer for the Winter 2027 term.
 
 ## AI Enablement Intern
 

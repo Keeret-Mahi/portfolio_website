@@ -148,7 +148,7 @@ Object.assign(globalThis, originalGlobals);
 
 const aboutMarkdown = await readFile(join(root, 'content/about.md'), 'utf8');
 const rootFallback = rootHtml.match(/<!-- CRAWL_FALLBACK_START -->([\s\S]*?)<!-- CRAWL_FALLBACK_END -->/)?.[1] || '';
-for (const phrase of ['Keeret Mahi', 'Incoming Software Developer Intern at Shopify', 'AI Enablement at Constellation Software', 'astronomy', 'keeretmahi@gmail.com']) {
+for (const phrase of ['Keeret Mahi', 'Incoming Software Developer at Shopify', 'AI Enablement at Constellation Software', 'astronomy', 'keeretmahi@gmail.com']) {
   if (!aboutMarkdown.includes(phrase) || !rootFallback.includes(phrase)) fail(`index.html: About fallback is missing generated content for ${phrase}`);
 }
 
