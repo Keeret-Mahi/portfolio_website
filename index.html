@@ -104,8 +104,9 @@ html,body{min-height:100%;margin:0;background:#181915;color-scheme:dark}
   <h1>Keeret Mahi</h1>
   <p>CS + Business student exploring the intersection of software, design, and business.</p>
   <p>Keeret Mahi is studying Computer Science at the University of Waterloo and Business Administration at Wilfrid Laurier University. He is interested in software engineering, artificial intelligence, product design, hardware, and the business decisions behind useful products.</p>
-  <h2>Most recently</h2>
+  <h2>Recent experience</h2>
   <p>Incoming Software Developer Intern at Shopify for Winter 2027.</p>
+  <p>AI Enablement at Constellation Software, Jonas Division, January to April 2026.</p>
   <h2>Education</h2>
   <ul>
   <li>B.CS, Computer Science - University of Waterloo, 2024-2029</li>
@@ -717,6 +718,7 @@ html,body{min-height:100%;margin:0;background:#181915;color-scheme:dark}
     padding-top: 14px;
   }
   .home-current-row { display: grid; grid-template-columns: 38px minmax(0,1fr) auto; align-items: center; gap: 14px; color: inherit; text-decoration: none; }
+  .home-current-row + .home-current-row { margin-top: 13px; }
   .home-current-date { margin-left: auto; color: oklch(0.56 0.005 80); font: 12px 'JetBrains Mono', monospace; white-space: nowrap; }
   @media (pointer: coarse), (prefers-reduced-motion: reduce) {
     .cursor-halo { display: none; }
@@ -865,8 +867,8 @@ html,body{min-height:100%;margin:0;background:#181915;color-scheme:dark}
 
         <p data-stagger class="hero-blurb" style="font-size: 14.5px; line-height: 1.6; color: oklch(0.68 0.005 80); margin: 20px 0 0; max-width: none;">CS + Business student exploring the intersection of <span style="color: oklch(0.80 0.10 70);">software, design, and business.</span></p>
 
-        <!-- CURRENTLY -->
-        <div data-stagger class="home-section-label" style="font-family: 'JetBrains Mono', monospace; font-size: 11.5px; color: oklch(0.58 0.005 80); letter-spacing: 0.08em; text-transform: uppercase; margin: 24px 0 14px;">Most Recently</div>
+        <!-- RECENT EXPERIENCE -->
+        <div data-stagger class="home-section-label" style="font-family: 'JetBrains Mono', monospace; font-size: 11.5px; color: oklch(0.58 0.005 80); letter-spacing: 0.08em; text-transform: uppercase; margin: 24px 0 14px;">Recent Experience</div>
         <div data-stagger class="home-current-row">
           <div class="brand-tile brand-tile--company"><img src="./assets/images/experience-pics/shopify-bag.svg" alt="Shopify green shopping bag logo"></div>
           <div>
@@ -874,6 +876,14 @@ html,body{min-height:100%;margin:0;background:#181915;color-scheme:dark}
             <div style="font-size: 14px; color: oklch(0.68 0.005 80); margin-top: 2px;">Shopify</div>
           </div>
           <div class="home-current-date">Incoming Winter '27</div>
+        </div>
+        <div data-stagger class="home-current-row">
+          <div class="brand-tile brand-tile--company"><img src="./assets/images/experience-pics/constellation.png" alt="Constellation Software logo"></div>
+          <div>
+            <div style="font-size: 16px; font-weight: 600; color: oklch(0.94 0.005 80);">AI Enablement</div>
+            <div style="font-size: 14px; color: oklch(0.68 0.005 80); margin-top: 2px;">Constellation Software · Jonas Division</div>
+          </div>
+          <div class="home-current-date">JAN-APRIL 2026</div>
         </div>
 
         <!-- EDUCATION -->
