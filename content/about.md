@@ -4,9 +4,9 @@ CS + Business student exploring the intersection of software, design, and busine
 
 Keeret Mahi is studying Computer Science at the University of Waterloo and Business Administration at Wilfrid Laurier University. He is interested in software engineering, artificial intelligence, product design, hardware, and the business decisions behind useful products.
 
-## Currently
+## Most recently
 
-AI Enablement at Constellation Software, Jonas Division.
+Incoming Software Developer Intern at Shopify for Winter 2027.
 
 ## Education
 

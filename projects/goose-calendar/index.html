@@ -766,6 +766,8 @@ html,body{min-height:100%;margin:0;background:#181915;color-scheme:dark}
     border-top: 1px solid oklch(0.29 0.008 70);
     padding-top: 14px;
   }
+  .home-current-row { display: grid; grid-template-columns: 38px minmax(0,1fr) auto; align-items: center; gap: 14px; color: inherit; text-decoration: none; }
+  .home-current-date { margin-left: auto; color: oklch(0.56 0.005 80); font: 12px 'JetBrains Mono', monospace; white-space: nowrap; }
   @media (pointer: coarse), (prefers-reduced-motion: reduce) {
     .cursor-halo { display: none; }
   }
@@ -780,6 +782,8 @@ html,body{min-height:100%;margin:0;background:#181915;color-scheme:dark}
     .race-results.is-winner .race-result-message { animation: none; }
   }
   @media (max-width: 620px) {
+    .home-current-row { grid-template-columns: 38px minmax(0,1fr); }
+    .home-current-date { grid-column: 2; margin: -4px 0 0; }
     .hero-blurb { white-space: normal; }
     .stat-line { display: grid; grid-template-columns: 34px minmax(0, 1fr); gap: 10px; }
     .stat-value { grid-column: 2; text-align: left; }
@@ -913,13 +917,13 @@ html,body{min-height:100%;margin:0;background:#181915;color-scheme:dark}
 
         <!-- CURRENTLY -->
         <div data-stagger class="home-section-label" style="font-family: 'JetBrains Mono', monospace; font-size: 11.5px; color: oklch(0.58 0.005 80); letter-spacing: 0.08em; text-transform: uppercase; margin: 24px 0 14px;">Most Recently</div>
-        <div data-stagger style="display: flex; align-items: center; gap: 14px;">
-          <div class="brand-tile brand-tile--company"><img src="./assets/images/experience-pics/constellation.png" alt="Constellation Software logo"></div>
+        <div data-stagger class="home-current-row">
+          <div class="brand-tile brand-tile--company"><img src="./assets/images/experience-pics/shopify-bag.svg" alt="Shopify green shopping bag logo"></div>
           <div>
-            <div style="font-size: 16px; font-weight: 600; color: oklch(0.94 0.005 80);">AI Enablement</div>
-            <div style="font-size: 14px; color: oklch(0.68 0.005 80); margin-top: 2px;">Constellation Software · Jonas Division</div>
+            <div style="font-size: 16px; font-weight: 600; color: oklch(0.94 0.005 80);">Software Developer Intern</div>
+            <div style="font-size: 14px; color: oklch(0.68 0.005 80); margin-top: 2px;">Shopify</div>
           </div>
-          <div style="margin-left: auto; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: oklch(0.56 0.005 80);">JAN-APRIL 2026</div>
+          <div class="home-current-date">Incoming Winter '27</div>
         </div>
 
         <!-- EDUCATION -->
@@ -3406,6 +3410,7 @@ class Component extends DCLogic {
       closeLightbox: () => this.setState({ lightbox: null, showPeople: false }),
       projects: projectItems,
       experience: [
+        { logo: './assets/images/experience-pics/shopify-bag.svg', logoAlt: 'Shopify green shopping bag logo', monogram: '', tileClass: '', hasLogo: true, hasMonogram: false, period: "Incoming Winter '27", role: 'Software Developer Intern', company: 'Shopify', detail: 'Joining Shopify as a Software Developer Intern for the Winter 2027 term.' },
         { logo: './assets/images/experience-pics/constellation.png', logoAlt: 'Constellation Software logo', monogram: '', tileClass: '', hasLogo: true, hasMonogram: false, period: '2025', role: 'AI Enablement Intern', company: 'Constellation Software · Jonas Division', detail: 'Built internal tooling and workflows to bring AI into day-to-day operations across the division, helping teams adopt and ship faster.' },
         { logo: './assets/images/experience-pics/DECA Logo.png', logoAlt: 'DECA logo', monogram: '', tileClass: '', hasLogo: true, hasMonogram: false, period: 'Sep 2023 – Jun 2024', role: 'Chapter Executive', company: 'DECA', detail: 'Served as Treasurer for the second-largest DECA chapter in Ontario.' },
       ],

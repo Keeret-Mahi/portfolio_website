@@ -72,6 +72,8 @@ for (const icon of pngIcons) {
 }
 const ico = await readFile(join(root, 'favicon.ico'));
 if (!ico.subarray(0, 4).equals(Buffer.from([0, 0, 1, 0]))) fail('favicon.ico: favicon asset is missing or invalid');
+const shopifyLogo = await readFile(join(root, 'assets/images/experience-pics/shopify-bag.svg'), 'utf8');
+if (!shopifyLogo.includes('<svg') || !shopifyLogo.includes('#95BF47')) fail('Shopify experience logo is missing or is not the official green bag asset');
 
 const componentSource = rootHtml.match(/<script type="text\/x-dc"[^>]*>([\s\S]*?)<\/script>/)?.[1];
 class TestLogic {
@@ -146,7 +148,7 @@ Object.assign(globalThis, originalGlobals);
 
 const aboutMarkdown = await readFile(join(root, 'content/about.md'), 'utf8');
 const rootFallback = rootHtml.match(/<!-- CRAWL_FALLBACK_START -->([\s\S]*?)<!-- CRAWL_FALLBACK_END -->/)?.[1] || '';
-for (const phrase of ['Keeret Mahi', 'AI Enablement at Constellation Software', 'astronomy', 'keeretmahi@gmail.com']) {
+for (const phrase of ['Keeret Mahi', 'Incoming Software Developer Intern at Shopify', 'astronomy', 'keeretmahi@gmail.com']) {
   if (!aboutMarkdown.includes(phrase) || !rootFallback.includes(phrase)) fail(`index.html: About fallback is missing generated content for ${phrase}`);
 }
 

@@ -1,5 +1,11 @@
 # Experience and education
 
+## Software Developer Intern
+
+**Shopify, Incoming Winter '27**
+
+Joining Shopify as a Software Developer Intern for the Winter 2027 term.
+
 ## AI Enablement Intern
 
 **Constellation Software, Jonas Division**
