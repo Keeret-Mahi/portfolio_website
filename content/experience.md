@@ -1,10 +1,10 @@
 # Experience and education
 
-## Software Developer
+## Software Engineer
 
 **Shopify, Incoming Winter '27**
 
-Joining Shopify as a Software Developer for the Winter 2027 term.
+Joining Shopify as a Software Engineer for the Winter 2027 term.
 
 ## AI Enablement Intern
 

@@ -6,7 +6,7 @@ Keeret Mahi is studying Computer Science at the University of Waterloo and Busin
 
 ## Recent experience
 
-Incoming Software Developer at Shopify for Winter 2027.
+Incoming Software Engineer at Shopify for Winter 2027.
 
 AI Enablement at Constellation Software, Jonas Division, January to April 2026.
 
