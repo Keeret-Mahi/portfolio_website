@@ -22,7 +22,7 @@ AI Enablement at Constellation Software, Jonas Division, January to April 2026.
 
 ## Interests
 
-Keeret enjoys astronomy and often spends nights stargazing for planets and satellites. He also types at 158 WPM and includes an interactive typing challenge on the portfolio homepage.
+Keeret enjoys astronomy and often spends nights stargazing for planets and satellites. He also types at 162 WPM and includes an interactive typing challenge on the portfolio homepage.
 
 ## Contact
 

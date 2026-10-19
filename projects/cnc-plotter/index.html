@@ -334,6 +334,7 @@ html,body{min-height:100%;margin:0;background:#181915;color-scheme:dark}
     cursor: pointer;
   }
   .stat-line:hover .stat-label { color: oklch(0.66 0.02 75); }
+  .stat-line:focus-visible { outline: 2px solid oklch(0.70 0.09 70); outline-offset: 6px; border-radius: 4px; }
   .stat-label { color: oklch(0.54 0.005 80); }
   .stat-value { color: oklch(0.80 0.09 70); text-align: right; animation: statSlideIn 0.3s ease-out both; }
   .stat-dots { display: flex; align-items: center; gap: 5px; width: 58px; margin: 10px 0 0 auto; }
@@ -595,34 +596,46 @@ html,body{min-height:100%;margin:0;background:#181915;color-scheme:dark}
   .fact-kicker { font-family: 'JetBrains Mono', monospace; font-size: 10.5px; letter-spacing: .1em; color: oklch(0.68 0.08 70); }
   .fact-title { margin-top: 5px; font-family: 'Fraunces', Georgia, serif; font-size: 29px; color: oklch(0.96 0.005 80); }
   .fact-close { border: 0; padding: 4px; background: transparent; color: oklch(0.58 0.005 80); font: 12px 'JetBrains Mono', monospace; cursor: pointer; }
-  .race-card-title { position: relative; display: inline-block; color: oklch(0.62 0.006 80); font: 13px/1.1 'Hanken Grotesk', system-ui, sans-serif; letter-spacing: .01em; }
-  .race-card-title::after { content: ''; position: absolute; left: 0; right: 0; bottom: -7px; border-bottom: 1px dotted oklch(0.58 0.008 80); }
-  .race-card-close { color: oklch(0.55 0.006 80); font: 26px/1 'Hanken Grotesk', system-ui, sans-serif; }
+  .fact-backdrop--race { top: var(--race-viewport-top, 0px); bottom: auto; height: var(--race-viewport-height, 100dvh); padding: clamp(12px, 3vw, 28px); }
+  .fact-card--race { width: min(880px, 100%); max-height: calc(var(--race-viewport-height, 100dvh) - 2 * clamp(12px, 3vw, 28px)); scrollbar-width: thin; overscroll-behavior: contain; }
+  .race-card-title { color: oklch(0.87 0.012 80); font: 500 15px/1.3 'JetBrains Mono', monospace; letter-spacing: -.025em; }
+  .race-card-subtitle { margin-top: 5px; color: oklch(0.57 0.006 80); font-size: 12px; }
+  .race-card-close { display: grid; place-items: center; width: 40px; height: 40px; flex: 0 0 auto; color: oklch(0.55 0.006 80); font: 26px/1 'Hanken Grotesk', system-ui, sans-serif; }
   .race-card-close:hover { color: oklch(0.82 0.02 80); }
-  .race-body { position: relative; padding: 46px 30px 30px; background: oklch(0.18 0.008 70 / .42); }
-  .race-dashboard { display: grid; grid-template-columns: minmax(120px, 1.6fr) repeat(4, minmax(88px, .72fr)); gap: 28px; align-items: end; margin-bottom: 34px; padding: 0 8px; }
+  .race-body { position: relative; padding: 28px; background: oklch(0.18 0.008 70 / .42); }
+  .race-dashboard { display: grid; grid-template-columns: 1.15fr repeat(4, minmax(0, 1fr)); gap: 20px; align-items: end; margin-bottom: 26px; }
   .race-stat { color: oklch(0.54 0.006 80); font-family: 'Hanken Grotesk', system-ui, sans-serif; }
   .race-stat > span { display: block; margin-bottom: 5px; font-size: 13px; line-height: 1; }
-  .race-stat strong { display: block; color: oklch(0.86 0.012 80); font: 700 28px/1 'Hanken Grotesk', system-ui, sans-serif; letter-spacing: -.025em; font-variant-numeric: tabular-nums; }
+  .race-stat strong { display: block; min-height: 34px; color: oklch(0.86 0.012 80); font: 600 30px/34px 'Hanken Grotesk', system-ui, sans-serif; letter-spacing: -.025em; font-variant-numeric: tabular-nums; }
   .race-stat strong span { display: inline; margin: 0; font: inherit; line-height: inherit; }
-  .race-stat--time strong { color: oklch(0.80 0.10 70); font-size: 31px; }
+  .race-stat--time strong { color: oklch(0.80 0.10 70); }
   .race-stat--time small { margin-left: 2px; color: oklch(0.54 0.006 80); font: 12px/1 'JetBrains Mono', monospace; letter-spacing: 0; }
   .race-legend { display: flex; align-items: center; gap: 14px; color: oklch(0.54 0.005 80); font: 10.5px 'JetBrains Mono', monospace; }
-  .race-legend span { display: inline-flex; align-items: center; gap: 7px; white-space: nowrap; }
-  .race-legend span::before { content: ''; width: 2px; height: 15px; border-radius: 2px; background: oklch(0.82 0.01 80); }
+  .race-legend > span { display: inline-flex; align-items: center; gap: 7px; white-space: nowrap; }
+  .race-legend > span::before { content: ''; width: 2px; height: 15px; border-radius: 2px; background: oklch(0.82 0.01 80); }
   .race-legend .race-legend-ghost::before { background: oklch(0.78 0.10 70); box-shadow: 0 0 8px oklch(0.75 0.11 70 / .45); }
-  .race-copy { position: relative; height: 188px; overflow: hidden; padding: 30px 30px 31px; border: 1px solid oklch(0.31 0.010 80); border-radius: 12px; background: oklch(0.20 0.008 70 / .78); box-shadow: inset 0 1px 0 oklch(0.40 0.012 80 / .22); font: 21px/1.82 'JetBrains Mono', monospace; letter-spacing: .005em; text-align: left; color: oklch(0.50 0.005 80); white-space: pre-wrap; overflow-wrap: normal; cursor: text; scroll-behavior: smooth; }
-  .race-body:focus-within .race-copy { border-color: oklch(0.43 0.035 70); }
-  .race-copy span { position: relative; transition: color .08s ease; }
-  .race-copy span.user-correct { color: oklch(0.88 0.02 80); }
-  .race-copy span.user-error { color: oklch(0.68 0.16 35); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
-  .race-copy span.user-caret::after { content: ''; position: absolute; left: -1px; top: -.15em; width: 2px; height: 1.35em; border-radius: 2px; background: oklch(0.91 0.01 80); }
-  .race-copy span.ghost-caret::before { content: ''; position: absolute; left: -1px; top: -.15em; width: 2px; height: 1.35em; border-radius: 2px; background: oklch(0.78 0.10 70); box-shadow: 0 0 9px oklch(0.75 0.11 70 / .5); }
-  .race-input { position: absolute; width: 1px; height: 1px; padding: 0; border: 0; opacity: 0; pointer-events: none; }
-  .race-meta { display: flex; align-items: center; justify-content: space-between; gap: 18px; margin-top: 24px; padding: 0 2px; font: 12px 'JetBrains Mono', monospace; color: oklch(0.56 0.005 80); }
-  .race-meta-actions { display: flex; align-items: center; gap: 22px; }
-  .race-reset { border: 0; border-radius: 999px; padding: 8px 0; background: transparent; color: oklch(0.72 0.085 70); font: inherit; cursor: pointer; transition: color .2s ease, transform .2s ease; }
+  .race-copy { --race-line: 42px; position: relative; overflow: hidden; padding: 22px; border: 1px solid oklch(0.32 0.012 75); border-radius: 12px; background: oklch(0.20 0.008 70 / .78); box-shadow: inset 0 1px 0 oklch(0.40 0.012 80 / .15); font: 22px/var(--race-line) 'JetBrains Mono', monospace; font-variant-ligatures: none; text-align: left; color: oklch(0.52 0.006 80); cursor: text; transition: border-color .18s ease; }
+  .race-copy:focus-within { border-color: oklch(0.50 0.055 70); }
+  .race-window { height: calc(3 * var(--race-line)); overflow: hidden; }
+  .race-track { position: relative; transition: transform .16s ease-out; will-change: transform; }
+  .race-words { position: relative; display: flex; flex-wrap: wrap; align-content: flex-start; white-space: normal; user-select: none; }
+  .race-word { position: relative; display: inline-flex; flex: 0 0 auto; height: var(--race-line); white-space: pre; }
+  .race-letter { display: inline-block; }
+  .race-space { width: 1ch; }
+  .race-letter.user-correct { color: oklch(0.90 0.016 80); }
+  .race-letter.user-error, .race-extra { color: oklch(0.72 0.16 28); }
+  .race-word.is-error { text-decoration: underline; text-decoration-color: oklch(0.64 0.14 28); text-underline-offset: 7px; text-decoration-thickness: 1px; }
+  .race-caret { position: absolute; z-index: 1; top: 0; left: -1px; width: 2px; height: 1.15em; border-radius: 2px; background: oklch(0.94 0.012 80); pointer-events: none; transition: transform .065s linear, opacity .15s ease; will-change: transform; }
+  .race-caret--ghost { z-index: 0; width: 2px; background: oklch(0.78 0.10 70); opacity: .65; box-shadow: 0 0 8px oklch(0.75 0.11 70 / .25); transition: opacity .15s ease; }
+  .race-copy:not(:focus-within) .race-caret--user, .race-copy.is-finished .race-caret { opacity: 0; }
+  .race-input { position: absolute; top: 22px; left: 22px; width: 1px; height: 1px; padding: 0; border: 0; opacity: 0; pointer-events: none; font-size: 16px; }
+  .race-meta { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px 20px; margin-top: 18px; font: 11px/1.5 'JetBrains Mono', monospace; color: oklch(0.58 0.005 80); }
+  .race-meta-actions { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-top: 12px; }
+  .race-reset { display: inline-flex; align-items: center; gap: 8px; min-height: 40px; border: 0; border-radius: 7px; padding: 8px 10px; background: oklch(0.27 0.014 70); color: oklch(0.77 0.085 70); font: 11px 'JetBrains Mono', monospace; cursor: pointer; transition: color .2s ease, background .2s ease; }
   .race-reset:hover { color: oklch(0.84 0.11 75); transform: translateY(-1px); }
+  .race-reset:focus-visible, .race-card-close:focus-visible { outline: 2px solid oklch(0.75 0.10 72); outline-offset: 3px; }
+  .race-key-hint { color: oklch(0.48 0.005 80); font: 10px 'JetBrains Mono', monospace; }
+  .race-key-hint kbd { padding: 2px 5px; border: 1px solid oklch(0.35 0.012 70); border-radius: 4px; color: oklch(0.67 0.012 80); font: inherit; }
   .race-results { display: none; margin-top: 22px; padding-top: 20px; border-top: 1px solid oklch(0.31 0.01 70); }
   .race-results.is-visible { display: block; animation: statSlideIn .32s cubic-bezier(.16,1,.3,1) both; }
   .race-result-kicker { color: oklch(0.66 0.065 70); font: 9px 'JetBrains Mono', monospace; letter-spacing: .09em; text-transform: uppercase; }
@@ -736,6 +749,7 @@ html,body{min-height:100%;margin:0;background:#181915;color-scheme:dark}
   @media (prefers-reduced-motion: reduce) {
     .race-confetti { display: none; }
     .race-results.is-winner .race-result-message { animation: none; }
+    .race-track, .race-caret { transition: none !important; }
   }
   @media (max-width: 620px) {
     .home-current-row { grid-template-columns: 38px minmax(0,1fr); }
@@ -752,15 +766,23 @@ html,body{min-height:100%;margin:0;background:#181915;color-scheme:dark}
     .sky-body { padding-left: 18px; padding-right: 18px; }
     .sky-why { padding-left: 18px; padding-right: 18px; }
     .fact-card-head--race { padding-left: 18px; padding-right: 18px; }
-    .race-body { padding-top: 28px; }
-    .race-dashboard { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px 20px; margin-bottom: 24px; padding: 0; }
-    .race-stat--time { grid-column: span 2; }
-    .race-stat strong { font-size: 24px; }
-    .race-stat--time strong { font-size: 31px; }
-    .race-copy { height: 204px; padding: 24px 18px; font-size: 16px; line-height: 1.9; }
-    .race-meta { align-items: flex-start; flex-direction: column; gap: 14px; }
-    .race-meta-actions { width: 100%; justify-content: space-between; gap: 14px; }
+    .race-body { padding: 22px 18px 20px; }
+    .fact-card-head--race { padding-top: 14px; padding-bottom: 14px; }
+    .race-card-subtitle { font-size: 11px; }
+    .race-dashboard { grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 12px 10px; margin-bottom: 20px; }
+    .race-stat { grid-column: span 2; }
+    .race-stat > span { font-size: 10px; white-space: nowrap; }
+    .race-stat strong { font-size: 23px; line-height: 30px; min-height: 30px; }
+    .race-stat:nth-child(n+4) { grid-column: span 3; display: flex; align-items: baseline; gap: 9px; padding-top: 10px; border-top: 1px solid oklch(0.30 0.01 70); }
+    .race-stat:nth-child(n+4) > span { margin: 0; }
+    .race-stat:nth-child(n+4) strong { min-height: 0; color: oklch(0.71 0.012 80); font-size: 15px; line-height: 18px; }
+    .race-stat--time small { font-size: 10px; }
+    .race-copy { --race-line: 34px; padding: 16px; font-size: 18px; }
+    .race-input { top: 16px; left: 16px; }
+    .race-meta { gap: 12px; font-size: 11px; }
+    .race-meta-actions { gap: 8px; }
     .race-legend { font-size: 9.5px; gap: 10px; }
+    .race-key-hint { display: none; }
     .resume-heading-row { align-items: stretch; flex-direction: column; gap: 18px; }
     .resume-actions { width: 100%; }
     .resume-action { flex: 1; padding-left: 10px; padding-right: 10px; }
@@ -815,6 +837,17 @@ html,body{min-height:100%;margin:0;background:#181915;color-scheme:dark}
     .hero-meta-separator { display: none; }
     .hero-socials { margin-left: 0; padding-left: 0; }
   }
+  .fact-backdrop--race.is-compact .fact-card-head--race { padding: 10px 18px; }
+  .fact-backdrop--race.is-compact .race-card-subtitle { display: none; }
+  .fact-backdrop--race.is-compact .race-body { padding: 14px 18px; }
+  .fact-backdrop--race.is-compact .race-dashboard { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-bottom: 14px; }
+  .fact-backdrop--race.is-compact .race-stat { grid-column: auto; }
+  .fact-backdrop--race.is-compact .race-stat:nth-child(n+4) { display: none; }
+  .fact-backdrop--race.is-compact .race-copy { --race-line: 32px; padding: 12px 16px; font-size: 18px; }
+  .fact-backdrop--race.is-compact .race-input { top: 12px; left: 16px; }
+  .fact-backdrop--race.is-compact .race-meta { margin-top: 12px; }
+  .fact-backdrop--race.is-compact .race-meta-actions { margin-top: 8px; }
+  .fact-backdrop--race.is-compact .race-key-hint { display: none; }
 </style>
 </helmet>
 <div style="position: relative; background: oklch(0.205 0.009 70); color: oklch(0.93 0.005 80); font-family: 'Hanken Grotesk', system-ui, sans-serif; min-height: 100vh; -webkit-font-smoothing: antialiased; display: flex; flex-direction: column; overflow: hidden;">
@@ -916,7 +949,7 @@ html,body{min-height:100%;margin:0;background:#181915;color-scheme:dark}
         </div>
 
         <div data-stagger class="stat-slider">
-          <div class="stat-line" onClick="{{ openActiveFact }}" aria-label="Open {{ activeStat.label }} interactive card">
+          <div class="stat-line" onClick="{{ openActiveFact }}" onKeyDown="{{ openActiveFactKeyDown }}" role="button" tabindex="0" aria-label="Open {{ activeStat.label }} interactive card">
             <div class="stat-icon">
               <sc-if value="{{ isTypingStat }}" hint-placeholder-val="{{ true }}"><div class="keyboard-symbol"><span></span><span></span><span></span></div></sc-if>
               <sc-if value="{{ isPlanetStat }}" hint-placeholder-val="{{ false }}"><div class="planet-symbol"></div></sc-if>
@@ -1137,27 +1170,32 @@ html,body{min-height:100%;margin:0;background:#181915;color-scheme:dark}
 
   <!-- INTERACTIVE FACT CARD -->
   <sc-if value="{{ factCardOpen }}" hint-placeholder-val="{{ false }}">
-    <div class="fact-backdrop" onClick="{{ closeFact }}">
-      <div class="fact-card" onClick="{{ stopClick }}">
+    <div class="fact-backdrop {{ factBackdropClass }}" onClick="{{ closeFact }}" onKeyDown="{{ factKeyDown }}">
+      <div class="fact-card {{ factCardClass }}" onClick="{{ stopClick }}" role="dialog" aria-modal="true" aria-label="{{ factCardLabel }}">
         <sc-if value="{{ typingCardOpen }}" hint-placeholder-val="{{ true }}">
           <div class="fact-card-head fact-card-head--race">
-            <div><div class="race-card-title">typing test</div></div>
-            <button class="fact-close race-card-close" onClick="{{ closeFact }}">×</button>
+            <div><div class="race-card-title">typing test</div><div class="race-card-subtitle">15 seconds · race my {{ raceGhostWpm }} WPM ghost</div></div>
+            <button class="fact-close race-card-close" onClick="{{ closeFact }}" aria-label="Close typing test">×</button>
           </div>
-          <div class="race-body" onClick="{{ focusRace }}">
+          <div class="race-body">
             <div class="race-dashboard">
               <div class="race-stat race-stat--time"><span>time</span><strong><span data-race-time>15.0</span><small>s</small></strong></div>
-              <div class="race-stat"><span>wpm</span><strong data-race-live-wpm>0</strong></div>
-              <div class="race-stat"><span>accuracy</span><strong data-race-live-accuracy>100%</strong></div>
-              <div class="race-stat"><span>raw wpm</span><strong data-race-live-raw>0</strong></div>
-              <div class="race-stat"><span>errors</span><strong data-race-live-errors>0</strong></div>
+              <div class="race-stat" title="Correct words, measured in groups of five characters per minute"><span>wpm</span><strong data-race-live-wpm>0</strong></div>
+              <div class="race-stat" title="Correct keystrokes, including the history of corrected mistakes"><span>accuracy</span><strong data-race-live-accuracy>100%</strong></div>
+              <div class="race-stat" title="Speed including incorrect words"><span>raw wpm</span><strong data-race-live-raw>0</strong></div>
+              <div class="race-stat" title="Mistyped keystrokes, including mistakes you corrected"><span>errors</span><strong data-race-live-errors>0</strong></div>
             </div>
-            <div class="race-copy" data-race-copy>
-              <sc-for list="{{ raceChars }}" as="c" hint-placeholder-count="70"><span data-race-index="{{ c.index }}">{{ c.char }}</span></sc-for>
+            <div class="race-copy" data-race-copy onClick="{{ focusRace }}">
+              <div class="race-window"><div class="race-track" data-race-track>
+                <div class="race-words" data-race-words><sc-for list="{{ raceWords }}" as="word" hint-placeholder-count="30"><span class="race-word" data-race-word="{{ word.index }}"><sc-for list="{{ word.chars }}" as="c"><span class="race-letter" data-race-index="{{ c.index }}">{{ c.char }}</span></sc-for><span class="race-extra" data-race-extra></span><span class="race-letter race-space" data-race-index="{{ word.spaceIndex }}"> </span></span></sc-for></div>
+                <span class="race-caret race-caret--ghost" data-race-ghost-caret aria-hidden="true"></span>
+                <span class="race-caret race-caret--user" data-race-user-caret aria-hidden="true"></span>
+              </div></div>
+              <textarea class="race-input" data-race-input onInput="{{ raceInput }}" onKeyDown="{{ raceKeyDown }}" onFocus="{{ raceFocus }}" onBlur="{{ raceBlur }}" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" inputmode="text" aria-label="Type the words shown above" aria-describedby="race-instructions"></textarea>
             </div>
-            <textarea class="race-input" data-race-input onInput="{{ raceInput }}" spellcheck="false" autocomplete="off" autocapitalize="off" aria-label="Typing test input"></textarea>
-            <div class="race-meta"><span data-race-status>click the words, then start typing.</span><div class="race-meta-actions"><div class="race-legend"><span>you</span><span class="race-legend-ghost">158 wpm ghost</span></div><button class="race-reset" onClick="{{ resetRace }}">new words ↻</button></div></div>
-            <div class="race-results" data-race-results><div class="race-result-kicker">15 second result</div><div class="race-result-grid"><div><div class="race-result-value" data-result-wpm>0</div><div class="race-result-label">wpm</div></div><div><div class="race-result-value" data-result-accuracy>0%</div><div class="race-result-label">accuracy</div></div><div><div class="race-result-value" data-result-raw>0</div><div class="race-result-label">raw</div></div></div><div class="race-result-message" data-result-message></div></div>
+            <div class="race-meta"><span id="race-instructions" data-race-status>Click or tap the words to start.</span><div class="race-legend"><span>you</span><span class="race-legend-ghost">{{ raceGhostWpm }} wpm ghost</span></div></div>
+            <div class="race-meta-actions"><span class="race-key-hint"><kbd>tab</kbd> then <kbd>enter</kbd> to restart · <kbd>esc</kbd> to close</span><button class="race-reset" onClick="{{ resetRace }}">new words <span aria-hidden="true">↻</span></button></div>
+            <div class="race-results" data-race-results role="status" aria-live="polite"><div class="race-result-kicker">15 second result</div><div class="race-result-grid"><div><div class="race-result-value" data-result-wpm>0</div><div class="race-result-label">wpm</div></div><div><div class="race-result-value" data-result-accuracy>0%</div><div class="race-result-label">accuracy</div></div><div><div class="race-result-value" data-result-raw>0</div><div class="race-result-label">raw</div></div></div><div class="race-result-message" data-result-message></div></div>
           </div>
         </sc-if>
         <sc-if value="{{ spaceCardOpen }}" hint-placeholder-val="{{ false }}">
@@ -1409,7 +1447,7 @@ class Component extends DCLogic {
     cancelAnimationFrame(this._resumeRenderRaf);
     if (this._resumeRenderTask && this._resumeRenderTask.cancel) this._resumeRenderTask.cancel();
     if (this._resumeLoadingTask && this._resumeLoadingTask.destroy) this._resumeLoadingTask.destroy();
-    cancelAnimationFrame(this._raceRaf);
+    this._teardownRace();
     this._clearRaceConfetti();
   }
 
@@ -1418,6 +1456,8 @@ class Component extends DCLogic {
     this._syncHeroVideo();
     this._syncInlineVideos();
     this._syncResumeViewer();
+    if (this.state.factCard === 'typing' && this._raceReadyRun !== this._raceRunId) this._initRaceUi();
+    else if (this.state.factCard !== 'typing' && this._raceUi) this._teardownRace();
     if (this._lastPage !== this.state.page || this._lastProjectSlug !== this.state.projectSlug) {
       this._lastPage = this.state.page;
       this._lastProjectSlug = this.state.projectSlug;
@@ -2061,7 +2101,7 @@ class Component extends DCLogic {
   _startStatRotation() {
     clearInterval(this._statTimer);
     this._statTimer = setInterval(() => {
-      if (this.state.page === 'about') this.setState({ statIndex: (this.state.statIndex + 1) % 2 });
+      if (this.state.page === 'about' && !this.state.factCard) this.setState({ statIndex: (this.state.statIndex + 1) % 2 });
     }, 4000);
   }
 
@@ -2078,7 +2118,6 @@ class Component extends DCLogic {
     if (this.state.statIndex === 0) {
       this._prepareRace();
       this.setState({ factCard: 'typing', raceSeed: this.state.raceSeed + 1 });
-      setTimeout(() => { this._resetRaceUi(); this._paintRace(''); this._focusRace(); }, 80);
       return;
     }
     cancelAnimationFrame(this._raceRaf);
@@ -2087,12 +2126,19 @@ class Component extends DCLogic {
   }
 
   _closeFact() {
-    cancelAnimationFrame(this._raceRaf);
+    this._teardownRace();
     this._clearRaceConfetti();
     this._raceStart = null;
     this._raceFinished = false;
     this.setState({ factCard: null });
+    requestAnimationFrame(() => {
+      const trigger = document.querySelector('.stat-line');
+      if (trigger) trigger.focus({ preventScroll: true });
+    });
   }
+
+  _raceGhostWpm = 162;
+  _raceDuration = 15;
 
   _raceWordBank() {
     return ['about','after','again','almost','always','amber','among','answer','around','astronomy','balance','become','before','better','bright','build','calendar','change','city','clear','close','code','colour','create','curious','design','detail','develop','different','discover','early','earth','enjoy','every','experiment','explore','fast','feature','feel','first','focus','future','gallery','gentle','great','hardware','ideas','imagine','improve','inside','learn','light','little','make','moment','motion','night','observe','often','people','planet','precise','project','quiet','reach','real','result','simple','small','software','space','start','still','story','system','think','thoughtful','through','time','today','together','toronto','useful','view','visible','week','while','words','work','world','write'];
@@ -2121,23 +2167,32 @@ class Component extends DCLogic {
   }
 
   _prepareRace() {
-    cancelAnimationFrame(this._raceRaf);
+    this._teardownRace();
     this._clearRaceConfetti();
     this._raceRunId = (this._raceRunId || 0) + 1;
     this._raceStart = null;
     this._raceFinished = false;
     this._raceTyped = '';
     this._raceCaretIndex = 0;
+    this._raceGhostPosition = 0;
+    this._raceCorrectKeys = 0;
+    this._raceIncorrectKeys = 0;
+    this._raceRanges = null;
+    this._raceWords = null;
+    this._racePaintedWords = [];
     this._raceText = this._makeRacePrompt();
+    this._raceScore = this._raceStats('');
   }
 
   _raceWordRanges() {
+    if (this._raceRanges) return this._raceRanges;
     const ranges = [];
     let cursor = 0;
     this._racePrompt().split(' ').forEach((word) => {
       ranges.push({ word, start: cursor, end: cursor + word.length - 1, space: cursor + word.length });
       cursor += word.length + 1;
     });
+    this._raceRanges = ranges;
     return ranges;
   }
 
@@ -2146,25 +2201,147 @@ class Component extends DCLogic {
     const prompt = this._racePrompt();
     const parts = typed ? typed.split(' ') : [''];
     const trailingSpace = typed.endsWith(' ');
-    const completedCount = Math.min(ranges.length, trailingSpace ? Math.max(0, parts.length - 1) : Math.max(0, parts.length - 1));
-    const currentIndex = Math.min(ranges.length - 1, trailingSpace ? completedCount : Math.max(0, parts.length - 1));
-    const currentWord = trailingSpace ? '' : (parts[currentIndex] || '');
-    let caretIndex = ranges[0] ? ranges[0].start : 0;
-    if (ranges[currentIndex]) {
-      if (trailingSpace) {
-        caretIndex = ranges[currentIndex] ? ranges[currentIndex].start : prompt.length - 1;
-      } else {
-        const range = ranges[currentIndex];
-        const wordEndCaret = range.space < prompt.length ? range.space : prompt.length - 1;
-        caretIndex = Math.min(wordEndCaret, range.start + currentWord.length);
-      }
-    }
+    const completedCount = Math.min(ranges.length, parts.length - 1);
+    const currentIndex = Math.min(ranges.length - 1, completedCount);
+    const currentWord = parts[currentIndex] || '';
+    const range = ranges[currentIndex];
+    const caretIndex = range ? Math.min(range.space, range.start + currentWord.length) : prompt.length;
     return { ranges, parts, trailingSpace, completedCount, currentIndex, currentWord, caretIndex };
+  }
+
+  _teardownRace() {
+    cancelAnimationFrame(this._raceRaf);
+    cancelAnimationFrame(this._raceLayoutRaf);
+    clearTimeout(this._raceEndTimer);
+    if (this._raceResizeObserver) this._raceResizeObserver.disconnect();
+    if (this._raceUi) {
+      this._raceUi.input.removeEventListener('beforeinput', this._raceBeforeInput);
+      this._raceUi.input.removeEventListener('paste', this._raceBlockPaste);
+      this._raceUi.input.removeEventListener('drop', this._raceBlockPaste);
+    }
+    this._raceUi = null;
+    this._raceReadyRun = null;
+    this._racePositions = null;
+    if (window.visualViewport && this._raceViewportResize) {
+      window.visualViewport.removeEventListener('resize', this._raceViewportResize);
+      window.visualViewport.removeEventListener('scroll', this._raceViewportResize);
+    }
+  }
+
+  _initRaceUi() {
+    const copy = document.querySelector('[data-race-copy]');
+    if (!copy) return;
+    const find = (name) => document.querySelector('[data-' + name + ']');
+    this._raceUi = {
+      copy, input: find('race-input'), track: find('race-track'), words: find('race-words'),
+      letters: Array.from(copy.querySelectorAll('[data-race-index]')),
+      wordEls: Array.from(copy.querySelectorAll('[data-race-word]')),
+      extras: Array.from(copy.querySelectorAll('[data-race-extra]')),
+      userCaret: find('race-user-caret'), ghostCaret: find('race-ghost-caret'),
+      time: find('race-time'), wpm: find('race-live-wpm'), accuracy: find('race-live-accuracy'),
+      raw: find('race-live-raw'), errors: find('race-live-errors'), status: find('race-status'),
+    };
+    this._raceReadyRun = this._raceRunId;
+    this._raceReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (window.visualViewport) {
+      this._raceViewportResize = () => {
+        const backdrop = copy.closest('.fact-backdrop');
+        backdrop.style.setProperty('--race-viewport-height', window.visualViewport.height + 'px');
+        backdrop.style.setProperty('--race-viewport-top', window.visualViewport.offsetTop + 'px');
+        backdrop.classList.toggle('is-compact', window.visualViewport.height < 540);
+      };
+      window.visualViewport.addEventListener('resize', this._raceViewportResize);
+      window.visualViewport.addEventListener('scroll', this._raceViewportResize);
+      this._raceViewportResize();
+    }
+    this._raceBlockPaste = (event) => event.preventDefault();
+    this._raceBeforeInput = (event) => {
+      if (/insertFromPaste|insertFromDrop|insertReplacementText/.test(event.inputType || '')) event.preventDefault();
+    };
+    const input = this._raceUi.input;
+    input.addEventListener('beforeinput', this._raceBeforeInput);
+    input.addEventListener('paste', this._raceBlockPaste);
+    input.addEventListener('drop', this._raceBlockPaste);
+    this._resetRaceUi();
+    this._paintRace('');
+    this._measureRaceLayout();
+    if (typeof ResizeObserver !== 'undefined') {
+      this._raceResizeObserver = new ResizeObserver(() => {
+        cancelAnimationFrame(this._raceLayoutRaf);
+        this._raceLayoutRaf = requestAnimationFrame(() => this._measureRaceLayout());
+      });
+      this._raceResizeObserver.observe(copy);
+    }
+    const runId = this._raceRunId;
+    if (document.fonts) document.fonts.ready.then(() => {
+      if (this._raceUi && this._raceRunId === runId) this._measureRaceLayout();
+    });
+    this._focusRace();
+  }
+
+  _measureRaceLayout() {
+    const ui = this._raceUi;
+    if (!ui || !ui.copy.isConnected) return;
+    this._raceLineHeight = parseFloat(getComputedStyle(ui.words).lineHeight);
+    this._raceCaretInset = (this._raceLineHeight - ui.userCaret.offsetHeight) / 2;
+    this._racePositions = ui.letters.map((letter) => ({
+      x: letter.parentElement.offsetLeft + letter.offsetLeft,
+      y: letter.parentElement.offsetTop,
+    }));
+    this._positionRaceUser();
+    this._paintGhost(this._raceGhostPosition || 0);
+  }
+
+  _positionRaceUser() {
+    const ui = this._raceUi;
+    const position = this._racePositions && this._racePositions[this._raceCaretIndex || 0];
+    if (!ui || !position) return;
+    const inset = this._raceCaretInset;
+    ui.userCaret.style.transition = this._raceUserLine !== position.y ? 'none' : '';
+    ui.userCaret.style.transform = 'translate3d(' + position.x + 'px,' + (position.y + inset) + 'px,0)';
+    this._raceUserLine = position.y;
+    const offset = Math.max(0, position.y - this._raceLineHeight);
+    if (offset !== this._raceTrackOffset) {
+      ui.track.style.transform = 'translate3d(0,' + -offset + 'px,0)';
+      this._raceTrackOffset = offset;
+    }
+  }
+
+  _handleRaceKeyDown(event) {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      if (this._raceFinished) this._resetRace(event);
+      return;
+    }
+    if (['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Home', 'End'].includes(event.key)
+      || ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'a')) event.preventDefault();
+  }
+
+  _handleFactKeyDown(event) {
+    if (event.key === 'Escape') { event.preventDefault(); this._closeFact(); return; }
+    if (event.key !== 'Tab') return;
+    const card = event.currentTarget.querySelector('.fact-card');
+    const controls = Array.from(card.querySelectorAll('button:not(:disabled), textarea:not(:disabled), a[href]'));
+    const first = controls[0];
+    const last = controls[controls.length - 1];
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault(); last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault(); first.focus();
+    }
+  }
+
+  _setRaceFocus(focused) {
+    if (!this._raceUi || this._raceFinished) return;
+    const input = this._raceUi.input;
+    if (focused) input.setSelectionRange(input.value.length, input.value.length);
+    if (this._raceStart === null) this._raceUi.status.textContent = focused ? 'Start typing. The timer begins with your first key.' : 'Click or tap the words to start.';
+    else if (!focused) this._raceUi.status.textContent = 'Click or tap the words to keep typing.';
   }
 
   _focusRace(event) {
     if (event && event.stopPropagation) event.stopPropagation();
-    const input = document.querySelector('[data-race-input]');
+    const input = this._raceUi && this._raceUi.input;
     if (input && !input.disabled) {
       try { input.focus({ preventScroll: true }); } catch (e) { input.focus(); }
     }
@@ -2178,7 +2355,7 @@ class Component extends DCLogic {
     if (timer) timer.textContent = '15.0';
     this._setRaceDashboard({ wpm: 0, accuracy: 100, raw: 0, errors: 0 }, 15);
     const status = document.querySelector('[data-race-status]');
-    if (status) status.textContent = 'click the words, then start typing.';
+    if (status) status.textContent = 'Click or tap the words to start.';
     const results = document.querySelector('[data-race-results]');
     if (results) results.classList.remove('is-visible', 'is-winner');
     const wpmEl = document.querySelector('[data-result-wpm]');
@@ -2189,103 +2366,108 @@ class Component extends DCLogic {
     if (accuracyEl) accuracyEl.textContent = '0%';
     if (rawEl) rawEl.textContent = '0';
     if (message) message.textContent = '';
-    document.querySelectorAll('[data-race-index]').forEach((el) => el.classList.remove('user-correct', 'user-error', 'user-caret', 'ghost-caret'));
     const copy = document.querySelector('[data-race-copy]');
-    if (copy) copy.scrollTop = 0;
+    if (copy) copy.classList.remove('is-finished');
+    this._raceTrackOffset = null;
+    this._raceUserLine = null;
   }
 
   _paintRace(typed) {
-    const prompt = this._racePrompt();
     const progress = this._raceProgress(typed);
-    const caretIndex = Math.min(progress.caretIndex, prompt.length - 1);
-    document.querySelectorAll('[data-race-index]').forEach((el, index) => {
-      el.classList.remove('user-correct', 'user-error', 'user-caret');
-    });
+    const ui = this._raceUi;
+    if (!ui) return;
+    let layoutChanged = false;
     progress.ranges.forEach((range, wordIndex) => {
       const targetWord = range.word;
       const typedWord = progress.parts[wordIndex] || '';
       const isCompleted = wordIndex < progress.completedCount;
-      const isCurrent = wordIndex === progress.currentIndex && !progress.trailingSpace;
-      if (isCompleted) {
-        const isCorrectWord = typedWord === targetWord;
-        for (let index = range.start; index <= range.end; index += 1) {
-          const el = document.querySelector('[data-race-index="' + index + '"]');
-          if (el) el.classList.add(isCorrectWord ? 'user-correct' : 'user-error');
-        }
-        if (isCorrectWord && range.space < prompt.length) {
-          const space = document.querySelector('[data-race-index="' + range.space + '"]');
-          if (space) space.classList.add('user-correct');
-        }
-      } else if (isCurrent) {
-        for (let offset = 0; offset < Math.min(typedWord.length, targetWord.length); offset += 1) {
-          const el = document.querySelector('[data-race-index="' + (range.start + offset) + '"]');
-          if (el) el.classList.add(typedWord[offset] === targetWord[offset] ? 'user-correct' : 'user-error');
-        }
-        if (typedWord.length > targetWord.length) {
-          for (let index = range.start; index <= range.end; index += 1) {
-            const el = document.querySelector('[data-race-index="' + index + '"]');
-            if (el) el.classList.add('user-error');
-          }
-        }
+      const signature = typedWord + (isCompleted ? '\n' : '');
+      if (this._racePaintedWords[wordIndex] === signature) return;
+      this._racePaintedWords[wordIndex] = signature;
+      for (let offset = 0; offset < targetWord.length; offset += 1) {
+        const el = ui.letters[range.start + offset];
+        const entered = offset < typedWord.length;
+        const correct = entered && typedWord[offset] === targetWord[offset];
+        el.classList.toggle('user-correct', correct);
+        el.classList.toggle('user-error', !correct && (entered || isCompleted));
       }
+      ui.wordEls[wordIndex].classList.toggle('is-error', isCompleted && typedWord !== targetWord);
+      const extra = typedWord.slice(targetWord.length);
+      if (ui.extras[wordIndex].textContent !== extra) {
+        ui.extras[wordIndex].textContent = extra;
+        layoutChanged = true;
+      }
+      ui.letters[range.space].classList.toggle('user-correct', isCompleted && typedWord === targetWord);
     });
-    const caretEl = document.querySelector('[data-race-index="' + caretIndex + '"]');
-    if (caretEl) caretEl.classList.add('user-caret');
-    this._raceCaretIndex = caretIndex;
-    const copy = document.querySelector('[data-race-copy]');
-    const caret = document.querySelector('[data-race-index="' + caretIndex + '"]');
-    if (copy && caret) copy.scrollTop = Math.max(0, caret.offsetTop - copy.clientHeight * .42);
+    this._raceCaretIndex = progress.caretIndex;
+    if (layoutChanged) this._measureRaceLayout();
+    else this._positionRaceUser();
   }
 
-  _paintGhost(index) {
-    document.querySelectorAll('[data-race-index]').forEach((el) => el.classList.remove('ghost-caret'));
-    const ghost = document.querySelector('[data-race-index="' + index + '"]');
-    if (ghost) ghost.classList.add('ghost-caret');
+  _paintGhost(progress) {
+    const ui = this._raceUi;
+    const positions = this._racePositions;
+    if (!ui || !positions || !positions.length) return;
+    const clamped = Math.max(0, Math.min(positions.length - 1, progress));
+    this._raceGhostPosition = clamped;
+    const index = Math.floor(clamped);
+    const position = positions[index];
+    const next = positions[index + 1];
+    const fraction = this._raceReducedMotion ? 0 : clamped - index;
+    const x = next && next.y === position.y ? position.x + (next.x - position.x) * fraction : position.x;
+    const inset = this._raceCaretInset;
+    ui.ghostCaret.style.transform = 'translate3d(' + x + 'px,' + (position.y + inset) + 'px,0)';
   }
 
-  _setRaceDashboard(stats, remaining) {
-    const time = document.querySelector('[data-race-time]');
-    const wpm = document.querySelector('[data-race-live-wpm]');
-    const accuracy = document.querySelector('[data-race-live-accuracy]');
-    const raw = document.querySelector('[data-race-live-raw]');
-    const errors = document.querySelector('[data-race-live-errors]');
-    if (time && typeof remaining === 'number') time.textContent = remaining.toFixed(1);
-    if (wpm) wpm.textContent = String(stats.wpm);
-    if (accuracy) accuracy.textContent = stats.accuracy + '%';
-    if (raw) raw.textContent = String(stats.raw);
-    if (errors) errors.textContent = String(stats.errors || 0);
+  _setRaceDashboard(stats, remaining, final = false) {
+    const ui = this._raceUi;
+    if (!ui) return;
+    const write = (element, value) => { if (element.textContent !== value) element.textContent = value; };
+    const speed = (value) => final ? String(Math.round(value * 10) / 10) : String(Math.round(value));
+    if (typeof remaining === 'number') write(ui.time, remaining.toFixed(1));
+    write(ui.wpm, speed(stats.wpm));
+    write(ui.accuracy, stats.accuracy + '%');
+    write(ui.raw, speed(stats.raw));
+    write(ui.errors, String(stats.errors || 0));
   }
 
-  _liveRaceStats(typed) {
-    const stats = this._raceStats(typed);
-    if (!this._raceStart || !typed.length) return { wpm: 0, accuracy: typed.length ? stats.accuracy : 100, raw: 0, errors: stats.errors || 0 };
-    const minutes = Math.max((performance.now() - this._raceStart) / 60000, 1 / 60000);
+  _liveRaceStats(now = performance.now()) {
+    const stats = this._raceScore || this._raceStats('');
+    const elapsed = this._raceStart === null ? 0 : Math.max(0, Math.min(this._raceDuration * 1000, now - this._raceStart));
+    // Wait for a full second before showing a rate, rather than flashing an enormous first-key WPM.
+    const minutes = elapsed / 60000;
     return {
-      wpm: Math.round((stats.correct / 5) / minutes),
+      wpm: elapsed < 1000 ? 0 : (stats.correct / 5) / minutes,
       accuracy: stats.accuracy,
-      raw: Math.round((stats.rawChars / 5) / minutes),
+      raw: elapsed < 1000 ? 0 : (stats.rawChars / 5) / minutes,
       errors: stats.errors || 0,
     };
   }
 
   _startRace() {
-    if (this._raceStart || this._raceFinished || this.state.factCard !== 'typing') return;
+    if (this._raceStart !== null || this._raceFinished || this.state.factCard !== 'typing') return;
     this._raceStart = performance.now();
     const runId = this._raceRunId || 0;
+    this._raceLastDashboard = -Infinity;
+    this._raceEndTimer = setTimeout(() => {
+      if (runId === this._raceRunId && this.state.factCard === 'typing') this._finishRace();
+    }, this._raceDuration * 1000);
     const frame = (now) => {
-      if (runId !== (this._raceRunId || 0) || !this._raceStart || this._raceFinished || this.state.factCard !== 'typing') return;
-      const prompt = this._racePrompt();
-      const elapsed = Math.min(15000, now - this._raceStart);
-      const remaining = Math.max(0, 15 - elapsed / 1000);
-      const ghostIndex = Math.min(prompt.length - 1, Math.floor((elapsed / 1000) * (158 * 5 / 60)));
-      this._setRaceDashboard(this._liveRaceStats(this._raceTyped || ''), remaining);
-      this._paintGhost(ghostIndex);
-      const status = document.querySelector('[data-race-status]');
-      if (status) {
-        const gap = ghostIndex - (this._raceCaretIndex || 0);
-        status.textContent = gap > 0 ? 'ghost ahead by ' + gap + ' characters' : (gap < 0 ? 'you are ahead by ' + Math.abs(gap) + ' characters' : 'neck and neck');
+      if (runId !== (this._raceRunId || 0) || this._raceStart === null || this._raceFinished || this.state.factCard !== 'typing') return;
+      const elapsed = Math.max(0, Math.min(this._raceDuration * 1000, now - this._raceStart));
+      const ghostPosition = Math.min(this._racePrompt().length, (elapsed / 1000) * (this._raceGhostWpm * 5 / 60));
+      this._paintGhost(ghostPosition);
+      if (now - this._raceLastDashboard >= 100) {
+        this._setRaceDashboard(this._liveRaceStats(now), Math.max(0, this._raceDuration - elapsed / 1000));
+        const ui = this._raceUi;
+        if (ui && document.activeElement === ui.input) {
+          const gap = Math.floor(ghostPosition) - (this._raceCaretIndex || 0);
+          const text = gap > 0 ? 'Ghost ahead by ' + gap + ' characters.' : (gap < 0 ? 'You’re ahead by ' + Math.abs(gap) + ' characters.' : 'Neck and neck.');
+          if (ui.status.textContent !== text) ui.status.textContent = text;
+        }
+        this._raceLastDashboard = now;
       }
-      if (elapsed >= 15000) this._finishRace();
+      if (elapsed >= this._raceDuration * 1000) this._finishRace();
       else this._raceRaf = requestAnimationFrame(frame);
     };
     this._raceRaf = requestAnimationFrame(frame);
@@ -2294,35 +2476,60 @@ class Component extends DCLogic {
   _handleRaceInput(event) {
     const input = event && event.target;
     if (!input || this._raceFinished) return;
-    const typed = input.value.toLowerCase().replace(/[\r\n\t]/g, ' ').replace(/ {2,}/g, ' ').slice(0, this._racePrompt().length);
-    if (typed.length && !this._raceStart) this._startRace();
+    // A delayed frame or background tab must never let keystrokes past the 15-second deadline count.
+    if (this._raceStart !== null && performance.now() - this._raceStart >= this._raceDuration * 1000) {
+      input.value = this._raceTyped || '';
+      this._finishRace();
+      return;
+    }
+    const typed = input.value.replace(/[\r\n\t]/g, ' ').replace(/^ +/, '').replace(/ {2,}/g, ' ').slice(0, this._racePrompt().length);
+    if (typed.length && this._raceStart === null) this._startRace();
     if (input.value !== typed) input.value = typed;
+    const previous = this._raceTyped || '';
+    let shared = 0;
+    while (shared < previous.length && shared < typed.length && previous[shared] === typed[shared]) shared += 1;
+    let wordIndex = typed.slice(0, shared).split(' ').length - 1;
+    let word = typed.slice(0, shared).split(' ').pop();
+    const ranges = this._raceWordRanges();
+    for (const char of typed.slice(shared)) {
+      const target = ranges[wordIndex] ? ranges[wordIndex].word : '';
+      const correct = char === ' ' ? word.length === target.length : char === target[word.length];
+      if (correct) this._raceCorrectKeys += 1;
+      else this._raceIncorrectKeys += 1;
+      if (char === ' ') { wordIndex += 1; word = ''; }
+      else word += char;
+    }
     this._raceTyped = typed;
+    input.setSelectionRange(typed.length, typed.length);
+    this._raceScore = this._raceStats(typed);
     this._paintRace(typed);
-    this._setRaceDashboard(this._liveRaceStats(typed));
+    this._setRaceDashboard(this._liveRaceStats());
   }
 
   _raceStats(typed) {
     const ranges = this._raceWordRanges();
     const parts = typed ? typed.split(' ') : [''];
-    const trailingSpace = typed.endsWith(' ');
-    const lastTypedIndex = Math.min(ranges.length - 1, trailingSpace ? parts.length - 2 : parts.length - 1);
     let correct = 0;
-    for (let wordIndex = 0; wordIndex <= lastTypedIndex; wordIndex += 1) {
+    for (let wordIndex = 0; wordIndex < Math.min(ranges.length, parts.length); wordIndex += 1) {
       const targetWord = ranges[wordIndex].word;
       const typedWord = parts[wordIndex] || '';
-      for (let offset = 0; offset < Math.min(typedWord.length, targetWord.length); offset += 1) {
-        if (typedWord[offset] === targetWord[offset]) correct += 1;
+      const isCompleted = wordIndex < parts.length - 1;
+      // Like Monkeytype's time mode, incorrect submitted words earn no WPM credit;
+      // the final in-progress word counts only when it is an error-free prefix.
+      if (isCompleted && typedWord === targetWord) {
+        correct += targetWord.length + 1;
+      } else if (!isCompleted && targetWord.startsWith(typedWord)) {
+        correct += typedWord.length;
       }
-      const isCompleted = wordIndex < parts.length - 1 || trailingSpace;
-      if (isCompleted && typedWord === targetWord && wordIndex < ranges.length - 1) correct += 1;
     }
     const rawChars = typed.length;
-    const accuracy = rawChars ? Math.min(100, Math.round((correct / rawChars) * 100)) : 0;
-    const errors = Math.max(0, rawChars - correct);
+    const keyCount = (this._raceCorrectKeys || 0) + (this._raceIncorrectKeys || 0);
+    const accuracy = keyCount ? Math.round((this._raceCorrectKeys / keyCount) * 1000) / 10 : 100;
+    const errors = this._raceIncorrectKeys || 0;
+    const minutes = this._raceDuration / 60;
     return {
-      wpm: Math.round((correct / 5) / .25),
-      raw: Math.round((rawChars / 5) / .25),
+      wpm: (correct / 5) / minutes,
+      raw: (rawChars / 5) / minutes,
       accuracy,
       errors,
       correct,
@@ -2334,21 +2541,23 @@ class Component extends DCLogic {
     if (this._raceFinished) return;
     this._raceFinished = true;
     cancelAnimationFrame(this._raceRaf);
+    clearTimeout(this._raceEndTimer);
     const typed = this._raceTyped || '';
     const stats = this._raceStats(typed);
     const input = document.querySelector('[data-race-input]');
     if (input) input.disabled = true;
-    this._setRaceDashboard(stats, 0);
+    if (this._raceUi) this._raceUi.copy.classList.add('is-finished');
+    this._setRaceDashboard(stats, 0, true);
     const status = document.querySelector('[data-race-status]');
-    if (status) status.textContent = 'test complete';
+    if (status) status.textContent = 'Test complete. Try another round?';
     const wpmEl = document.querySelector('[data-result-wpm]');
     const accuracyEl = document.querySelector('[data-result-accuracy]');
     const rawEl = document.querySelector('[data-result-raw]');
     const message = document.querySelector('[data-result-message]');
-    const won = stats.wpm > 158;
-    if (wpmEl) wpmEl.textContent = String(stats.wpm);
+    const won = stats.wpm > this._raceGhostWpm;
+    if (wpmEl) wpmEl.textContent = String(Math.round(stats.wpm * 10) / 10);
     if (accuracyEl) accuracyEl.textContent = stats.accuracy + '%';
-    if (rawEl) rawEl.textContent = String(stats.raw);
+    if (rawEl) rawEl.textContent = String(Math.round(stats.raw * 10) / 10);
     if (message) message.textContent = won ? 'Congratulations, you beat my typing speed!' : '';
     const results = document.querySelector('[data-race-results]');
     if (results) {
@@ -2357,6 +2566,8 @@ class Component extends DCLogic {
     }
     if (won) this._launchRaceConfetti();
     else this._clearRaceConfetti();
+    const reset = document.querySelector('.race-reset');
+    if (reset) reset.focus({ preventScroll: true });
   }
 
   _clearRaceConfetti() {
@@ -2501,11 +2712,6 @@ class Component extends DCLogic {
     if (event && event.stopPropagation) event.stopPropagation();
     this._prepareRace();
     this.setState({ raceSeed: this.state.raceSeed + 1 });
-    setTimeout(() => {
-      this._resetRaceUi();
-      this._paintRace('');
-      this._focusRace();
-    }, 40);
   }
 
   _mostVisiblePlanet() {
@@ -2917,7 +3123,7 @@ class Component extends DCLogic {
     }));
     const selectedPlanet = skyPlanets.find((planet) => planet.name === selectedPlanetName) || { name: '', description: '', longDirection: '' };
     const statItems = [
-      { label: 'Typing pace', value: '158 wpm · Monkeytype 15s' },
+      { label: 'Typing pace', value: this._raceGhostWpm + ' wpm · Monkeytype 15s' },
       { label: 'Toronto sky', value: mostVisiblePlanet + ' · most visible tonight' },
     ];
     const activeStat = statItems[this.state.statIndex] || statItems[0];
@@ -2927,7 +3133,10 @@ class Component extends DCLogic {
       progressDisplay: i === this.state.statIndex ? 'block' : 'none',
       select: (event) => { if (event && event.stopPropagation) event.stopPropagation(); this._selectStat(i); },
     }));
-    const raceChars = Array.from(this._racePrompt()).map((char, index) => ({ char, index }));
+    if (!this._raceWords) this._raceWords = this._raceWordRanges().map((range, index) => ({
+      index, spaceIndex: range.space,
+      chars: Array.from(range.word).map((char, offset) => ({ char, index: range.start + offset })),
+    }));
 
     const projectItems = [
       {
@@ -3329,14 +3538,25 @@ class Component extends DCLogic {
       isTypingStat: this.state.statIndex === 0,
       isPlanetStat: this.state.statIndex === 1,
       openActiveFact: () => this._openActiveFact(),
+      openActiveFactKeyDown: (event) => {
+        if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); this._openActiveFact(); }
+      },
       factCardOpen: this.state.factCard !== null,
       typingCardOpen: this.state.factCard === 'typing',
       spaceCardOpen: this.state.factCard === 'space',
+      factBackdropClass: this.state.factCard === 'typing' ? 'fact-backdrop--race' : '',
+      factCardClass: this.state.factCard === 'typing' ? 'fact-card--race' : '',
+      factCardLabel: this.state.factCard === 'typing' ? '15 second typing test' : 'Toronto night sky',
       closeFact: () => this._closeFact(),
+      factKeyDown: (event) => this._handleFactKeyDown(event),
       stopClick: (event) => { if (event && event.stopPropagation) event.stopPropagation(); },
-      raceChars,
+      raceWords: this._raceWords,
+      raceGhostWpm: this._raceGhostWpm,
       focusRace: (event) => this._focusRace(event),
       raceInput: (event) => this._handleRaceInput(event),
+      raceKeyDown: (event) => this._handleRaceKeyDown(event),
+      raceFocus: () => this._setRaceFocus(true),
+      raceBlur: () => this._setRaceFocus(false),
       resetRace: (event) => this._resetRace(event),
       skyTime: sky.time,
       skyPlanets,
